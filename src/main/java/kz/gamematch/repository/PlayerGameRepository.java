@@ -1,4 +1,13 @@
 package kz.gamematch.repository;
 
-public class PlayerGameRepository {
+import kz.gamematch.entity.PlayerGame;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface PlayerGameRepository extends JpaRepository<PlayerGame, Long> {
+
+    List<PlayerGame> findByProfileId(Long profileId);
+
+    List<PlayerGame> findByGameId(Long gameId);
 }
