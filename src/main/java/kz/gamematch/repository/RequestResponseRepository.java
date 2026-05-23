@@ -18,4 +18,6 @@ public interface RequestResponseRepository extends JpaRepository<RequestResponse
     boolean existsByRequestIdAndResponderId(Long requestId, Long responderId);
 
     List<RequestResponse> findByStatus(ResponseStatus status);
+
+    List<RequestResponse> findByRequestIdAndStatus(Long requestId, ResponseStatus status);
 }

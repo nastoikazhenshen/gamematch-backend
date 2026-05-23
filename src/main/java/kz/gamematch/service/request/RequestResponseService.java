@@ -5,10 +5,13 @@ import kz.gamematch.dto.response.RequestResponseDto;
 import kz.gamematch.entity.*;
 import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.RequestResponseRepository;
+import kz.gamematch.repository.TeamMemberRepository;
+import kz.gamematch.repository.TeamRepository;
 import kz.gamematch.repository.TeammateRequestRepository;
 import kz.gamematch.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +24,8 @@ public class RequestResponseService {
     private final TeammateRequestRepository teammateRequestRepository;
     private final UserRepository userRepository;
     private final PlayerProfileRepository playerProfileRepository;
+    private final TeamRepository teamRepository;
+    private final TeamMemberRepository teamMemberRepository;
 
     public RequestResponseDto createResponse(Long requestId, CreateResponseDto dto) {
         TeammateRequest request = teammateRequestRepository.findById(requestId)
@@ -60,6 +65,7 @@ public class RequestResponseService {
                 .toList();
     }
 
+    @Transactional
     public RequestResponseDto acceptResponse(Long responseId, Long authorId) {
         RequestResponse response = requestResponseRepository.findById(responseId)
                 .orElseThrow(() -> new RuntimeException("Response not found"));
@@ -79,6 +85,8 @@ public class RequestResponseService {
 
         teammateRequestRepository.save(request);
         RequestResponse savedResponse = requestResponseRepository.save(response);
+        rejectOtherPendingResponses(request.getId(), savedResponse.getId());
+        createTeamForAcceptedResponse(request, savedResponse);
 
         return mapToDto(savedResponse);
     }
@@ -114,5 +122,40 @@ public class RequestResponseService {
                 response.getStatus(),
                 response.getCreatedAt()
         );
+    }
+
+    private void rejectOtherPendingResponses(Long requestId, Long acceptedResponseId) {
+        List<RequestResponse> pendingResponses = requestResponseRepository.findByRequestIdAndStatus(
+                requestId,
+                ResponseStatus.PENDING
+        );
+
+        pendingResponses.stream()
+                .filter(response -> !response.getId().equals(acceptedResponseId))
+                .forEach(response -> response.setStatus(ResponseStatus.REJECTED));
+
+        requestResponseRepository.saveAll(pendingResponses);
+    }
+
+    private void createTeamForAcceptedResponse(TeammateRequest request, RequestResponse acceptedResponse) {
+        Team team = new Team();
+        team.setRequest(request);
+        team.setAcceptedResponse(acceptedResponse);
+        team.setGame(request.getGame());
+        team.setCreatedAt(LocalDateTime.now());
+
+        Team savedTeam = teamRepository.save(team);
+
+        teamMemberRepository.save(createTeamMember(savedTeam, request.getAuthor()));
+        teamMemberRepository.save(createTeamMember(savedTeam, acceptedResponse.getResponder()));
+    }
+
+    private TeamMember createTeamMember(Team team, User user) {
+        TeamMember member = new TeamMember();
+        member.setTeam(team);
+        member.setUser(user);
+        member.setCreatedAt(LocalDateTime.now());
+
+        return member;
     }
 }
