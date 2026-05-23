@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Новая заявка | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page narrow">
+    <div th:replace="~{fragments :: alerts}"></div>
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Поиск тиммейта</p>
+            <h1>Новая заявка</h1>
+        </div>
+    </section>
+    <section class="panel">
+        <form th:action="@{/requests}" method="post" class="form-grid">
+            <label class="full">Название
+                <input type="text" name="title" required maxlength="120">
+            </label>
+            <label>Игра
+                <select id="gameId" name="gameId" required>
+                    <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}">Game</option>
+                </select>
+            </label>
+            <label>Нужная роль
+                <input type="text" name="requiredRole" placeholder="support, carry, entry">
+            </label>
+            <label>Минимальный ранг
+                <span class="rank-picker">
+                    <select id="minRank" name="minRank" data-rank-select>
+                        <option value="">Без ограничения</option>
+                        <option th:each="rank : ${ranks}"
+                                th:value="${rank.name}"
+                                th:text="${rank.name}"
+                                th:data-game-id="${rank.game.id}"
+                                th:data-sort-order="${rank.sortOrder}"
+                                th:data-image-url="${rank.imageUrl}">Rank</option>
+                    </select>
+                    <img class="rank-preview" alt="" data-rank-preview-for="minRank">
+                </span>
+            </label>
+            <label>Максимальный ранг
+                <span class="rank-picker">
+                    <select id="maxRank" name="maxRank" data-rank-select>
+                        <option value="">Без ограничения</option>
+                        <option th:each="rank : ${ranks}"
+                                th:value="${rank.name}"
+                                th:text="${rank.name}"
+                                th:data-game-id="${rank.game.id}"
+                                th:data-sort-order="${rank.sortOrder}"
+                                th:data-image-url="${rank.imageUrl}">Rank</option>
+                    </select>
+                    <img class="rank-preview" alt="" data-rank-preview-for="maxRank">
+                </span>
+            </label>
+            <label>Время игры
+                <input type="datetime-local" name="desiredPlayTime" data-future-datetime>
+            </label>
+            <label class="full">Описание
+                <textarea name="description" rows="5" maxlength="2000"></textarea>
+            </label>
+            <button type="submit" class="button primary">Опубликовать</button>
+        </form>
+    </section>
+</main>
+<script th:src="@{/js/rank-selects.js}"></script>
+</body>
+</html>

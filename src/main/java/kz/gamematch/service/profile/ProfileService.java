@@ -3,19 +3,24 @@ package kz.gamematch.service.profile;
 import kz.gamematch.dto.profile.ProfileResponseDto;
 import kz.gamematch.dto.profile.UpdateProfileRequestDto;
 import kz.gamematch.entity.PlayerProfile;
+import kz.gamematch.entity.User;
 import kz.gamematch.repository.PlayerProfileRepository;
+import kz.gamematch.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
 
     private final PlayerProfileRepository playerProfileRepository;
+    private final UserRepository userRepository;
 
     public ProfileResponseDto getProfileByUserId(Long userId) {
         PlayerProfile profile = playerProfileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+                .orElseGet(() -> createDefaultProfile(userId));
 
         return mapToDto(profile);
     }
@@ -36,7 +41,7 @@ public class ProfileService {
 
     public ProfileResponseDto updateProfile(Long userId, UpdateProfileRequestDto request) {
         PlayerProfile profile = playerProfileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+                .orElseGet(() -> createDefaultProfile(userId));
 
         if (request.getNickname() != null && !request.getNickname().equals(profile.getNickname())) {
             if (playerProfileRepository.existsByNickname(request.getNickname())) {
@@ -73,5 +78,42 @@ public class ProfileService {
                 profile.getKarma(),
                 profile.getCompletedMatches()
         );
+    }
+
+    private PlayerProfile createDefaultProfile(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        PlayerProfile profile = new PlayerProfile();
+        profile.setUser(user);
+        profile.setNickname(defaultNickname(user));
+        profile.setKarma(BigDecimal.ZERO);
+        profile.setCompletedMatches(0);
+
+        return playerProfileRepository.save(profile);
+    }
+
+    private String defaultNickname(User user) {
+        String email = user.getEmail();
+        String base = email == null || email.isBlank()
+                ? "player"
+                : email.substring(0, email.indexOf("@") > 0 ? email.indexOf("@") : email.length());
+
+        String normalized = base.replaceAll("[^A-Za-z0-9_-]", "");
+        if (normalized.length() < 3) {
+            normalized = "player";
+        }
+
+        String candidate = normalized.length() > 70 ? normalized.substring(0, 70) : normalized;
+        if (!playerProfileRepository.existsByNickname(candidate)) {
+            return candidate;
+        }
+
+        String suffix = "-" + user.getId();
+        int maxBaseLength = 80 - suffix.length();
+        if (candidate.length() > maxBaseLength) {
+            candidate = candidate.substring(0, maxBaseLength);
+        }
+        return candidate + suffix;
     }
 }

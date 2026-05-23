@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Мои заявки | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page">
+    <div th:replace="~{fragments :: alerts}"></div>
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Личный кабинет</p>
+            <h1>Мои заявки</h1>
+        </div>
+        <a class="button primary" th:href="@{/requests/new}">Создать</a>
+    </section>
+    <div class="empty" th:if="${#lists.isEmpty(requests)}">Вы еще не создавали заявки.</div>
+    <table th:if="${!#lists.isEmpty(requests)}">
+        <thead><tr><th>Название</th><th>Игра</th><th>Роль</th><th>Время</th><th>Статус</th></tr></thead>
+        <tbody>
+        <tr th:each="request : ${requests}">
+            <td><a th:href="@{/requests/{id}(id=${request.id})}" th:text="${request.title}">Title</a></td>
+            <td th:text="${request.gameName}">Game</td>
+            <td th:text="${request.requiredRole != null ? request.requiredRole : '-'}">-</td>
+            <td>
+                <time th:if="${request.desiredPlayTime != null}"
+                      th:datetime="${request.desiredPlayTime}"
+                      th:text="${#temporals.format(request.desiredPlayTime, 'dd.MM.yyyy HH:mm')}">24.05.2026 20:00</time>
+                <span th:unless="${request.desiredPlayTime != null}">-</span>
+            </td>
+            <td><span class="badge" th:text="${request.status}">ACTIVE</span></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

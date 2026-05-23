@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="PUBG rank">
+  <rect width="48" height="48" rx="10" fill="#24372a"/>
+  <path d="M14 17h20v8c0 7-4 12-10 15-6-3-10-8-10-15v-8z" fill="#d7b46a"/>
+  <path d="M17 21h14M19 27h10" stroke="#24372a" stroke-width="3" stroke-linecap="round"/>
+</svg>

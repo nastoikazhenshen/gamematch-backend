@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${profile.nickname} + ' | GameMatch'">Профиль | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page narrow">
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Профиль игрока</p>
+            <h1 th:text="${profile.nickname}">Nickname</h1>
+        </div>
+    </section>
+    <section class="panel">
+        <dl class="details">
+            <dt>Email</dt><dd th:text="${profile.email}">email</dd>
+            <dt>Karma</dt><dd th:text="${profile.karma}">0</dd>
+            <dt>Сыграно матчей</dt><dd th:text="${profile.completedMatches}">0</dd>
+            <dt>Часовой пояс</dt><dd th:text="${profile.timezone != null ? profile.timezone : '-'}">-</dd>
+            <dt>Среднее время игры</dt><dd th:text="${profile.averagePlayTime != null ? profile.averagePlayTime : '-'}">-</dd>
+            <dt>О себе</dt><dd th:text="${profile.bio != null ? profile.bio : '-'}">-</dd>
+        </dl>
+    </section>
+</main>
+</body>
+</html>

@@ -3,11 +3,13 @@ package kz.gamematch.service.request;
 import kz.gamematch.dto.request.CreateTeammateRequestDto;
 import kz.gamematch.dto.request.TeammateRequestResponseDto;
 import kz.gamematch.entity.Game;
+import kz.gamematch.entity.GameRank;
 import kz.gamematch.entity.PlayerProfile;
 import kz.gamematch.entity.RequestStatus;
 import kz.gamematch.entity.TeammateRequest;
 import kz.gamematch.entity.User;
 import kz.gamematch.repository.GameRepository;
+import kz.gamematch.repository.GameRankRepository;
 import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.TeammateRequestRepository;
 import kz.gamematch.repository.UserRepository;
@@ -30,14 +32,18 @@ public class TeammateRequestService {
     private final TeammateRequestRepository teammateRequestRepository;
     private final UserRepository userRepository;
     private final GameRepository gameRepository;
+    private final GameRankRepository gameRankRepository;
     private final PlayerProfileRepository playerProfileRepository;
 
     public TeammateRequestResponseDto createRequest(CreateTeammateRequestDto requestDto) {
+        validateDesiredPlayTime(requestDto.getDesiredPlayTime());
+
         User author = userRepository.findById(requestDto.getAuthorId())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
         Game game = gameRepository.findById(requestDto.getGameId())
                 .orElseThrow(() -> new RuntimeException("Game not found"));
+        validateRankRange(game.getId(), requestDto.getMinRank(), requestDto.getMaxRank());
 
         TeammateRequest request = new TeammateRequest();
         request.setAuthor(author);
@@ -186,5 +192,26 @@ public class TeammateRequestService {
 
     private boolean hasText(String value) {
         return value != null && !value.trim().isEmpty();
+    }
+
+    private void validateDesiredPlayTime(LocalDateTime desiredPlayTime) {
+        if (desiredPlayTime != null && desiredPlayTime.isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Desired play time cannot be in the past");
+        }
+    }
+
+    private void validateRankRange(Long gameId, String minRank, String maxRank) {
+        if (!hasText(minRank) || !hasText(maxRank)) {
+            return;
+        }
+
+        GameRank min = gameRankRepository.findByGameIdAndNameIgnoreCase(gameId, minRank.trim())
+                .orElseThrow(() -> new RuntimeException("Minimum rank does not belong to selected game"));
+        GameRank max = gameRankRepository.findByGameIdAndNameIgnoreCase(gameId, maxRank.trim())
+                .orElseThrow(() -> new RuntimeException("Maximum rank does not belong to selected game"));
+
+        if (min.getSortOrder() > max.getSortOrder()) {
+            throw new RuntimeException("Maximum rank cannot be lower than minimum rank");
+        }
     }
 }

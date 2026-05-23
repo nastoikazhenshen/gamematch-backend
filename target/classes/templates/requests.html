@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Заявки | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page">
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Поиск тиммейтов</p>
+            <h1>Активные заявки</h1>
+        </div>
+        <a class="button primary" th:href="@{/requests/new}">Создать заявку</a>
+    </section>
+
+    <form th:action="@{/requests}" method="get" class="filters">
+        <label>Игра
+            <select id="gameId" name="gameId">
+                <option value="">Все</option>
+                <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}" th:selected="${game.id == gameId}">Game</option>
+            </select>
+        </label>
+        <label>Роль
+            <input type="text" name="role" th:value="${role}" placeholder="support">
+        </label>
+        <label>Мин. ранг
+            <span class="rank-picker">
+                <select id="minRank" name="minRank" data-rank-select>
+                    <option value="">Все</option>
+                    <option th:each="rank : ${ranks}"
+                            th:value="${rank.name}"
+                            th:text="${rank.name}"
+                            th:selected="${rank.name == minRank}"
+                            th:data-game-id="${rank.game.id}"
+                            th:data-sort-order="${rank.sortOrder}"
+                            th:data-image-url="${rank.imageUrl}">Rank</option>
+                </select>
+                <img class="rank-preview" alt="" data-rank-preview-for="minRank">
+            </span>
+        </label>
+        <label>Макс. ранг
+            <span class="rank-picker">
+                <select id="maxRank" name="maxRank" data-rank-select>
+                    <option value="">Все</option>
+                    <option th:each="rank : ${ranks}"
+                            th:value="${rank.name}"
+                            th:text="${rank.name}"
+                            th:selected="${rank.name == maxRank}"
+                            th:data-game-id="${rank.game.id}"
+                            th:data-sort-order="${rank.sortOrder}"
+                            th:data-image-url="${rank.imageUrl}">Rank</option>
+                </select>
+                <img class="rank-preview" alt="" data-rank-preview-for="maxRank">
+            </span>
+        </label>
+        <label>С
+            <input type="datetime-local" name="desiredFrom" th:value="${desiredFrom != null ? #temporals.format(desiredFrom, 'yyyy-MM-dd''T''HH:mm') : ''}">
+        </label>
+        <label>До
+            <input type="datetime-local" name="desiredTo" th:value="${desiredTo != null ? #temporals.format(desiredTo, 'yyyy-MM-dd''T''HH:mm') : ''}">
+        </label>
+        <button type="submit" class="button primary">Фильтровать</button>
+        <a class="button ghost" th:href="@{/requests}">Сбросить</a>
+    </form>
+
+    <div class="empty" th:if="${requests.empty}">Активных заявок по этим условиям нет.</div>
+    <table th:if="${!requests.empty}">
+        <thead>
+        <tr><th>Название</th><th>Игра</th><th>Роль</th><th>Ранг</th><th>Время</th><th>Автор</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${requests.content}">
+            <td><a th:href="@{/requests/{id}(id=${request.id})}" th:text="${request.title}">Title</a></td>
+            <td th:text="${request.gameName}">Game</td>
+            <td th:text="${request.requiredRole != null ? request.requiredRole : '-'}">Role</td>
+            <td th:text="${(request.minRank != null ? request.minRank : '-') + ' / ' + (request.maxRank != null ? request.maxRank : '-')}">Rank</td>
+            <td>
+                <time th:if="${request.desiredPlayTime != null}"
+                      th:datetime="${request.desiredPlayTime}"
+                      th:text="${#temporals.format(request.desiredPlayTime, 'dd.MM.yyyy HH:mm')}">24.05.2026 20:00</time>
+                <span th:unless="${request.desiredPlayTime != null}">-</span>
+            </td>
+            <td th:text="${request.authorNickname}">Author</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination" th:if="${requests.totalPages > 1}">
+        <a class="button ghost" th:if="${requests.hasPrevious()}"
+           th:href="@{/requests(page=${requests.number - 1},size=${size},gameId=${gameId},role=${role},minRank=${minRank},maxRank=${maxRank},desiredFrom=${desiredFrom},desiredTo=${desiredTo})}">Назад</a>
+        <span th:text="${requests.number + 1} + ' / ' + ${requests.totalPages}">1 / 1</span>
+        <a class="button ghost" th:if="${requests.hasNext()}"
+           th:href="@{/requests(page=${requests.number + 1},size=${size},gameId=${gameId},role=${role},minRank=${minRank},maxRank=${maxRank},desiredFrom=${desiredFrom},desiredTo=${desiredTo})}">Вперед</a>
+    </div>
+</main>
+<script th:src="@{/js/rank-selects.js}"></script>
+</body>
+</html>
