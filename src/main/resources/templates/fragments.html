@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav class="topbar" th:fragment="nav">
+    <a class="brand" th:href="@{/dashboard}">GameMatch</a>
+    <div class="nav-links">
+        <a th:href="@{/requests}">Заявки</a>
+        <a th:href="@{/requests/new}">Создать</a>
+        <a th:href="@{/requests/my}">Мои заявки</a>
+        <a th:href="@{/teams}">Команды</a>
+        <a th:href="@{/profiles/search}">Игроки</a>
+        <a th:href="@{/profiles/me}">Профиль</a>
+    </div>
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <span th:text="${currentNickname != null ? currentNickname : currentEmail}">player</span>
+        <button type="submit" class="button ghost">Выйти</button>
+    </form>
+</nav>
+
+<div th:fragment="alerts">
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+</div>
+</body>
+</html>

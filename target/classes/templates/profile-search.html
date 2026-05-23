@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Игроки | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page narrow">
+    <div th:replace="~{fragments :: alerts}"></div>
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Поиск</p>
+            <h1>Игроки</h1>
+        </div>
+    </section>
+    <form th:action="@{/profiles/search}" method="get" class="toolbar">
+        <input type="text" name="nickname" th:value="${query}" placeholder="Никнейм">
+        <button type="submit" class="button primary">Найти</button>
+    </form>
+    <section class="panel" th:if="${profile != null}">
+        <h2><a th:href="@{/profiles/{id}(id=${profile.id})}" th:text="${profile.nickname}">Nickname</a></h2>
+        <dl class="details">
+            <dt>Email</dt><dd th:text="${profile.email}">email</dd>
+            <dt>Karma</dt><dd th:text="${profile.karma}">0</dd>
+            <dt>Матчи</dt><dd th:text="${profile.completedMatches}">0</dd>
+            <dt>Время</dt><dd th:text="${profile.averagePlayTime != null ? profile.averagePlayTime : '-'}">-</dd>
+        </dl>
+    </section>
+</main>
+</body>
+</html>

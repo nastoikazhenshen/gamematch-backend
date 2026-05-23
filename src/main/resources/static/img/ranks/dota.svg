@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Dota 2 rank">
+  <rect width="48" height="48" rx="10" fill="#7d1f1f"/>
+  <path d="M13 12h22l-5 24H18L13 12z" fill="#f2c66d"/>
+  <path d="M18 17l13 14M31 17L18 31" stroke="#7d1f1f" stroke-width="4" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Мой профиль | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page narrow">
+    <div th:replace="~{fragments :: alerts}"></div>
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Профиль игрока</p>
+            <h1 th:text="${profile.nickname}">Nickname</h1>
+        </div>
+    </section>
+    <section class="panel">
+        <form th:action="@{/profiles/me}" method="post" class="form-grid">
+            <label>Никнейм
+                <input type="text" name="nickname" minlength="3" maxlength="80" th:value="${profile.nickname}">
+            </label>
+            <label>Часовой пояс
+                <input type="text" name="timezone" maxlength="50" th:value="${profile.timezone}" placeholder="Asia/Qyzylorda">
+            </label>
+            <label>Среднее время игры
+                <input type="text" name="averagePlayTime" maxlength="100" th:value="${profile.averagePlayTime}" placeholder="19:00-23:00">
+            </label>
+            <label class="full">О себе
+                <textarea name="bio" rows="5" maxlength="1000" th:text="${profile.bio}"></textarea>
+            </label>
+            <button type="submit" class="button primary">Сохранить</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

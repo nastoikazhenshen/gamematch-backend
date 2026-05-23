@@ -1,5 +1,6 @@
 package kz.gamematch.service.request;
 
+import kz.gamematch.dto.request.CreateTeammateRequestDto;
 import kz.gamematch.dto.request.TeammateRequestResponseDto;
 import kz.gamematch.entity.Game;
 import kz.gamematch.entity.PlayerProfile;
@@ -26,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 class TeammateRequestServiceFilteringTests {
@@ -121,6 +123,34 @@ class TeammateRequestServiceFilteringTests {
         assertThat(result.getContent())
                 .extracting(TeammateRequestResponseDto::getId)
                 .containsExactly(second.getId());
+    }
+
+    @Test
+    void doesNotCreateRequestInThePast() {
+        CreateTeammateRequestDto dto = new CreateTeammateRequestDto();
+        dto.setAuthorId(author.getId());
+        dto.setGameId(dota.getId());
+        dto.setTitle("Past request");
+        dto.setDesiredPlayTime(LocalDateTime.now().minusMinutes(5));
+
+        assertThatThrownBy(() -> teammateRequestService.createRequest(dto))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("Desired play time cannot be in the past");
+    }
+
+    @Test
+    void doesNotCreateRequestWhenMaximumRankIsLowerThanMinimumRank() {
+        CreateTeammateRequestDto dto = new CreateTeammateRequestDto();
+        dto.setAuthorId(author.getId());
+        dto.setGameId(dota.getId());
+        dto.setTitle("Wrong rank range");
+        dto.setMinRank("Legend");
+        dto.setMaxRank("Archon");
+        dto.setDesiredPlayTime(LocalDateTime.now().plusHours(1));
+
+        assertThatThrownBy(() -> teammateRequestService.createRequest(dto))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("Maximum rank cannot be lower than minimum rank");
     }
 
     private User createAuthor() {

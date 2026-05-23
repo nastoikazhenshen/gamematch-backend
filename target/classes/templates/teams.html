@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Команды | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page">
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">После принятия отклика</p>
+            <h1>Мои команды</h1>
+        </div>
+    </section>
+    <div class="empty" th:if="${#lists.isEmpty(teams)}">Команд пока нет.</div>
+    <table th:if="${!#lists.isEmpty(teams)}">
+        <thead><tr><th>ID</th><th>Игра</th><th>Участники</th><th>Создана</th></tr></thead>
+        <tbody>
+        <tr th:each="team : ${teams}">
+            <td><a th:href="@{/teams/{id}(id=${team.id})}" th:text="${team.id}">1</a></td>
+            <td th:text="${team.gameName}">Game</td>
+            <td>
+                <span th:each="member, iter : ${team.members}"
+                      th:text="${member.nickname + (iter.last ? '' : ', ')}">Nick</span>
+            </td>
+            <td th:text="${team.createdAt}">date</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

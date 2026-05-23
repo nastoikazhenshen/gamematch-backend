@@ -1,6 +1,7 @@
 package kz.gamematch.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -31,5 +32,6 @@ public class CreateTeammateRequestDto {
 
     private String maxRank;
 
+    @FutureOrPresent(message = "Desired play time cannot be in the past")
     private LocalDateTime desiredPlayTime;
 }

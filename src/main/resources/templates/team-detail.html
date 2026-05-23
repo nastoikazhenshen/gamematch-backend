@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'Команда #' + ${team.id} + ' | GameMatch'">Команда | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page">
+    <div th:replace="~{fragments :: alerts}"></div>
+    <section class="page-header">
+        <div>
+            <p class="eyebrow" th:text="${team.gameName}">Game</p>
+            <h1 th:text="'Команда #' + ${team.id}">Команда</h1>
+        </div>
+        <a class="button ghost" th:href="@{/requests/{id}(id=${team.requestId})}">К заявке</a>
+    </section>
+
+    <section class="split">
+        <div class="panel">
+            <h2>Участники</h2>
+            <ul class="member-list">
+                <li th:each="member : ${team.members}">
+                    <a th:href="@{/profiles/search(nickname=${member.nickname})}" th:text="${member.nickname}">Nick</a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel chat-panel">
+            <h2>Чат</h2>
+            <div class="chat-log">
+                <div class="empty" th:if="${#lists.isEmpty(messages)}">Сообщений пока нет.</div>
+                <article class="message" th:each="message : ${messages}">
+                    <header>
+                        <strong th:text="${message.senderNickname}">Nick</strong>
+                        <span th:text="${message.createdAt}">date</span>
+                    </header>
+                    <p th:text="${message.content}">Message</p>
+                </article>
+            </div>
+            <form th:action="@{/teams/{id}/messages(id=${team.id})}" method="post" class="message-form">
+                <textarea name="content" rows="3" maxlength="2000" required placeholder="Сообщение"></textarea>
+                <button type="submit" class="button primary">Отправить</button>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+</html>

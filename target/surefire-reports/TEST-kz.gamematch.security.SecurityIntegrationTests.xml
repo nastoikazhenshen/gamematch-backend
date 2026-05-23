@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="kz.gamematch.security.SecurityIntegrationTests" time="2.416" tests="9" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="kz.gamematch.security.SecurityIntegrationTests" time="2.275" tests="9" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1251"/>
-    <property name="java.class.path" value="C:\Users\kyrlu\IdeaProjects\gamematch-backend\target\test-classes;C:\Users\kyrlu\IdeaProjects\gamematch-backend\target\classes;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.5.14\spring-boot-starter-data-jpa-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.14\spring-boot-starter-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.14\spring-boot-starter-logging-3.5.14.jar;C:\Users\kyrlu\.m2\repository\ch\qos\logback\logback-classic\1.5.32\logback-classic-1.5.32.jar;C:\Users\kyrlu\.m2\repository\ch\qos\logback\logback-core\1.5.32\logback-core-1.5.32.jar;C:\Users\kyrlu\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\kyrlu\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\kyrlu\.m2\repository\org\slf4j\jul-to-slf4j\2.0.17\jul-to-slf4j-2.0.17.jar;C:\Users\kyrlu\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\kyrlu\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.5.14\spring-boot-starter-jdbc-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\zaxxer\HikariCP\6.3.3\HikariCP-6.3.3.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-jdbc\6.2.18\spring-jdbc-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\orm\hibernate-core\6.6.49.Final\hibernate-core-6.6.49.Final.jar;C:\Users\kyrlu\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\kyrlu\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\kyrlu\.m2\repository\org\jboss\logging\jboss-logging\3.6.3.Final\jboss-logging-3.6.3.Final.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\common\hibernate-commons-annotations\7.0.3.Final\hibernate-commons-annotations-7.0.3.Final.jar;C:\Users\kyrlu\.m2\repository\io\smallrye\jandex\3.2.0\jandex-3.2.0.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\classmate\1.7.3\classmate-1.7.3.jar;C:\Users\kyrlu\.m2\repository\net\bytebuddy\byte-buddy\1.17.8\byte-buddy-1.17.8.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.6\jaxb-runtime-4.0.6.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.6\jaxb-core-4.0.6.jar;C:\Users\kyrlu\.m2\repository\org\eclipse\angus\angus-activation\2.0.3\angus-activation-2.0.3.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\txw2\4.0.6\txw2-4.0.6.jar;C:\Users\kyrlu\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\kyrlu\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\kyrlu\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\kyrlu\.m2\repository\org\springframework\data\spring-data-jpa\3.5.11\spring-data-jpa-3.5.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\data\spring-data-commons\3.5.11\spring-data-commons-3.5.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-orm\6.2.18\spring-orm-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-context\6.2.18\spring-context-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-tx\6.2.18\spring-tx-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-beans\6.2.18\spring-beans-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-aspects\6.2.18\spring-aspects-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\aspectj\aspectjweaver\1.9.25.1\aspectjweaver-1.9.25.1.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.5.14\spring-boot-starter-security-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-aop\6.2.18\spring-aop-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-config\6.5.10\spring-security-config-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-web\6.5.10\spring-security-web-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-expression\6.2.18\spring-expression-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.5.14\spring-boot-starter-validation-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.54\tomcat-embed-el-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.3.Final\hibernate-validator-8.0.3.Final.jar;C:\Users\kyrlu\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.14\spring-boot-starter-web-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.14\spring-boot-starter-json-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.21.2\jackson-datatype-jdk8-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.21.2\jackson-module-parameter-names-2.21.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.14\spring-boot-starter-tomcat-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.54\tomcat-embed-core-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.54\tomcat-embed-websocket-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-web\6.2.18\spring-web-6.2.18.jar;C:\Users\kyrlu\.m2\repository\io\micrometer\micrometer-observation\1.15.11\micrometer-observation-1.15.11.jar;C:\Users\kyrlu\.m2\repository\io\micrometer\micrometer-commons\1.15.11\micrometer-commons-1.15.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-webmvc\6.2.18\spring-webmvc-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\flywaydb\flyway-core\11.7.2\flyway-core-11.7.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-toml\2.21.2\jackson-dataformat-toml-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.21.2\jackson-core-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.21.2\jackson-datatype-jsr310-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.21\jackson-annotations-2.21.jar;C:\Users\kyrlu\.m2\repository\org\flywaydb\flyway-database-postgresql\11.7.2\flyway-database-postgresql-11.7.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-devtools\3.5.14\spring-boot-devtools-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot\3.5.14\spring-boot-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.14\spring-boot-autoconfigure-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\postgresql\postgresql\42.7.10\postgresql-42.7.10.jar;C:\Users\kyrlu\.m2\repository\org\checkerframework\checker-qual\3.52.0\checker-qual-3.52.0.jar;C:\Users\kyrlu\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.5.14\spring-boot-starter-test-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-test\3.5.14\spring-boot-test-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.5.14\spring-boot-test-autoconfigure-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\kyrlu\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.4\jakarta.xml.bind-api-4.0.4.jar;C:\Users\kyrlu\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.4\jakarta.activation-api-2.1.4.jar;C:\Users\kyrlu\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\kyrlu\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\kyrlu\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\kyrlu\.m2\repository\org\assertj\assertj-core\3.27.7\assertj-core-3.27.7.jar;C:\Users\kyrlu\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\kyrlu\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\kyrlu\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\kyrlu\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\kyrlu\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\kyrlu\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar;C:\Users\kyrlu\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\kyrlu\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\kyrlu\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\kyrlu\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-core\6.2.18\spring-core-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-jcl\6.2.18\spring-jcl-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-test\6.2.18\spring-test-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\xmlunit\xmlunit-core\2.10.4\xmlunit-core-2.10.4.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.21.2\jackson-databind-2.21.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-test\6.5.10\spring-security-test-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-core\6.5.10\spring-security-core-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-crypto\6.5.10\spring-security-crypto-6.5.10.jar;"/>
+    <property name="java.class.path" value="C:\Users\kyrlu\IdeaProjects\gamematch-backend\target\test-classes;C:\Users\kyrlu\IdeaProjects\gamematch-backend\target\classes;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.5.14\spring-boot-starter-data-jpa-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.14\spring-boot-starter-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.14\spring-boot-starter-logging-3.5.14.jar;C:\Users\kyrlu\.m2\repository\ch\qos\logback\logback-classic\1.5.32\logback-classic-1.5.32.jar;C:\Users\kyrlu\.m2\repository\ch\qos\logback\logback-core\1.5.32\logback-core-1.5.32.jar;C:\Users\kyrlu\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\kyrlu\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\kyrlu\.m2\repository\org\slf4j\jul-to-slf4j\2.0.17\jul-to-slf4j-2.0.17.jar;C:\Users\kyrlu\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\kyrlu\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.5.14\spring-boot-starter-jdbc-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\zaxxer\HikariCP\6.3.3\HikariCP-6.3.3.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-jdbc\6.2.18\spring-jdbc-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\orm\hibernate-core\6.6.49.Final\hibernate-core-6.6.49.Final.jar;C:\Users\kyrlu\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\kyrlu\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\kyrlu\.m2\repository\org\jboss\logging\jboss-logging\3.6.3.Final\jboss-logging-3.6.3.Final.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\common\hibernate-commons-annotations\7.0.3.Final\hibernate-commons-annotations-7.0.3.Final.jar;C:\Users\kyrlu\.m2\repository\io\smallrye\jandex\3.2.0\jandex-3.2.0.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\classmate\1.7.3\classmate-1.7.3.jar;C:\Users\kyrlu\.m2\repository\net\bytebuddy\byte-buddy\1.17.8\byte-buddy-1.17.8.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.6\jaxb-runtime-4.0.6.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.6\jaxb-core-4.0.6.jar;C:\Users\kyrlu\.m2\repository\org\eclipse\angus\angus-activation\2.0.3\angus-activation-2.0.3.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\txw2\4.0.6\txw2-4.0.6.jar;C:\Users\kyrlu\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\kyrlu\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\kyrlu\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\kyrlu\.m2\repository\org\springframework\data\spring-data-jpa\3.5.11\spring-data-jpa-3.5.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\data\spring-data-commons\3.5.11\spring-data-commons-3.5.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-orm\6.2.18\spring-orm-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-context\6.2.18\spring-context-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-tx\6.2.18\spring-tx-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-beans\6.2.18\spring-beans-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-aspects\6.2.18\spring-aspects-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\aspectj\aspectjweaver\1.9.25.1\aspectjweaver-1.9.25.1.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.5.14\spring-boot-starter-security-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-aop\6.2.18\spring-aop-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-config\6.5.10\spring-security-config-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-web\6.5.10\spring-security-web-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-expression\6.2.18\spring-expression-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.5.14\spring-boot-starter-validation-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.54\tomcat-embed-el-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.3.Final\hibernate-validator-8.0.3.Final.jar;C:\Users\kyrlu\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.14\spring-boot-starter-web-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.14\spring-boot-starter-json-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.21.2\jackson-datatype-jdk8-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.21.2\jackson-module-parameter-names-2.21.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.14\spring-boot-starter-tomcat-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.54\tomcat-embed-core-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.54\tomcat-embed-websocket-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-web\6.2.18\spring-web-6.2.18.jar;C:\Users\kyrlu\.m2\repository\io\micrometer\micrometer-observation\1.15.11\micrometer-observation-1.15.11.jar;C:\Users\kyrlu\.m2\repository\io\micrometer\micrometer-commons\1.15.11\micrometer-commons-1.15.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-webmvc\6.2.18\spring-webmvc-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-thymeleaf\3.5.14\spring-boot-starter-thymeleaf-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\thymeleaf\thymeleaf-spring6\3.1.5.RELEASE\thymeleaf-spring6-3.1.5.RELEASE.jar;C:\Users\kyrlu\.m2\repository\org\thymeleaf\thymeleaf\3.1.5.RELEASE\thymeleaf-3.1.5.RELEASE.jar;C:\Users\kyrlu\.m2\repository\org\attoparser\attoparser\2.0.7.RELEASE\attoparser-2.0.7.RELEASE.jar;C:\Users\kyrlu\.m2\repository\org\unbescape\unbescape\1.1.6.RELEASE\unbescape-1.1.6.RELEASE.jar;C:\Users\kyrlu\.m2\repository\org\flywaydb\flyway-core\11.7.2\flyway-core-11.7.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-toml\2.21.2\jackson-dataformat-toml-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.21.2\jackson-core-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.21.2\jackson-datatype-jsr310-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.21\jackson-annotations-2.21.jar;C:\Users\kyrlu\.m2\repository\org\flywaydb\flyway-database-postgresql\11.7.2\flyway-database-postgresql-11.7.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-devtools\3.5.14\spring-boot-devtools-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot\3.5.14\spring-boot-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.14\spring-boot-autoconfigure-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\postgresql\postgresql\42.7.10\postgresql-42.7.10.jar;C:\Users\kyrlu\.m2\repository\org\checkerframework\checker-qual\3.52.0\checker-qual-3.52.0.jar;C:\Users\kyrlu\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.5.14\spring-boot-starter-test-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-test\3.5.14\spring-boot-test-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.5.14\spring-boot-test-autoconfigure-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\kyrlu\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.4\jakarta.xml.bind-api-4.0.4.jar;C:\Users\kyrlu\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.4\jakarta.activation-api-2.1.4.jar;C:\Users\kyrlu\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\kyrlu\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\kyrlu\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\kyrlu\.m2\repository\org\assertj\assertj-core\3.27.7\assertj-core-3.27.7.jar;C:\Users\kyrlu\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\kyrlu\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\kyrlu\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\kyrlu\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\kyrlu\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\kyrlu\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar;C:\Users\kyrlu\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\kyrlu\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\kyrlu\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\kyrlu\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-core\6.2.18\spring-core-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-jcl\6.2.18\spring-jcl-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-test\6.2.18\spring-test-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\xmlunit\xmlunit-core\2.10.4\xmlunit-core-2.10.4.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.21.2\jackson-databind-2.21.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-test\6.5.10\spring-security-test-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-core\6.5.10\spring-security-core-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-crypto\6.5.10\spring-security-crypto-6.5.10.jar;"/>
     <property name="java.vm.vendor" value="Microsoft"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -14,13 +14,12 @@
     <property name="user.country.format" value="KZ"/>
     <property name="os.name" value="Windows 11"/>
     <property name="java.vm.specification.version" value="17"/>
-    <property name="APPLICATION_NAME" value="gamematch"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="RU"/>
     <property name="sun.boot.library.path" value="C:\Users\kyrlu\.jdks\ms-17.0.18\bin"/>
-    <property name="sun.java.command" value="C:\Users\kyrlu\AppData\Local\Temp\surefire4213465687494592758\surefirebooter-20260523223546227_3.jar C:\Users\kyrlu\AppData\Local\Temp\surefire4213465687494592758 2026-05-23T22-35-46_072-jvmRun1 surefire-20260523223546227_1tmp surefire_0-20260523223546227_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\kyrlu\AppData\Local\Temp\surefire3979232305648530755\surefirebooter-20260524042445097_3.jar C:\Users\kyrlu\AppData\Local\Temp\surefire3979232305648530755 2026-05-24T04-24-44_897-jvmRun1 surefire-20260524042445097_1tmp surefire_0-20260524042445097_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\kyrlu\IdeaProjects\gamematch-backend\target\test-classes;C:\Users\kyrlu\IdeaProjects\gamematch-backend\target\classes;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.5.14\spring-boot-starter-data-jpa-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.14\spring-boot-starter-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.14\spring-boot-starter-logging-3.5.14.jar;C:\Users\kyrlu\.m2\repository\ch\qos\logback\logback-classic\1.5.32\logback-classic-1.5.32.jar;C:\Users\kyrlu\.m2\repository\ch\qos\logback\logback-core\1.5.32\logback-core-1.5.32.jar;C:\Users\kyrlu\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\kyrlu\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\kyrlu\.m2\repository\org\slf4j\jul-to-slf4j\2.0.17\jul-to-slf4j-2.0.17.jar;C:\Users\kyrlu\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\kyrlu\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.5.14\spring-boot-starter-jdbc-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\zaxxer\HikariCP\6.3.3\HikariCP-6.3.3.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-jdbc\6.2.18\spring-jdbc-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\orm\hibernate-core\6.6.49.Final\hibernate-core-6.6.49.Final.jar;C:\Users\kyrlu\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\kyrlu\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\kyrlu\.m2\repository\org\jboss\logging\jboss-logging\3.6.3.Final\jboss-logging-3.6.3.Final.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\common\hibernate-commons-annotations\7.0.3.Final\hibernate-commons-annotations-7.0.3.Final.jar;C:\Users\kyrlu\.m2\repository\io\smallrye\jandex\3.2.0\jandex-3.2.0.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\classmate\1.7.3\classmate-1.7.3.jar;C:\Users\kyrlu\.m2\repository\net\bytebuddy\byte-buddy\1.17.8\byte-buddy-1.17.8.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.6\jaxb-runtime-4.0.6.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.6\jaxb-core-4.0.6.jar;C:\Users\kyrlu\.m2\repository\org\eclipse\angus\angus-activation\2.0.3\angus-activation-2.0.3.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\txw2\4.0.6\txw2-4.0.6.jar;C:\Users\kyrlu\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\kyrlu\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\kyrlu\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\kyrlu\.m2\repository\org\springframework\data\spring-data-jpa\3.5.11\spring-data-jpa-3.5.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\data\spring-data-commons\3.5.11\spring-data-commons-3.5.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-orm\6.2.18\spring-orm-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-context\6.2.18\spring-context-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-tx\6.2.18\spring-tx-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-beans\6.2.18\spring-beans-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-aspects\6.2.18\spring-aspects-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\aspectj\aspectjweaver\1.9.25.1\aspectjweaver-1.9.25.1.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.5.14\spring-boot-starter-security-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-aop\6.2.18\spring-aop-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-config\6.5.10\spring-security-config-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-web\6.5.10\spring-security-web-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-expression\6.2.18\spring-expression-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.5.14\spring-boot-starter-validation-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.54\tomcat-embed-el-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.3.Final\hibernate-validator-8.0.3.Final.jar;C:\Users\kyrlu\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.14\spring-boot-starter-web-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.14\spring-boot-starter-json-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.21.2\jackson-datatype-jdk8-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.21.2\jackson-module-parameter-names-2.21.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.14\spring-boot-starter-tomcat-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.54\tomcat-embed-core-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.54\tomcat-embed-websocket-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-web\6.2.18\spring-web-6.2.18.jar;C:\Users\kyrlu\.m2\repository\io\micrometer\micrometer-observation\1.15.11\micrometer-observation-1.15.11.jar;C:\Users\kyrlu\.m2\repository\io\micrometer\micrometer-commons\1.15.11\micrometer-commons-1.15.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-webmvc\6.2.18\spring-webmvc-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\flywaydb\flyway-core\11.7.2\flyway-core-11.7.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-toml\2.21.2\jackson-dataformat-toml-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.21.2\jackson-core-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.21.2\jackson-datatype-jsr310-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.21\jackson-annotations-2.21.jar;C:\Users\kyrlu\.m2\repository\org\flywaydb\flyway-database-postgresql\11.7.2\flyway-database-postgresql-11.7.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-devtools\3.5.14\spring-boot-devtools-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot\3.5.14\spring-boot-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.14\spring-boot-autoconfigure-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\postgresql\postgresql\42.7.10\postgresql-42.7.10.jar;C:\Users\kyrlu\.m2\repository\org\checkerframework\checker-qual\3.52.0\checker-qual-3.52.0.jar;C:\Users\kyrlu\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.5.14\spring-boot-starter-test-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-test\3.5.14\spring-boot-test-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.5.14\spring-boot-test-autoconfigure-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\kyrlu\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.4\jakarta.xml.bind-api-4.0.4.jar;C:\Users\kyrlu\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.4\jakarta.activation-api-2.1.4.jar;C:\Users\kyrlu\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\kyrlu\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\kyrlu\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\kyrlu\.m2\repository\org\assertj\assertj-core\3.27.7\assertj-core-3.27.7.jar;C:\Users\kyrlu\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\kyrlu\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\kyrlu\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\kyrlu\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\kyrlu\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\kyrlu\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar;C:\Users\kyrlu\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\kyrlu\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\kyrlu\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\kyrlu\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-core\6.2.18\spring-core-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-jcl\6.2.18\spring-jcl-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-test\6.2.18\spring-test-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\xmlunit\xmlunit-core\2.10.4\xmlunit-core-2.10.4.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.21.2\jackson-databind-2.21.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-test\6.5.10\spring-security-test-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-core\6.5.10\spring-security-core-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-crypto\6.5.10\spring-security-crypto-6.5.10.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\kyrlu\IdeaProjects\gamematch-backend\target\test-classes;C:\Users\kyrlu\IdeaProjects\gamematch-backend\target\classes;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.5.14\spring-boot-starter-data-jpa-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter\3.5.14\spring-boot-starter-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.5.14\spring-boot-starter-logging-3.5.14.jar;C:\Users\kyrlu\.m2\repository\ch\qos\logback\logback-classic\1.5.32\logback-classic-1.5.32.jar;C:\Users\kyrlu\.m2\repository\ch\qos\logback\logback-core\1.5.32\logback-core-1.5.32.jar;C:\Users\kyrlu\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.24.3\log4j-to-slf4j-2.24.3.jar;C:\Users\kyrlu\.m2\repository\org\apache\logging\log4j\log4j-api\2.24.3\log4j-api-2.24.3.jar;C:\Users\kyrlu\.m2\repository\org\slf4j\jul-to-slf4j\2.0.17\jul-to-slf4j-2.0.17.jar;C:\Users\kyrlu\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\kyrlu\.m2\repository\org\yaml\snakeyaml\2.4\snakeyaml-2.4.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.5.14\spring-boot-starter-jdbc-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\zaxxer\HikariCP\6.3.3\HikariCP-6.3.3.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-jdbc\6.2.18\spring-jdbc-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\orm\hibernate-core\6.6.49.Final\hibernate-core-6.6.49.Final.jar;C:\Users\kyrlu\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\kyrlu\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\kyrlu\.m2\repository\org\jboss\logging\jboss-logging\3.6.3.Final\jboss-logging-3.6.3.Final.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\common\hibernate-commons-annotations\7.0.3.Final\hibernate-commons-annotations-7.0.3.Final.jar;C:\Users\kyrlu\.m2\repository\io\smallrye\jandex\3.2.0\jandex-3.2.0.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\classmate\1.7.3\classmate-1.7.3.jar;C:\Users\kyrlu\.m2\repository\net\bytebuddy\byte-buddy\1.17.8\byte-buddy-1.17.8.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.6\jaxb-runtime-4.0.6.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.6\jaxb-core-4.0.6.jar;C:\Users\kyrlu\.m2\repository\org\eclipse\angus\angus-activation\2.0.3\angus-activation-2.0.3.jar;C:\Users\kyrlu\.m2\repository\org\glassfish\jaxb\txw2\4.0.6\txw2-4.0.6.jar;C:\Users\kyrlu\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\kyrlu\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\kyrlu\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\kyrlu\.m2\repository\org\springframework\data\spring-data-jpa\3.5.11\spring-data-jpa-3.5.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\data\spring-data-commons\3.5.11\spring-data-commons-3.5.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-orm\6.2.18\spring-orm-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-context\6.2.18\spring-context-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-tx\6.2.18\spring-tx-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-beans\6.2.18\spring-beans-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-aspects\6.2.18\spring-aspects-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\aspectj\aspectjweaver\1.9.25.1\aspectjweaver-1.9.25.1.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.5.14\spring-boot-starter-security-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-aop\6.2.18\spring-aop-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-config\6.5.10\spring-security-config-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-web\6.5.10\spring-security-web-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-expression\6.2.18\spring-expression-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.5.14\spring-boot-starter-validation-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.54\tomcat-embed-el-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.3.Final\hibernate-validator-8.0.3.Final.jar;C:\Users\kyrlu\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.5.14\spring-boot-starter-web-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.5.14\spring-boot-starter-json-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.21.2\jackson-datatype-jdk8-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.21.2\jackson-module-parameter-names-2.21.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.5.14\spring-boot-starter-tomcat-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.54\tomcat-embed-core-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.54\tomcat-embed-websocket-10.1.54.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-web\6.2.18\spring-web-6.2.18.jar;C:\Users\kyrlu\.m2\repository\io\micrometer\micrometer-observation\1.15.11\micrometer-observation-1.15.11.jar;C:\Users\kyrlu\.m2\repository\io\micrometer\micrometer-commons\1.15.11\micrometer-commons-1.15.11.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-webmvc\6.2.18\spring-webmvc-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-thymeleaf\3.5.14\spring-boot-starter-thymeleaf-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\thymeleaf\thymeleaf-spring6\3.1.5.RELEASE\thymeleaf-spring6-3.1.5.RELEASE.jar;C:\Users\kyrlu\.m2\repository\org\thymeleaf\thymeleaf\3.1.5.RELEASE\thymeleaf-3.1.5.RELEASE.jar;C:\Users\kyrlu\.m2\repository\org\attoparser\attoparser\2.0.7.RELEASE\attoparser-2.0.7.RELEASE.jar;C:\Users\kyrlu\.m2\repository\org\unbescape\unbescape\1.1.6.RELEASE\unbescape-1.1.6.RELEASE.jar;C:\Users\kyrlu\.m2\repository\org\flywaydb\flyway-core\11.7.2\flyway-core-11.7.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-toml\2.21.2\jackson-dataformat-toml-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.21.2\jackson-core-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.21.2\jackson-datatype-jsr310-2.21.2.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.21\jackson-annotations-2.21.jar;C:\Users\kyrlu\.m2\repository\org\flywaydb\flyway-database-postgresql\11.7.2\flyway-database-postgresql-11.7.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-devtools\3.5.14\spring-boot-devtools-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot\3.5.14\spring-boot-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.5.14\spring-boot-autoconfigure-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\postgresql\postgresql\42.7.10\postgresql-42.7.10.jar;C:\Users\kyrlu\.m2\repository\org\checkerframework\checker-qual\3.52.0\checker-qual-3.52.0.jar;C:\Users\kyrlu\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-starter-test\3.5.14\spring-boot-starter-test-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-test\3.5.14\spring-boot-test-3.5.14.jar;C:\Users\kyrlu\.m2\repository\org\springframework\boot\spring-boot-test-autoconfigure\3.5.14\spring-boot-test-autoconfigure-3.5.14.jar;C:\Users\kyrlu\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\kyrlu\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.4\jakarta.xml.bind-api-4.0.4.jar;C:\Users\kyrlu\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.4\jakarta.activation-api-2.1.4.jar;C:\Users\kyrlu\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\kyrlu\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\kyrlu\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\kyrlu\.m2\repository\org\assertj\assertj-core\3.27.7\assertj-core-3.27.7.jar;C:\Users\kyrlu\.m2\repository\org\awaitility\awaitility\4.2.2\awaitility-4.2.2.jar;C:\Users\kyrlu\.m2\repository\org\hamcrest\hamcrest\3.0\hamcrest-3.0.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter\5.12.2\junit-jupiter-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.12.2\junit-jupiter-api-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\kyrlu\.m2\repository\org\junit\platform\junit-platform-commons\1.12.2\junit-platform-commons-1.12.2.jar;C:\Users\kyrlu\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.12.2\junit-jupiter-params-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.12.2\junit-jupiter-engine-5.12.2.jar;C:\Users\kyrlu\.m2\repository\org\junit\platform\junit-platform-engine\1.12.2\junit-platform-engine-1.12.2.jar;C:\Users\kyrlu\.m2\repository\org\mockito\mockito-core\5.17.0\mockito-core-5.17.0.jar;C:\Users\kyrlu\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.8\byte-buddy-agent-1.17.8.jar;C:\Users\kyrlu\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\kyrlu\.m2\repository\org\mockito\mockito-junit-jupiter\5.17.0\mockito-junit-jupiter-5.17.0.jar;C:\Users\kyrlu\.m2\repository\org\skyscreamer\jsonassert\1.5.3\jsonassert-1.5.3.jar;C:\Users\kyrlu\.m2\repository\com\vaadin\external\google\android-json\0.0.20131108.vaadin1\android-json-0.0.20131108.vaadin1.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-core\6.2.18\spring-core-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-jcl\6.2.18\spring-jcl-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\springframework\spring-test\6.2.18\spring-test-6.2.18.jar;C:\Users\kyrlu\.m2\repository\org\xmlunit\xmlunit-core\2.10.4\xmlunit-core-2.10.4.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.5\jjwt-impl-0.11.5.jar;C:\Users\kyrlu\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.5\jjwt-jackson-0.11.5.jar;C:\Users\kyrlu\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.21.2\jackson-databind-2.21.2.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-test\6.5.10\spring-security-test-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-core\6.5.10\spring-security-core-6.5.10.jar;C:\Users\kyrlu\.m2\repository\org\springframework\security\spring-security-crypto\6.5.10\spring-security-crypto-6.5.10.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\kyrlu"/>
     <property name="user.language" value="ru"/>
@@ -35,7 +34,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="FILE_LOG_CHARSET" value="windows-1251"/>
     <property name="java.awt.headless" value="true"/>
-    <property name="surefire.real.class.path" value="C:\Users\kyrlu\AppData\Local\Temp\surefire4213465687494592758\surefirebooter-20260523223546227_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\kyrlu\AppData\Local\Temp\surefire3979232305648530755\surefirebooter-20260524042445097_3.jar"/>
     <property name="user.script" value=""/>
     <property name="polyglot.engine.WarnInterpreterOnly" value="false"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -55,22 +54,21 @@
     <property name="user.dir" value="C:\Users\kyrlu\IdeaProjects\gamematch-backend"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="PID" value="26636"/>
+    <property name="PID" value="21712"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="CONSOLE_LOG_CHARSET" value="windows-1251"/>
     <property name="native.encoding" value="Cp1251"/>
-    <property name="java.library.path" value="C:\Users\kyrlu\.jdks\ms-17.0.18\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\kyrlu\.jdks\ms-17.0.18\bin;C:\Users\kyrlu\.codex\tmp\arg0\codex-arg0WWKsw4;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Git\cmd;C:\Users\kyrlu\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\kyrlu\AppData\Local\Programs\Python\Python313\;C:\Users\kyrlu\AppData\Local\Programs\Python\Launcher\;C:\Users\kyrlu\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm 2025.3.1\bin;C:\Users\kyrlu\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.1.1\bin;C:\Program Files\JetBrains\WebStorm 2025.3.1.1\bin;C:\Users\kyrlu\AppData\Local\Python\bin;C:\Users\kyrlu\AppData\Local\Python\pythoncore-3.14-64\;C:\Users\kyrlu\AppData\Local\Python\pythoncore-3.14-64\Scripts\;C:\Program Files\JetBrains\DataGrip 2026.1.2\bin;C:\Users\kyrlu\AppData\Local\OpenAI\Codex\bin\ada252862d154cdd;C:\Program Files\WindowsApps\OpenAI.Codex_26.519.5221.0_x64__2p2nqsd0c76g0\app\resources;."/>
+    <property name="java.library.path" value="C:\Users\kyrlu\.jdks\ms-17.0.18\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\kyrlu\.codex\tmp\arg0\codex-arg0Q5jxb1;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs\;C:\ProgramData\chocolatey\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Git\cmd;C:\Users\kyrlu\AppData\Local\Programs\Python\Python313\Scripts\;C:\Users\kyrlu\AppData\Local\Programs\Python\Python313\;C:\Users\kyrlu\AppData\Local\Programs\Python\Launcher\;C:\Users\kyrlu\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm 2025.3.1\bin;C:\Users\kyrlu\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA 2025.3.1.1\bin;C:\Program Files\JetBrains\WebStorm 2025.3.1.1\bin;C:\Users\kyrlu\AppData\Local\Python\bin;C:\Users\kyrlu\AppData\Local\Python\pythoncore-3.14-64\;C:\Users\kyrlu\AppData\Local\Python\pythoncore-3.14-64\Scripts\;C:\Program Files\JetBrains\DataGrip 2026.1.2\bin;C:\Users\kyrlu\AppData\Local\OpenAI\Codex\bin\ada252862d154cdd;C:\Program Files\WindowsApps\OpenAI.Codex_26.519.5221.0_x64__2p2nqsd0c76g0\app\resources;."/>
     <property name="java.vm.info" value="mixed mode, sharing"/>
     <property name="java.vendor" value="Microsoft"/>
     <property name="java.vm.version" value="17.0.18+8-LTS"/>
     <property name="java.specification.maintenance.version" value="1"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
-    <property name="LOGGED_APPLICATION_NAME" value="[gamematch] "/>
   </properties>
-  <testcase name="playerCanAccessPlayerZones" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.51">
-    <system-out><![CDATA[2026-05-23T22:35:53.239+05:00  INFO 26636 --- [gamematch] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration kz.gamematch.GamematchApplication for test class kz.gamematch.security.SecurityIntegrationTests
-2026-05-23T22:35:53.247+05:00  INFO 26636 --- [gamematch] [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+  <testcase name="playerCanAccessPlayerZones" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.461">
+    <system-out><![CDATA[2026-05-24T04:24:53.027+05:00  INFO 21712 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration kz.gamematch.GamematchApplication for test class kz.gamematch.security.SecurityIntegrationTests
+2026-05-24T04:24:53.043+05:00  INFO 21712 --- [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -81,21 +79,21 @@
 
  :: Spring Boot ::               (v3.5.14)
 
-2026-05-23T22:35:53.273+05:00  INFO 26636 --- [gamematch] [           main] k.g.security.SecurityIntegrationTests    : Starting SecurityIntegrationTests using Java 17.0.18 with PID 26636 (started by kyrlu in C:\Users\kyrlu\IdeaProjects\gamematch-backend)
-2026-05-23T22:35:53.274+05:00  INFO 26636 --- [gamematch] [           main] k.g.security.SecurityIntegrationTests    : No active profile set, falling back to 1 default profile: "default"
-2026-05-23T22:35:53.491+05:00  INFO 26636 --- [gamematch] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-05-23T22:35:53.510+05:00  INFO 26636 --- [gamematch] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 7 JPA repository interfaces.
-2026-05-23T22:35:53.628+05:00  INFO 26636 --- [gamematch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2026-05-23T22:35:53.645+05:00  INFO 26636 --- [gamematch] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@361eed12
-2026-05-23T22:35:53.645+05:00  INFO 26636 --- [gamematch] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2026-05-23T22:35:53.649+05:00  INFO 26636 --- [gamematch] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5439/gamematch_db (PostgreSQL 16.13)
-2026-05-23T22:35:53.684+05:00  INFO 26636 --- [gamematch] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.016s)
-2026-05-23T22:35:53.724+05:00  INFO 26636 --- [gamematch] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 3
-2026-05-23T22:35:53.726+05:00  INFO 26636 --- [gamematch] [           main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
-2026-05-23T22:35:53.760+05:00  INFO 26636 --- [gamematch] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-05-23T22:35:53.764+05:00  INFO 26636 --- [gamematch] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-05-23T22:35:53.780+05:00  INFO 26636 --- [gamematch] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-05-23T22:35:53.792+05:00  INFO 26636 --- [gamematch] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+2026-05-24T04:24:53.062+05:00  INFO 21712 --- [           main] k.g.security.SecurityIntegrationTests    : Starting SecurityIntegrationTests using Java 17.0.18 with PID 21712 (started by kyrlu in C:\Users\kyrlu\IdeaProjects\gamematch-backend)
+2026-05-24T04:24:53.062+05:00  INFO 21712 --- [           main] k.g.security.SecurityIntegrationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-05-24T04:24:53.282+05:00  INFO 21712 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-24T04:24:53.309+05:00  INFO 21712 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 11 JPA repository interfaces.
+2026-05-24T04:24:53.411+05:00  INFO 21712 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-05-24T04:24:53.427+05:00  INFO 21712 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@79715834
+2026-05-24T04:24:53.428+05:00  INFO 21712 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-05-24T04:24:53.429+05:00  INFO 21712 --- [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5439/gamematch_test_db (PostgreSQL 16.13)
+2026-05-24T04:24:53.460+05:00  INFO 21712 --- [           main] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.014s)
+2026-05-24T04:24:53.490+05:00  INFO 21712 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 6
+2026-05-24T04:24:53.491+05:00  INFO 21712 --- [           main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-05-24T04:24:53.512+05:00  INFO 21712 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-24T04:24:53.515+05:00  INFO 21712 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-05-24T04:24:53.525+05:00  INFO 21712 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-24T04:24:53.534+05:00  INFO 21712 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
 	Database driver: undefined/unknown
 	Database version: 16.13
@@ -103,606 +101,22 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-05-23T22:35:53.869+05:00  INFO 26636 --- [gamematch] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-05-23T22:35:53.900+05:00  INFO 26636 --- [gamematch] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-05-23T22:35:53.964+05:00  WARN 26636 --- [gamematch] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-05-23T22:35:53.975+05:00  INFO 26636 --- [gamematch] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name gamematchUserDetailsService
-2026-05-23T22:35:54.246+05:00  INFO 26636 --- [gamematch] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2026-05-23T22:35:54.246+05:00  INFO 26636 --- [gamematch] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2026-05-23T22:35:54.247+05:00  INFO 26636 --- [gamematch] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2026-05-23T22:35:54.260+05:00  INFO 26636 --- [gamematch] [           main] k.g.security.SecurityIntegrationTests    : Started SecurityIntegrationTests in 1.014 seconds (process running for 7.886)
-Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.name=?
-Hibernate: 
-    insert 
-    into
-        users
-        (created_at, email, is_blocked, password, role_id) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
+2026-05-24T04:24:53.620+05:00  INFO 21712 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-24T04:24:53.649+05:00  INFO 21712 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-24T04:24:53.775+05:00  WARN 21712 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-05-24T04:24:53.784+05:00  INFO 21712 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name gamematchUserDetailsService
+2026-05-24T04:24:53.978+05:00  INFO 21712 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-05-24T04:24:53.978+05:00  INFO 21712 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-05-24T04:24:53.980+05:00  INFO 21712 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-05-24T04:24:53.992+05:00  INFO 21712 --- [           main] k.g.security.SecurityIntegrationTests    : Started SecurityIntegrationTests in 0.951 seconds (process running for 8.681)
 ]]></system-out>
   </testcase>
-  <testcase name="authEndpointsArePublicAndReturnJwt" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.278">
-    <system-out><![CDATA[Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    delete 
-    from
-        users 
-    where
-        id=?
-Hibernate: 
-    select
-        u1_0.id 
-    from
-        users u1_0 
-    where
-        u1_0.email=? 
-    fetch
-        first ? rows only
-Hibernate: 
-    select
-        pp1_0.id 
-    from
-        player_profiles pp1_0 
-    where
-        pp1_0.nickname=? 
-    fetch
-        first ? rows only
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.name=?
-Hibernate: 
-    insert 
-    into
-        users
-        (created_at, email, is_blocked, password, role_id) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    insert 
-    into
-        player_profiles
-        (average_play_time, bio, completed_matches, karma, nickname, timezone, user_id) 
-    values
-        (?, ?, ?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
-]]></system-out>
-  </testcase>
-  <testcase name="adminCanAccessPlayerAndAdminZones" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.123">
-    <system-out><![CDATA[Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    delete 
-    from
-        player_profiles 
-    where
-        id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    delete 
-    from
-        users 
-    where
-        id=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.name=?
-Hibernate: 
-    insert 
-    into
-        users
-        (created_at, email, is_blocked, password, role_id) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
-]]></system-out>
-  </testcase>
-  <testcase name="adminCanDeleteInactiveRequestsEndpoint" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.101">
-    <system-out><![CDATA[Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    delete 
-    from
-        users 
-    where
-        id=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.name=?
-Hibernate: 
-    insert 
-    into
-        users
-        (created_at, email, is_blocked, password, role_id) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
-]]></system-out>
-  </testcase>
-  <testcase name="protectedPlayerZoneRequiresJwt" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.02">
-    <system-out><![CDATA[Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    delete 
-    from
-        users 
-    where
-        id=?
-]]></system-out>
-  </testcase>
-  <testcase name="blockedUserTokenIsRejected" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.091">
-    <system-out><![CDATA[Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.name=?
-Hibernate: 
-    insert 
-    into
-        users
-        (created_at, email, is_blocked, password, role_id) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
-]]></system-out>
-  </testcase>
-  <testcase name="playerCannotAccessAdminZones" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.109">
-    <system-out><![CDATA[Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    delete 
-    from
-        users 
-    where
-        id=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.name=?
-Hibernate: 
-    insert 
-    into
-        users
-        (created_at, email, is_blocked, password, role_id) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.id=?
-]]></system-out>
-  </testcase>
-  <testcase name="blockedUserCannotLogin" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.096">
-    <system-out><![CDATA[Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    delete 
-    from
-        users 
-    where
-        id=?
-Hibernate: 
-    select
-        r1_0.id,
-        r1_0.name 
-    from
-        roles r1_0 
-    where
-        r1_0.name=?
-Hibernate: 
-    insert 
-    into
-        users
-        (created_at, email, is_blocked, password, role_id) 
-    values
-        (?, ?, ?, ?, ?)
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0 
-    where
-        u1_0.email=?
-]]></system-out>
-  </testcase>
-  <testcase name="invalidJwtCannotAccessProtectedZone" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.017">
-    <system-out><![CDATA[Hibernate: 
-    select
-        pp1_0.id,
-        pp1_0.average_play_time,
-        pp1_0.bio,
-        pp1_0.completed_matches,
-        pp1_0.karma,
-        pp1_0.nickname,
-        pp1_0.timezone,
-        pp1_0.user_id 
-    from
-        player_profiles pp1_0
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.is_blocked,
-        u1_0.password,
-        u1_0.role_id 
-    from
-        users u1_0
-Hibernate: 
-    delete 
-    from
-        users 
-    where
-        id=?
-]]></system-out>
-  </testcase>
+  <testcase name="authEndpointsArePublicAndReturnJwt" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.255"/>
+  <testcase name="adminCanAccessPlayerAndAdminZones" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.115"/>
+  <testcase name="adminCanDeleteInactiveRequestsEndpoint" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.099"/>
+  <testcase name="protectedPlayerZoneRequiresJwt" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.017"/>
+  <testcase name="blockedUserTokenIsRejected" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.096"/>
+  <testcase name="playerCannotAccessAdminZones" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.106"/>
+  <testcase name="blockedUserCannotLogin" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.095"/>
+  <testcase name="invalidJwtCannotAccessProtectedZone" classname="kz.gamematch.security.SecurityIntegrationTests" time="0.018"/>
 </testsuite>

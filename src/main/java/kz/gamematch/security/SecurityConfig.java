@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint()))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/login", "/register", "/logout", "/css/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/error").permitAll()
 
@@ -50,7 +51,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/notifications/**").hasAnyRole("PLAYER", "ADMIN")
                         .requestMatchers("/api/exports/me/**").hasAnyRole("PLAYER", "ADMIN")
 
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())

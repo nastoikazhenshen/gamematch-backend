@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Страница не найдена | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<main class="error-page">
+    <section class="error-panel">
+        <p class="eyebrow">404</p>
+        <h1>Страница не найдена</h1>
+        <p class="muted">
+            Такой страницы нет или ссылка устарела. Проверь адрес или вернись к рабочим разделам GameMatch.
+        </p>
+        <dl class="details compact" th:if="${path != null}">
+            <dt>Путь</dt>
+            <dd th:text="${path}">/path</dd>
+        </dl>
+        <div class="error-actions">
+            <a class="button primary" th:href="@{/dashboard}">В кабинет</a>
+            <a class="button ghost" th:href="@{/requests}">К заявкам</a>
+            <a class="button ghost" th:href="@{/login}">Войти</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>
