@@ -5,8 +5,14 @@ import kz.gamematch.dto.request.CreateTeammateRequestDto;
 import kz.gamematch.dto.request.TeammateRequestResponseDto;
 import kz.gamematch.service.request.TeammateRequestService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -24,14 +30,28 @@ public class TeammateRequestController {
     }
 
     @GetMapping
-    public List<TeammateRequestResponseDto> getAllActiveRequests(
-            @RequestParam(required = false) Long gameId
+    public Page<TeammateRequestResponseDto> getAllActiveRequests(
+            @RequestParam(required = false) Long gameId,
+            @RequestParam(required = false) String role,
+            @RequestParam(required = false) String minRank,
+            @RequestParam(required = false) String maxRank,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime desiredFrom,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            LocalDateTime desiredTo,
+            @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        if (gameId != null) {
-            return teammateRequestService.getRequestsByGame(gameId);
-        }
-
-        return teammateRequestService.getAllActiveRequests();
+        return teammateRequestService.searchActiveRequests(
+                gameId,
+                role,
+                minRank,
+                maxRank,
+                desiredFrom,
+                desiredTo,
+                pageable
+        );
     }
 
     @GetMapping("/{requestId}")

@@ -11,10 +11,16 @@ import kz.gamematch.repository.GameRepository;
 import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.TeammateRequestRepository;
 import kz.gamematch.repository.UserRepository;
+import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,6 +70,23 @@ public class TeammateRequestService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public Page<TeammateRequestResponseDto> searchActiveRequests(
+            Long gameId,
+            String role,
+            String minRank,
+            String maxRank,
+            LocalDateTime desiredFrom,
+            LocalDateTime desiredTo,
+            Pageable pageable
+    ) {
+        return teammateRequestRepository.findAll(
+                        activeRequestsSpecification(gameId, role, minRank, maxRank, desiredFrom, desiredTo),
+                        pageable
+                )
+                .map(this::mapToDto);
+    }
+
     public List<TeammateRequestResponseDto> getMyRequests(Long authorId) {
         return teammateRequestRepository.findByAuthorId(authorId)
                 .stream()
@@ -109,5 +132,59 @@ public class TeammateRequestService {
                 request.getStatus(),
                 request.getCreatedAt()
         );
+    }
+
+    private Specification<TeammateRequest> activeRequestsSpecification(
+            Long gameId,
+            String role,
+            String minRank,
+            String maxRank,
+            LocalDateTime desiredFrom,
+            LocalDateTime desiredTo
+    ) {
+        return (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            predicates.add(criteriaBuilder.equal(root.get("status"), RequestStatus.ACTIVE));
+
+            if (gameId != null) {
+                predicates.add(criteriaBuilder.equal(root.get("game").get("id"), gameId));
+            }
+
+            if (hasText(role)) {
+                predicates.add(criteriaBuilder.equal(
+                        criteriaBuilder.lower(root.get("requiredRole")),
+                        role.trim().toLowerCase()
+                ));
+            }
+
+            if (hasText(minRank)) {
+                predicates.add(criteriaBuilder.equal(
+                        criteriaBuilder.lower(root.get("minRank")),
+                        minRank.trim().toLowerCase()
+                ));
+            }
+
+            if (hasText(maxRank)) {
+                predicates.add(criteriaBuilder.equal(
+                        criteriaBuilder.lower(root.get("maxRank")),
+                        maxRank.trim().toLowerCase()
+                ));
+            }
+
+            if (desiredFrom != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("desiredPlayTime"), desiredFrom));
+            }
+
+            if (desiredTo != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("desiredPlayTime"), desiredTo));
+            }
+
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.trim().isEmpty();
     }
 }
