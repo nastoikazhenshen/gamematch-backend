@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gamematch-postgres
+    environment:
+      POSTGRES_DB: gamematch_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5439:5432"
+    volumes:
+      - gamematch-postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  gamematch-postgres-data:
