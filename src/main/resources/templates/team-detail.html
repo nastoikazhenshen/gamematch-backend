@@ -34,7 +34,10 @@
                 <article class="message" th:each="message : ${messages}">
                     <header>
                         <strong th:text="${message.senderNickname}">Nick</strong>
-                        <span th:text="${message.createdAt}">date</span>
+                        <time th:datetime="${#temporals.format(message.createdAt, 'yyyy-MM-dd''T''HH:mm:ss')}"
+                              th:text="${#temporals.format(message.createdAt, 'dd.MM.yyyy в HH:mm')}">
+                            27.05.2026 в 20:00
+                        </time>
                     </header>
                     <p th:text="${message.content}">Message</p>
                 </article>

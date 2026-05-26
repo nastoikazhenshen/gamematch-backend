@@ -17,7 +17,14 @@
     </section>
     <div class="empty" th:if="${#lists.isEmpty(teams)}">Команд пока нет.</div>
     <table th:if="${!#lists.isEmpty(teams)}">
-        <thead><tr><th>ID</th><th>Игра</th><th>Участники</th><th>Создана</th></tr></thead>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Игра</th>
+            <th>Участники</th>
+            <th>Создана</th>
+        </tr>
+        </thead>
         <tbody>
         <tr th:each="team : ${teams}">
             <td><a th:href="@{/teams/{id}(id=${team.id})}" th:text="${team.id}">1</a></td>
@@ -26,7 +33,13 @@
                 <span th:each="member, iter : ${team.members}"
                       th:text="${member.nickname + (iter.last ? '' : ', ')}">Nick</span>
             </td>
-            <td th:text="${team.createdAt}">date</td>
+            <td>
+                <time class="time-pill"
+                      th:datetime="${#temporals.format(team.createdAt, 'yyyy-MM-dd''T''HH:mm:ss')}"
+                      th:text="${#temporals.format(team.createdAt, 'dd.MM.yyyy в HH:mm')}">
+                    27.05.2026 в 20:00
+                </time>
+            </td>
         </tr>
         </tbody>
     </table>

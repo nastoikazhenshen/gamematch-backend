@@ -2,14 +2,24 @@ package kz.gamematch.service.profile;
 
 import kz.gamematch.dto.profile.ProfileResponseDto;
 import kz.gamematch.dto.profile.UpdateProfileRequestDto;
+import kz.gamematch.dto.profile.PlayerGameResponseDto;
+import kz.gamematch.dto.profile.UpsertPlayerGameRequestDto;
+import kz.gamematch.entity.Game;
+import kz.gamematch.entity.GameRank;
+import kz.gamematch.entity.PlayerGame;
 import kz.gamematch.entity.PlayerProfile;
 import kz.gamematch.entity.User;
+import kz.gamematch.repository.GameRankRepository;
+import kz.gamematch.repository.GameRepository;
+import kz.gamematch.repository.PlayerGameRepository;
 import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +27,9 @@ public class ProfileService {
 
     private final PlayerProfileRepository playerProfileRepository;
     private final UserRepository userRepository;
+    private final PlayerGameRepository playerGameRepository;
+    private final GameRepository gameRepository;
+    private final GameRankRepository gameRankRepository;
 
     public ProfileResponseDto getProfileByUserId(Long userId) {
         PlayerProfile profile = playerProfileRepository.findByUserId(userId)
@@ -66,6 +79,81 @@ public class ProfileService {
         return mapToDto(savedProfile);
     }
 
+    @Transactional
+    public List<PlayerGameResponseDto> getProfileGamesByUserId(Long userId) {
+        PlayerProfile profile = playerProfileRepository.findByUserId(userId)
+                .orElseGet(() -> createDefaultProfile(userId));
+
+        return getProfileGames(profile.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PlayerGameResponseDto> getProfileGames(Long profileId) {
+        if (!playerProfileRepository.existsById(profileId)) {
+            throw new RuntimeException("Profile not found");
+        }
+
+        return playerGameRepository.findByProfileId(profileId)
+                .stream()
+                .map(this::mapPlayerGameToDto)
+                .toList();
+    }
+
+    @Transactional
+    public PlayerGameResponseDto addOrUpdatePlayerGame(Long userId, UpsertPlayerGameRequestDto request) {
+        PlayerProfile profile = playerProfileRepository.findByUserId(userId)
+                .orElseGet(() -> createDefaultProfile(userId));
+        Game game = gameRepository.findById(request.getGameId())
+                .orElseThrow(() -> new RuntimeException("Game not found"));
+
+        validateRank(game.getId(), request.getRank());
+
+        PlayerGame playerGame = playerGameRepository.findByProfileIdAndGameId(profile.getId(), game.getId())
+                .orElseGet(() -> {
+                    PlayerGame created = new PlayerGame();
+                    created.setProfile(profile);
+                    created.setGame(game);
+                    return created;
+                });
+
+        playerGame.setRank(blankToNull(request.getRank()));
+        playerGame.setMainRole(blankToNull(request.getMainRole()));
+
+        return mapPlayerGameToDto(playerGameRepository.save(playerGame));
+    }
+
+    @Transactional
+    public PlayerGameResponseDto updatePlayerGame(Long userId, Long playerGameId, UpsertPlayerGameRequestDto request) {
+        PlayerProfile profile = playerProfileRepository.findByUserId(userId)
+                .orElseGet(() -> createDefaultProfile(userId));
+        PlayerGame playerGame = playerGameRepository.findById(playerGameId)
+                .orElseThrow(() -> new RuntimeException("Player game not found"));
+
+        if (!playerGame.getProfile().getId().equals(profile.getId())) {
+            throw new RuntimeException("Only profile owner can update player game");
+        }
+
+        validateRank(playerGame.getGame().getId(), request.getRank());
+        playerGame.setRank(blankToNull(request.getRank()));
+        playerGame.setMainRole(blankToNull(request.getMainRole()));
+
+        return mapPlayerGameToDto(playerGameRepository.save(playerGame));
+    }
+
+    @Transactional
+    public void deletePlayerGame(Long userId, Long playerGameId) {
+        PlayerProfile profile = playerProfileRepository.findByUserId(userId)
+                .orElseGet(() -> createDefaultProfile(userId));
+        PlayerGame playerGame = playerGameRepository.findById(playerGameId)
+                .orElseThrow(() -> new RuntimeException("Player game not found"));
+
+        if (!playerGame.getProfile().getId().equals(profile.getId())) {
+            throw new RuntimeException("Only profile owner can delete player game");
+        }
+
+        playerGameRepository.delete(playerGame);
+    }
+
     private ProfileResponseDto mapToDto(PlayerProfile profile) {
         return new ProfileResponseDto(
                 profile.getId(),
@@ -78,6 +166,40 @@ public class ProfileService {
                 profile.getKarma(),
                 profile.getCompletedMatches()
         );
+    }
+
+    private PlayerGameResponseDto mapPlayerGameToDto(PlayerGame playerGame) {
+        return new PlayerGameResponseDto(
+                playerGame.getId(),
+                playerGame.getGame().getId(),
+                playerGame.getGame().getName(),
+                playerGame.getRank(),
+                rankImageUrl(playerGame),
+                playerGame.getMainRole()
+        );
+    }
+
+    private String rankImageUrl(PlayerGame playerGame) {
+        if (playerGame.getRank() == null || playerGame.getRank().isBlank()) {
+            return null;
+        }
+
+        return gameRankRepository.findByGameIdAndNameIgnoreCase(playerGame.getGame().getId(), playerGame.getRank())
+                .map(GameRank::getImageUrl)
+                .orElse(null);
+    }
+
+    private void validateRank(Long gameId, String rank) {
+        if (rank == null || rank.isBlank()) {
+            return;
+        }
+
+        gameRankRepository.findByGameIdAndNameIgnoreCase(gameId, rank.trim())
+                .orElseThrow(() -> new RuntimeException("Rank does not belong to selected game"));
+    }
+
+    private String blankToNull(String value) {
+        return value == null || value.isBlank() ? null : value.trim();
     }
 
     private PlayerProfile createDefaultProfile(Long userId) {

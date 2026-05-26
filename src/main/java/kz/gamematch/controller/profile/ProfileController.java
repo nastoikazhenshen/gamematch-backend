@@ -1,11 +1,15 @@
 package kz.gamematch.controller.profile;
 
 import jakarta.validation.Valid;
+import kz.gamematch.dto.profile.PlayerGameResponseDto;
 import kz.gamematch.dto.profile.ProfileResponseDto;
 import kz.gamematch.dto.profile.UpdateProfileRequestDto;
+import kz.gamematch.dto.profile.UpsertPlayerGameRequestDto;
 import kz.gamematch.service.profile.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/profiles")
@@ -35,5 +39,37 @@ public class ProfileController {
     @GetMapping("/search")
     public ProfileResponseDto searchByNickname(@RequestParam String nickname) {
         return profileService.searchByNickname(nickname);
+    }
+
+    @GetMapping("/me/{userId}/games")
+    public List<PlayerGameResponseDto> getMyGames(@PathVariable Long userId) {
+        return profileService.getProfileGamesByUserId(userId);
+    }
+
+    @PostMapping("/me/{userId}/games")
+    public PlayerGameResponseDto addOrUpdateMyGame(
+            @PathVariable Long userId,
+            @Valid @RequestBody UpsertPlayerGameRequestDto request
+    ) {
+        return profileService.addOrUpdatePlayerGame(userId, request);
+    }
+
+    @PutMapping("/me/{userId}/games/{playerGameId}")
+    public PlayerGameResponseDto updateMyGame(
+            @PathVariable Long userId,
+            @PathVariable Long playerGameId,
+            @Valid @RequestBody UpsertPlayerGameRequestDto request
+    ) {
+        return profileService.updatePlayerGame(userId, playerGameId, request);
+    }
+
+    @DeleteMapping("/me/{userId}/games/{playerGameId}")
+    public void deleteMyGame(@PathVariable Long userId, @PathVariable Long playerGameId) {
+        profileService.deletePlayerGame(userId, playerGameId);
+    }
+
+    @GetMapping("/{profileId}/games")
+    public List<PlayerGameResponseDto> getProfileGames(@PathVariable Long profileId) {
+        return profileService.getProfileGames(profileId);
     }
 }

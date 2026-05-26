@@ -4,3 +4,4 @@ kz\gamematch\security\jwt\JwtServiceTests.class
 kz\gamematch\security\SecurityIntegrationTests$TestEndpoints$TestController.class
 kz\gamematch\GamematchApplicationTests.class
 kz\gamematch\security\SecurityIntegrationTests.class
+kz\gamematch\service\profile\ProfilePlayerGameServiceTests.class
