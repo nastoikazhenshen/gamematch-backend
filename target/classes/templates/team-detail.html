@@ -15,7 +15,16 @@
             <p class="eyebrow" th:text="${team.gameName}">Game</p>
             <h1 th:text="'Команда #' + ${team.id}">Команда</h1>
         </div>
-        <a class="button ghost" th:href="@{/requests/{id}(id=${team.requestId})}">К заявке</a>
+        <div class="actions">
+            <form th:if="${team.completedAt == null}" th:action="@{/teams/{id}/complete(id=${team.id})}" method="post">
+                <button type="submit" class="button primary">Завершить матч</button>
+            </form>
+            <span class="time-pill" th:if="${team.completedAt != null}"
+                  th:text="${'Матч завершен ' + #temporals.format(team.completedAt, 'dd.MM.yyyy в HH:mm')}">
+                Матч завершен
+            </span>
+            <a class="button ghost" th:href="@{/requests/{id}(id=${team.requestId})}">К заявке</a>
+        </div>
     </section>
 
     <section class="split">
@@ -27,6 +36,55 @@
                 </li>
             </ul>
         </div>
+
+        <div class="panel">
+            <h2>Оценка тиммейта</h2>
+            <p class="empty" th:if="${team.completedAt == null}">Оценки откроются после завершения матча.</p>
+            <form th:if="${team.completedAt != null}" th:action="@{/teams/{id}/reviews(id=${team.id})}" method="post" class="form-stack">
+                <label>Тиммейт
+                    <select name="reviewedUserId" required>
+                        <option value="">Выберите игрока</option>
+                        <option th:each="member : ${team.members}"
+                                th:if="${member.userId != currentUserId}"
+                                th:value="${member.userId}"
+                                th:text="${member.nickname}">
+                            Nick
+                        </option>
+                    </select>
+                </label>
+                <label>Оценка
+                    <select name="stars" required>
+                        <option value="5">5 звезд</option>
+                        <option value="4">4 звезды</option>
+                        <option value="3">3 звезды</option>
+                        <option value="2">2 звезды</option>
+                        <option value="1">1 звезда</option>
+                    </select>
+                </label>
+                <label>Отзыв
+                    <textarea name="comment" rows="4" maxlength="1000" placeholder="Как прошла игра?"></textarea>
+                </label>
+                <button type="submit" class="button primary">Сохранить оценку</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="split">
+        <div class="panel">
+            <h2>Отзывы команды</h2>
+            <p class="empty" th:if="${#lists.isEmpty(reviews)}">Отзывов пока нет.</p>
+            <div class="review-list" th:if="${!#lists.isEmpty(reviews)}">
+                <article class="review-card" th:each="review : ${reviews}">
+                    <header>
+                        <strong th:text="${review.reviewedUserNickname}">Player</strong>
+                        <span class="stars" th:text="${review.stars + ' / 5'}">5 / 5</span>
+                    </header>
+                    <p class="muted" th:text="${'От ' + review.reviewerNickname}">От Nick</p>
+                    <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
+                </article>
+            </div>
+        </div>
+
         <div class="panel chat-panel">
             <h2>Чат</h2>
             <div class="chat-log">

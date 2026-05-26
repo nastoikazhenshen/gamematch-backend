@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="kz.gamematch.security.user.GamematchUserDetailsServiceTests" time="0.58" tests="3" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="kz.gamematch.service.team.MatchCompletionReviewTests" time="1.08" tests="4" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -66,7 +66,12 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="unknownUserThrowsUsernameNotFoundException" classname="kz.gamematch.security.user.GamematchUserDetailsServiceTests" time="0.068"/>
-  <testcase name="loadsUserWithRoleAuthority" classname="kz.gamematch.security.user.GamematchUserDetailsServiceTests" time="0.05"/>
-  <testcase name="blockedUserIsDisabled" classname="kz.gamematch.security.user.GamematchUserDetailsServiceTests" time="0.003"/>
+  <testcase name="cannotReviewBeforeCompletionOrReviewYourself" classname="kz.gamematch.service.team.MatchCompletionReviewTests" time="0.204">
+    <system-out><![CDATA[2026-05-27T03:12:11.146+05:00  INFO 33232 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [kz.gamematch.service.team.MatchCompletionReviewTests]: MatchCompletionReviewTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-27T03:12:11.170+05:00  INFO 33232 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration kz.gamematch.GamematchApplication for test class kz.gamematch.service.team.MatchCompletionReviewTests
+]]></system-out>
+  </testcase>
+  <testcase name="reviewAfterCompletedMatchRecalculatesKarmaFromAverageStars" classname="kz.gamematch.service.team.MatchCompletionReviewTests" time="0.451"/>
+  <testcase name="outsiderCannotCompleteOrReviewMatch" classname="kz.gamematch.service.team.MatchCompletionReviewTests" time="0.216"/>
+  <testcase name="teamMemberCanCompleteMatchAndCompletedMatchesAreUpdated" classname="kz.gamematch.service.team.MatchCompletionReviewTests" time="0.174"/>
 </testsuite>

@@ -236,7 +236,7 @@ textarea {
 }
 
 .stats-grid.compact-stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     margin-top: 18px;
 }
 
@@ -256,6 +256,13 @@ textarea {
 
 .stat strong {
     font-size: 24px;
+}
+
+.karma-line {
+    color: var(--primary-dark);
+    font-size: 15px;
+    font-weight: 800;
+    margin: 8px 0 0;
 }
 
 .split {
@@ -421,6 +428,39 @@ tr:last-child td {
 .message p {
     margin: 8px 0 0;
     white-space: pre-wrap;
+}
+
+.review-list {
+    display: grid;
+    gap: 12px;
+}
+
+.review-card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.review-card header {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.review-card p {
+    margin: 8px 0 0;
+}
+
+.stars {
+    background: #fff7e0;
+    border: 1px solid #ecd58c;
+    border-radius: 999px;
+    color: #735400;
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 8px;
 }
 
 .message-form {

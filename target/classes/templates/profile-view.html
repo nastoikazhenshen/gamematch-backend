@@ -13,6 +13,7 @@
         <div>
             <p class="eyebrow">Профиль игрока</p>
             <h1 th:text="${profile.nickname}">Nickname</h1>
+            <p class="karma-line">Karma: <strong th:text="${profile.karma}">0</strong></p>
         </div>
     </section>
     <section class="panel">
@@ -63,6 +64,23 @@
                         <span class="badge" th:if="${playerGame.mainRole != null}" th:text="${playerGame.mainRole}">Role</span>
                     </div>
                 </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Отзывы</h2>
+        </div>
+        <p class="empty" th:if="${reviews == null || #lists.isEmpty(reviews)}">Отзывов пока нет.</p>
+        <div class="review-list" th:if="${reviews != null && !#lists.isEmpty(reviews)}">
+            <article class="review-card" th:each="review : ${reviews}">
+                <header>
+                    <strong th:text="${review.stars + ' / 5'}">5 / 5</strong>
+                    <span th:text="${#temporals.format(review.createdAt, 'dd.MM.yyyy')}">27.05.2026</span>
+                </header>
+                <p class="muted" th:text="${'От ' + review.reviewerNickname}">От Nick</p>
+                <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
             </article>
         </div>
     </section>

@@ -23,6 +23,7 @@
 
     <section class="panel" th:if="${profile != null}">
         <h2><a th:href="@{/profiles/{id}(id=${profile.id})}" th:text="${profile.nickname}">Nickname</a></h2>
+        <p class="karma-line">Karma: <strong th:text="${profile.karma}">0</strong></p>
         <dl class="details">
             <dt>Email</dt><dd th:text="${profile.email}">email</dd>
             <dt>Karma</dt><dd th:text="${profile.karma}">0</dd>
@@ -49,6 +50,21 @@
                         <span class="badge" th:if="${playerGame.mainRole != null}" th:text="${playerGame.mainRole}">Role</span>
                     </div>
                 </div>
+            </article>
+        </div>
+
+        <div class="section-title inner">
+            <h2>Отзывы</h2>
+        </div>
+        <p class="empty" th:if="${reviews == null || #lists.isEmpty(reviews)}">Отзывов пока нет.</p>
+        <div class="review-list" th:if="${reviews != null && !#lists.isEmpty(reviews)}">
+            <article class="review-card" th:each="review : ${reviews}">
+                <header>
+                    <strong th:text="${review.stars + ' / 5'}">5 / 5</strong>
+                    <span th:text="${#temporals.format(review.createdAt, 'dd.MM.yyyy')}">27.05.2026</span>
+                </header>
+                <p class="muted" th:text="${'От ' + review.reviewerNickname}">От Nick</p>
+                <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
             </article>
         </div>
     </section>

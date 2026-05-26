@@ -8,6 +8,7 @@ import kz.gamematch.dto.profile.UpsertPlayerGameRequestDto;
 import kz.gamematch.repository.GameRankRepository;
 import kz.gamematch.repository.GameRepository;
 import kz.gamematch.service.profile.ProfileService;
+import kz.gamematch.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,7 @@ public class WebProfileController extends WebSessionSupport {
     private final ProfileService profileService;
     private final GameRepository gameRepository;
     private final GameRankRepository gameRankRepository;
+    private final TeamService teamService;
 
     @GetMapping("/profiles/me")
     public String myProfile(Model model, HttpSession session) {
@@ -68,6 +70,7 @@ public class WebProfileController extends WebSessionSupport {
         addSessionAttributes(model, session);
         model.addAttribute("profile", profile);
         model.addAttribute("stats", profileService.getStatsByUserId(profile.getUserId()));
+        model.addAttribute("reviews", teamService.getReceivedReviews(profile.getUserId()));
         model.addAttribute("profileForm", form);
         model.addAttribute("playerGames", profileService.getProfileGamesByUserId(currentUserId(session)));
         model.addAttribute("games", gameRepository.findAll(Sort.by("name")));
@@ -183,6 +186,7 @@ public class WebProfileController extends WebSessionSupport {
                 ProfileResponseDto profile = profileService.searchByNickname(nickname);
                 model.addAttribute("profile", profile);
                 model.addAttribute("stats", profileService.getStatsByUserId(profile.getUserId()));
+                model.addAttribute("reviews", teamService.getReceivedReviews(profile.getUserId()));
                 model.addAttribute("playerGames", profileService.getProfileGames(profile.getId()));
             } catch (RuntimeException ex) {
                 model.addAttribute("error", ex.getMessage());
@@ -204,6 +208,7 @@ public class WebProfileController extends WebSessionSupport {
         model.addAttribute("profile", profile);
         model.addAttribute("playerGames", playerGames);
         model.addAttribute("stats", profileService.getStatsByUserId(profile.getUserId()));
+        model.addAttribute("reviews", teamService.getReceivedReviews(profile.getUserId()));
         return "profile-view";
     }
 

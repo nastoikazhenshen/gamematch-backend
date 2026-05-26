@@ -88,7 +88,7 @@ class ProfileStatsServiceTests {
         RequestResponse accepted = createResponse(firstRequest, responder, ResponseStatus.ACCEPTED);
         createResponse(secondRequest, responder, ResponseStatus.REJECTED);
         createResponse(thirdRequest, responder, ResponseStatus.PENDING);
-        createTeam(firstRequest, accepted, author, responder);
+        createTeam(firstRequest, accepted, author, responder, true);
 
         PlayerStatsResponseDto stats = profileService.getStatsByUserId(responder.getId());
 
@@ -179,12 +179,22 @@ class ProfileStatsServiceTests {
         return requestResponseRepository.save(response);
     }
 
-    private void createTeam(TeammateRequest request, RequestResponse acceptedResponse, User first, User second) {
+    private void createTeam(
+            TeammateRequest request,
+            RequestResponse acceptedResponse,
+            User first,
+            User second,
+            boolean completed
+    ) {
         Team team = new Team();
         team.setRequest(request);
         team.setAcceptedResponse(acceptedResponse);
         team.setGame(game);
         team.setCreatedAt(LocalDateTime.now());
+        if (completed) {
+            team.setCompletedAt(LocalDateTime.now());
+            team.setCompletedBy(first);
+        }
         Team savedTeam = teamRepository.save(team);
 
         teamMemberRepository.save(createMember(savedTeam, first));

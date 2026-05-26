@@ -23,4 +23,8 @@ public class TeamResponseDto {
     private List<TeamMemberDto> members;
 
     private LocalDateTime createdAt;
+
+    private LocalDateTime completedAt;
+
+    private Long completedByUserId;
 }
