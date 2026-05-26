@@ -1,5 +1,6 @@
 kz\gamematch\security\SecurityIntegrationTests$TestEndpoints.class
 kz\gamematch\security\user\GamematchUserDetailsServiceTests.class
+kz\gamematch\service\profile\ProfileStatsServiceTests.class
 kz\gamematch\security\jwt\JwtServiceTests.class
 kz\gamematch\security\SecurityIntegrationTests$TestEndpoints$TestController.class
 kz\gamematch\GamematchApplicationTests.class

@@ -13,6 +13,10 @@ public interface RequestResponseRepository extends JpaRepository<RequestResponse
 
     List<RequestResponse> findByResponderId(Long responderId);
 
+    long countByResponderId(Long responderId);
+
+    long countByResponderIdAndStatus(Long responderId, ResponseStatus status);
+
     Optional<RequestResponse> findByRequestIdAndResponderId(Long requestId, Long responderId);
 
     boolean existsByRequestIdAndResponderId(Long requestId, Long responderId);

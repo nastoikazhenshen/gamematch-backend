@@ -15,4 +15,6 @@ public interface TeammateRequestRepository extends JpaRepository<TeammateRequest
     List<TeammateRequest> findByGameIdAndStatus(Long gameId, RequestStatus status);
 
     List<TeammateRequest> findByAuthorId(Long authorId);
+
+    long countByAuthorId(Long authorId);
 }

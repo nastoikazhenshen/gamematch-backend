@@ -61,6 +61,25 @@
         </form>
     </section>
 
+    <section class="stats-grid compact-stats">
+        <article class="stat">
+            <span>Матчи через сервис</span>
+            <strong th:text="${stats.playedMatches}">0</strong>
+        </article>
+        <article class="stat">
+            <span>Принятые отклики</span>
+            <strong th:text="${stats.acceptedResponses + ' / ' + stats.sentResponses}">0 / 0</strong>
+        </article>
+        <article class="stat">
+            <span>Процент принятия</span>
+            <strong th:text="${stats.acceptedResponseRate + '%'}">0%</strong>
+        </article>
+        <article class="stat">
+            <span>Создано заявок</span>
+            <strong th:text="${stats.authoredRequests}">0</strong>
+        </article>
+    </section>
+
     <section class="panel stack">
         <div class="section-title">
             <h2>Игры в профиле</h2>

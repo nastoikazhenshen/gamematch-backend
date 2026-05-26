@@ -20,12 +20,15 @@
         <input type="text" name="nickname" th:value="${query}" placeholder="Никнейм">
         <button type="submit" class="button primary">Найти</button>
     </form>
+
     <section class="panel" th:if="${profile != null}">
         <h2><a th:href="@{/profiles/{id}(id=${profile.id})}" th:text="${profile.nickname}">Nickname</a></h2>
         <dl class="details">
             <dt>Email</dt><dd th:text="${profile.email}">email</dd>
             <dt>Karma</dt><dd th:text="${profile.karma}">0</dd>
-            <dt>Матчи</dt><dd th:text="${profile.completedMatches}">0</dd>
+            <dt>Матчи</dt><dd th:text="${stats.playedMatches}">0</dd>
+            <dt>Принятие откликов</dt><dd th:text="${stats.acceptedResponseRate + '%'}">0%</dd>
+            <dt>Отклики</dt><dd th:text="${stats.acceptedResponses + ' / ' + stats.sentResponses}">0 / 0</dd>
             <dt>Время</dt><dd th:text="${profile.averagePlayTime != null ? profile.averagePlayTime : '-'}">-</dd>
         </dl>
 
@@ -48,6 +51,29 @@
                 </div>
             </article>
         </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Предложенные игроки</h2>
+        </div>
+        <p class="empty" th:if="${suggestedPlayers == null || #lists.isEmpty(suggestedPlayers)}">Пока нет игроков для рекомендации.</p>
+        <table th:if="${suggestedPlayers != null && !#lists.isEmpty(suggestedPlayers)}">
+            <thead>
+            <tr>
+                <th>Игрок</th>
+                <th>Заявки</th>
+                <th>Karma</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="player : ${suggestedPlayers}">
+                <td><a th:href="@{/profiles/{id}(id=${player.profileId})}" th:text="${player.nickname}">Nickname</a></td>
+                <td th:text="${player.requestCount}">0</td>
+                <td th:text="${player.karma}">0</td>
+            </tr>
+            </tbody>
+        </table>
     </section>
 </main>
 </body>

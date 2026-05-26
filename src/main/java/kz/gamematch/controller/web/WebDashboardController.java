@@ -27,6 +27,7 @@ public class WebDashboardController extends WebSessionSupport {
         Long userId = currentUserId(session);
         addSessionAttributes(model, session);
         model.addAttribute("profile", profileService.getProfileByUserId(userId));
+        model.addAttribute("stats", profileService.getStatsByUserId(userId));
         model.addAttribute("myRequests", teammateRequestService.getMyRequests(userId));
         model.addAttribute("myTeams", teamService.getTeamsByUserId(userId));
         return "dashboard";

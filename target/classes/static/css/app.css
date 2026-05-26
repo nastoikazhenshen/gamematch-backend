@@ -235,6 +235,11 @@ textarea {
     margin-bottom: 28px;
 }
 
+.stats-grid.compact-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 18px;
+}
+
 .stat {
     background: var(--surface);
     border: 1px solid var(--line);

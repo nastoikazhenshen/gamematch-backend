@@ -3,5 +3,6 @@ C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\test\java\kz\gamematch\securit
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\test\java\kz\gamematch\security\SecurityIntegrationTests.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\test\java\kz\gamematch\security\user\GamematchUserDetailsServiceTests.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\test\java\kz\gamematch\service\profile\ProfilePlayerGameServiceTests.java
+C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\test\java\kz\gamematch\service\profile\ProfileStatsServiceTests.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\test\java\kz\gamematch\service\request\ResponseAcceptanceTeamChatTests.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\test\java\kz\gamematch\service\request\TeammateRequestServiceFilteringTests.java
