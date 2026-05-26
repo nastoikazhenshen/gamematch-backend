@@ -22,10 +22,37 @@
                 <input type="text" name="nickname" minlength="3" maxlength="80" th:value="${profile.nickname}">
             </label>
             <label>Часовой пояс
-                <input type="text" name="timezone" maxlength="50" th:value="${profile.timezone}" placeholder="Asia/Qyzylorda">
+                <select name="timezone">
+                    <option value="">Не выбран</option>
+                    <option th:each="timezone : ${timezones}"
+                            th:value="${timezone}"
+                            th:text="${timezone}"
+                            th:selected="${timezone == profile.timezone}">
+                        Asia/Qyzylorda
+                    </option>
+                </select>
             </label>
-            <label>Среднее время игры
-                <input type="text" name="averagePlayTime" maxlength="100" th:value="${profile.averagePlayTime}" placeholder="19:00-23:00">
+            <label class="full">Среднее время игры
+                <span class="time-range">
+                    <select name="playTimeFrom">
+                        <option value="">Начало</option>
+                        <option th:each="time : ${playTimeOptions}"
+                                th:value="${time}"
+                                th:text="${time}"
+                                th:selected="${time == playTimeFrom}">
+                            19:00
+                        </option>
+                    </select>
+                    <select name="playTimeTo">
+                        <option value="">Конец</option>
+                        <option th:each="time : ${playTimeOptions}"
+                                th:value="${time}"
+                                th:text="${time}"
+                                th:selected="${time == playTimeTo}">
+                            23:00
+                        </option>
+                    </select>
+                </span>
             </label>
             <label class="full">О себе
                 <textarea name="bio" rows="5" maxlength="1000" th:text="${profile.bio}"></textarea>
@@ -33,6 +60,99 @@
             <button type="submit" class="button primary">Сохранить</button>
         </form>
     </section>
+
+    <section class="panel stack">
+        <div class="section-title">
+            <h2>Игры в профиле</h2>
+        </div>
+
+        <p class="empty" th:if="${playerGames == null || #lists.isEmpty(playerGames)}">Пока нет добавленных игр.</p>
+
+        <div class="profile-game-list" th:if="${playerGames != null && !#lists.isEmpty(playerGames)}">
+            <article class="game-card" th:each="playerGame : ${playerGames}">
+                <div class="game-summary">
+                    <img class="rank-preview"
+                         th:if="${playerGame.rankImageUrl != null}"
+                         th:src="${playerGame.rankImageUrl}"
+                         th:alt="${playerGame.rank}">
+                    <div>
+                        <strong th:text="${playerGame.gameName}">Dota 2</strong>
+                        <span class="muted" th:text="${playerGame.rank != null ? playerGame.rank : 'Ранг не указан'}">Rank</span>
+                        <span class="badge" th:if="${playerGame.mainRole != null}" th:text="${playerGame.mainRole}">Role</span>
+                    </div>
+                </div>
+
+                <form th:action="@{/profiles/me/games/{id}(id=${playerGame.id})}" method="post" class="form-grid compact">
+                    <input type="hidden" name="gameId" th:value="${playerGame.gameId}">
+                    <label>Ранг
+                        <span class="rank-picker">
+                            <select name="rank"
+                                    th:id="${'rank-' + playerGame.id}"
+                                    data-profile-rank-select
+                                    th:attr="data-profile-fixed-game-id=${playerGame.gameId}">
+                                <option value="">Без ранга</option>
+                                <option th:each="rank : ${ranks}"
+                                        th:value="${rank.name}"
+                                        th:text="${rank.name}"
+                                        th:selected="${rank.game.id == playerGame.gameId and rank.name == playerGame.rank}"
+                                        th:data-game-id="${rank.game.id}"
+                                        th:data-image-url="${rank.imageUrl}">
+                                    Rank
+                                </option>
+                            </select>
+                            <img class="rank-preview"
+                                 th:attr="data-profile-rank-preview-for=${'rank-' + playerGame.id}"
+                                 alt=""
+                                 hidden>
+                        </span>
+                    </label>
+                    <label>Основная роль
+                        <input type="text" name="mainRole" maxlength="80" th:value="${playerGame.mainRole}" placeholder="Support, Entry, Duelist">
+                    </label>
+                    <div class="actions full">
+                        <button type="submit" class="button primary small">Обновить</button>
+                    </div>
+                </form>
+                <form th:action="@{/profiles/me/games/{id}/delete(id=${playerGame.id})}" method="post">
+                    <button type="submit" class="button danger small">Удалить</button>
+                </form>
+            </article>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Добавить игру</h2>
+        </div>
+        <form th:action="@{/profiles/me/games}" method="post" class="form-grid compact">
+            <label>Игра
+                <select id="profile-game-id" name="gameId" data-profile-game-select required>
+                    <option value="">Выберите игру</option>
+                    <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}">Game</option>
+                </select>
+            </label>
+            <label>Ранг
+                <span class="rank-picker">
+                    <select id="profile-rank" name="rank" data-profile-rank-select data-profile-game-source="profile-game-id">
+                        <option value="">Без ранга</option>
+                        <option th:each="rank : ${ranks}"
+                                th:value="${rank.name}"
+                                th:text="${rank.name}"
+                                th:data-game-id="${rank.game.id}"
+                                th:data-image-url="${rank.imageUrl}">
+                            Rank
+                        </option>
+                    </select>
+                    <img class="rank-preview" data-profile-rank-preview-for="profile-rank" alt="" hidden>
+                </span>
+            </label>
+            <label class="full">Основная роль
+                <input type="text" name="mainRole" maxlength="80" placeholder="Support, Entry, Duelist">
+            </label>
+            <button type="submit" class="button primary">Добавить</button>
+        </form>
+    </section>
 </main>
+<script th:src="@{/js/profile-games.js}"></script>
 </body>
 </html>

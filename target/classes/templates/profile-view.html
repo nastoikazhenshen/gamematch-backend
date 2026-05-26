@@ -25,6 +25,28 @@
             <dt>О себе</dt><dd th:text="${profile.bio != null ? profile.bio : '-'}">-</dd>
         </dl>
     </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Игры</h2>
+        </div>
+        <p class="empty" th:if="${playerGames == null || #lists.isEmpty(playerGames)}">Игры не указаны.</p>
+        <div class="profile-game-list readonly" th:if="${playerGames != null && !#lists.isEmpty(playerGames)}">
+            <article class="game-card" th:each="playerGame : ${playerGames}">
+                <div class="game-summary">
+                    <img class="rank-preview"
+                         th:if="${playerGame.rankImageUrl != null}"
+                         th:src="${playerGame.rankImageUrl}"
+                         th:alt="${playerGame.rank}">
+                    <div>
+                        <strong th:text="${playerGame.gameName}">Dota 2</strong>
+                        <span class="muted" th:text="${playerGame.rank != null ? playerGame.rank : 'Ранг не указан'}">Rank</span>
+                        <span class="badge" th:if="${playerGame.mainRole != null}" th:text="${playerGame.mainRole}">Role</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
 </main>
 </body>
 </html>
