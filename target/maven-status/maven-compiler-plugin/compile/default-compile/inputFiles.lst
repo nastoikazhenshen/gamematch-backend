@@ -19,7 +19,9 @@ C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\aut
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\chat\ChatMessageDto.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\chat\SendChatMessageDto.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\profile\PlayerGameResponseDto.java
+C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\profile\PlayerStatsResponseDto.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\profile\ProfileResponseDto.java
+C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\profile\SuggestedPlayerResponseDto.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\profile\UpdateProfileRequestDto.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\profile\UpsertPlayerGameRequestDto.java
 C:\Users\kyrlu\IdeaProjects\gamematch-backend\src\main\java\kz\gamematch\dto\request\CreateTeammateRequestDto.java

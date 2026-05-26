@@ -3,18 +3,25 @@ package kz.gamematch.service.profile;
 import kz.gamematch.dto.profile.ProfileResponseDto;
 import kz.gamematch.dto.profile.UpdateProfileRequestDto;
 import kz.gamematch.dto.profile.PlayerGameResponseDto;
+import kz.gamematch.dto.profile.PlayerStatsResponseDto;
+import kz.gamematch.dto.profile.SuggestedPlayerResponseDto;
 import kz.gamematch.dto.profile.UpsertPlayerGameRequestDto;
 import kz.gamematch.entity.Game;
 import kz.gamematch.entity.GameRank;
 import kz.gamematch.entity.PlayerGame;
 import kz.gamematch.entity.PlayerProfile;
+import kz.gamematch.entity.ResponseStatus;
 import kz.gamematch.entity.User;
 import kz.gamematch.repository.GameRankRepository;
 import kz.gamematch.repository.GameRepository;
 import kz.gamematch.repository.PlayerGameRepository;
 import kz.gamematch.repository.PlayerProfileRepository;
+import kz.gamematch.repository.RequestResponseRepository;
+import kz.gamematch.repository.TeamMemberRepository;
+import kz.gamematch.repository.TeammateRequestRepository;
 import kz.gamematch.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +37,9 @@ public class ProfileService {
     private final PlayerGameRepository playerGameRepository;
     private final GameRepository gameRepository;
     private final GameRankRepository gameRankRepository;
+    private final TeamMemberRepository teamMemberRepository;
+    private final RequestResponseRepository requestResponseRepository;
+    private final TeammateRequestRepository teammateRequestRepository;
 
     public ProfileResponseDto getProfileByUserId(Long userId) {
         PlayerProfile profile = playerProfileRepository.findByUserId(userId)
@@ -50,6 +60,17 @@ public class ProfileService {
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
 
         return mapToDto(profile);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SuggestedPlayerResponseDto> getSuggestedPlayers(int limit) {
+        return getSuggestedPlayers(null, limit);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SuggestedPlayerResponseDto> getSuggestedPlayers(Long excludedUserId, int limit) {
+        int size = Math.max(1, Math.min(limit, 20));
+        return playerProfileRepository.findSuggestedPlayers(excludedUserId, PageRequest.of(0, size));
     }
 
     public ProfileResponseDto updateProfile(Long userId, UpdateProfileRequestDto request) {
@@ -77,6 +98,35 @@ public class ProfileService {
 
         PlayerProfile savedProfile = playerProfileRepository.save(profile);
         return mapToDto(savedProfile);
+    }
+
+    @Transactional(readOnly = true)
+    public PlayerStatsResponseDto getStatsByUserId(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("User not found");
+        }
+
+        long playedMatches = teamMemberRepository.countByUserId(userId);
+        long sentResponses = requestResponseRepository.countByResponderId(userId);
+        long acceptedResponses = requestResponseRepository.countByResponderIdAndStatus(userId, ResponseStatus.ACCEPTED);
+        long authoredRequests = teammateRequestRepository.countByAuthorId(userId);
+
+        return new PlayerStatsResponseDto(
+                userId,
+                playedMatches,
+                sentResponses,
+                acceptedResponses,
+                acceptanceRate(acceptedResponses, sentResponses),
+                authoredRequests
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public PlayerStatsResponseDto getStatsByProfileId(Long profileId) {
+        PlayerProfile profile = playerProfileRepository.findById(profileId)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+
+        return getStatsByUserId(profile.getUser().getId());
     }
 
     @Transactional
@@ -200,6 +250,14 @@ public class ProfileService {
 
     private String blankToNull(String value) {
         return value == null || value.isBlank() ? null : value.trim();
+    }
+
+    private int acceptanceRate(long acceptedResponses, long sentResponses) {
+        if (sentResponses == 0) {
+            return 0;
+        }
+
+        return (int) Math.round((acceptedResponses * 100.0) / sentResponses);
     }
 
     private PlayerProfile createDefaultProfile(Long userId) {

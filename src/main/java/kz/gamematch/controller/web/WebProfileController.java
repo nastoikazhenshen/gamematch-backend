@@ -67,6 +67,7 @@ public class WebProfileController extends WebSessionSupport {
 
         addSessionAttributes(model, session);
         model.addAttribute("profile", profile);
+        model.addAttribute("stats", profileService.getStatsByUserId(profile.getUserId()));
         model.addAttribute("profileForm", form);
         model.addAttribute("playerGames", profileService.getProfileGamesByUserId(currentUserId(session)));
         model.addAttribute("games", gameRepository.findAll(Sort.by("name")));
@@ -176,10 +177,12 @@ public class WebProfileController extends WebSessionSupport {
 
         addSessionAttributes(model, session);
         model.addAttribute("query", nickname);
+        model.addAttribute("suggestedPlayers", profileService.getSuggestedPlayers(currentUserId(session), 10));
         if (nickname != null && !nickname.isBlank()) {
             try {
                 ProfileResponseDto profile = profileService.searchByNickname(nickname);
                 model.addAttribute("profile", profile);
+                model.addAttribute("stats", profileService.getStatsByUserId(profile.getUserId()));
                 model.addAttribute("playerGames", profileService.getProfileGames(profile.getId()));
             } catch (RuntimeException ex) {
                 model.addAttribute("error", ex.getMessage());
@@ -200,6 +203,7 @@ public class WebProfileController extends WebSessionSupport {
         List<PlayerGameResponseDto> playerGames = profileService.getProfileGames(profileId);
         model.addAttribute("profile", profile);
         model.addAttribute("playerGames", playerGames);
+        model.addAttribute("stats", profileService.getStatsByUserId(profile.getUserId()));
         return "profile-view";
     }
 
