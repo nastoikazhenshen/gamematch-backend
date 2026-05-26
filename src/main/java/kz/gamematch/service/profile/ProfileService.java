@@ -106,7 +106,7 @@ public class ProfileService {
             throw new RuntimeException("User not found");
         }
 
-        long playedMatches = teamMemberRepository.countByUserId(userId);
+        long playedMatches = teamMemberRepository.countCompletedTeamsByUserId(userId);
         long sentResponses = requestResponseRepository.countByResponderId(userId);
         long acceptedResponses = requestResponseRepository.countByResponderIdAndStatus(userId, ResponseStatus.ACCEPTED);
         long authoredRequests = teammateRequestRepository.countByAuthorId(userId);
