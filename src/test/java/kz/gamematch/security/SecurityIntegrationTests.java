@@ -112,6 +112,15 @@ class SecurityIntegrationTests {
     }
 
     @Test
+    void openApiDocsArePublic() throws Exception {
+        mockMvc.perform(get("/v3/api-docs"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/swagger-ui/index.html"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void protectedPlayerZoneRequiresJwt() throws Exception {
         mockMvc.perform(get("/api/player/ping"))
                 .andExpect(status().isUnauthorized());
