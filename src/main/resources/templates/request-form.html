@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Новая заявка | GameMatch</title>
+    <title>New request | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -12,27 +12,27 @@
     <div th:replace="~{fragments :: alerts}"></div>
     <section class="page-header">
         <div>
-            <p class="eyebrow">Поиск тиммейта</p>
-            <h1>Новая заявка</h1>
+            <p class="eyebrow">Teammate search</p>
+            <h1>New request</h1>
         </div>
     </section>
     <section class="panel">
         <form th:action="@{/requests}" method="post" class="form-grid">
-            <label class="full">Название
+            <label class="full">Title
                 <input type="text" name="title" required maxlength="120">
             </label>
-            <label>Игра
+            <label>Game
                 <select id="gameId" name="gameId" required>
                     <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}">Game</option>
                 </select>
             </label>
-            <label>Нужная роль
+            <label>Required role
                 <input type="text" name="requiredRole" placeholder="support, carry, entry">
             </label>
-            <label>Минимальный ранг
+            <label>Minimum rank
                 <span class="rank-picker">
                     <select id="minRank" name="minRank" data-rank-select>
-                        <option value="">Без ограничения</option>
+                        <option value="">No limit</option>
                         <option th:each="rank : ${ranks}"
                                 th:value="${rank.name}"
                                 th:text="${rank.name}"
@@ -43,10 +43,10 @@
                     <img class="rank-preview" alt="" data-rank-preview-for="minRank">
                 </span>
             </label>
-            <label>Максимальный ранг
+            <label>Maximum rank
                 <span class="rank-picker">
                     <select id="maxRank" name="maxRank" data-rank-select>
-                        <option value="">Без ограничения</option>
+                        <option value="">No limit</option>
                         <option th:each="rank : ${ranks}"
                                 th:value="${rank.name}"
                                 th:text="${rank.name}"
@@ -57,13 +57,13 @@
                     <img class="rank-preview" alt="" data-rank-preview-for="maxRank">
                 </span>
             </label>
-            <label>Время игры
+            <label>Play time
                 <input type="datetime-local" name="desiredPlayTime" data-future-datetime>
             </label>
-            <label class="full">Описание
+            <label class="full">Description
                 <textarea name="description" rows="5" maxlength="2000"></textarea>
             </label>
-            <button type="submit" class="button primary">Опубликовать</button>
+            <button type="submit" class="button primary">Publish</button>
         </form>
     </section>
 </main>

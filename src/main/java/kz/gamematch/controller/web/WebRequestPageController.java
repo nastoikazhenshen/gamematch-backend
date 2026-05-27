@@ -169,7 +169,7 @@ public class WebRequestPageController extends WebSessionSupport {
             dto.setResponderId(currentUserId(session));
             dto.setMessage(message);
             requestResponseService.createResponse(requestId, dto);
-            redirectAttributes.addFlashAttribute("success", "Отклик отправлен");
+            redirectAttributes.addFlashAttribute("success", "Response sent");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
@@ -190,7 +190,7 @@ public class WebRequestPageController extends WebSessionSupport {
 
         try {
             requestResponseService.acceptResponse(responseId, currentUserId(session));
-            redirectAttributes.addFlashAttribute("success", "Отклик принят, команда и чат созданы");
+            redirectAttributes.addFlashAttribute("success", "Response accepted, team and chat created");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
@@ -211,7 +211,7 @@ public class WebRequestPageController extends WebSessionSupport {
 
         try {
             requestResponseService.rejectResponse(responseId, currentUserId(session));
-            redirectAttributes.addFlashAttribute("success", "Отклик отклонен");
+            redirectAttributes.addFlashAttribute("success", "Response rejected");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
@@ -231,7 +231,7 @@ public class WebRequestPageController extends WebSessionSupport {
 
         try {
             teammateRequestService.cancelRequest(requestId, currentUserId(session));
-            redirectAttributes.addFlashAttribute("success", "Заявка отменена");
+            redirectAttributes.addFlashAttribute("success", "Request cancelled");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }

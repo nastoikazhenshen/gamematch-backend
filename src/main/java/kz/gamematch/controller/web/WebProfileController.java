@@ -102,7 +102,7 @@ public class WebProfileController extends WebSessionSupport {
             form.setAveragePlayTime(buildAveragePlayTime(playTimeFrom, playTimeTo));
             ProfileResponseDto profile = profileService.updateProfile(currentUserId(session), form);
             session.setAttribute("nickname", profile.getNickname());
-            redirectAttributes.addFlashAttribute("success", "Профиль обновлен");
+            redirectAttributes.addFlashAttribute("success", "Profile updated");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
@@ -122,7 +122,7 @@ public class WebProfileController extends WebSessionSupport {
 
         try {
             profileService.addOrUpdatePlayerGame(currentUserId(session), form);
-            redirectAttributes.addFlashAttribute("success", "Игра добавлена в профиль");
+            redirectAttributes.addFlashAttribute("success", "Game added to profile");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
@@ -143,7 +143,7 @@ public class WebProfileController extends WebSessionSupport {
 
         try {
             profileService.updatePlayerGame(currentUserId(session), playerGameId, form);
-            redirectAttributes.addFlashAttribute("success", "Игра в профиле обновлена");
+            redirectAttributes.addFlashAttribute("success", "Profile game updated");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
@@ -163,7 +163,7 @@ public class WebProfileController extends WebSessionSupport {
 
         try {
             profileService.deletePlayerGame(currentUserId(session), playerGameId);
-            redirectAttributes.addFlashAttribute("success", "Игра удалена из профиля");
+            redirectAttributes.addFlashAttribute("success", "Game removed from profile");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
@@ -247,10 +247,10 @@ public class WebProfileController extends WebSessionSupport {
             return null;
         }
         if (from == null || from.isBlank()) {
-            return "до " + to;
+            return "until " + to;
         }
         if (to == null || to.isBlank()) {
-            return "с " + from;
+            return "from " + from;
         }
         return from + "-" + to;
     }

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Заявки | GameMatch</title>
+    <title>Requests | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -11,26 +11,26 @@
 <main class="page">
     <section class="page-header">
         <div>
-            <p class="eyebrow">Поиск тиммейтов</p>
-            <h1>Активные заявки</h1>
+            <p class="eyebrow">Teammate search</p>
+            <h1>Active requests</h1>
         </div>
-        <a class="button primary" th:href="@{/requests/new}">Создать заявку</a>
+        <a class="button primary" th:href="@{/requests/new}">Create request</a>
     </section>
 
     <form th:action="@{/requests}" method="get" class="filters">
-        <label>Игра
+        <label>Game
             <select id="gameId" name="gameId">
-                <option value="">Все</option>
+                <option value="">All</option>
                 <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}" th:selected="${game.id == gameId}">Game</option>
             </select>
         </label>
-        <label>Роль
+        <label>Role
             <input type="text" name="role" th:value="${role}" placeholder="support">
         </label>
-        <label>Мин. ранг
+        <label>Min rank
             <span class="rank-picker">
                 <select id="minRank" name="minRank" data-rank-select>
-                    <option value="">Все</option>
+                    <option value="">All</option>
                     <option th:each="rank : ${ranks}"
                             th:value="${rank.name}"
                             th:text="${rank.name}"
@@ -42,10 +42,10 @@
                 <img class="rank-preview" alt="" data-rank-preview-for="minRank">
             </span>
         </label>
-        <label>Макс. ранг
+        <label>Max rank
             <span class="rank-picker">
                 <select id="maxRank" name="maxRank" data-rank-select>
-                    <option value="">Все</option>
+                    <option value="">All</option>
                     <option th:each="rank : ${ranks}"
                             th:value="${rank.name}"
                             th:text="${rank.name}"
@@ -57,20 +57,20 @@
                 <img class="rank-preview" alt="" data-rank-preview-for="maxRank">
             </span>
         </label>
-        <label>С
+        <label>From
             <input type="datetime-local" name="desiredFrom" th:value="${desiredFrom != null ? #temporals.format(desiredFrom, 'yyyy-MM-dd''T''HH:mm') : ''}">
         </label>
-        <label>До
+        <label>To
             <input type="datetime-local" name="desiredTo" th:value="${desiredTo != null ? #temporals.format(desiredTo, 'yyyy-MM-dd''T''HH:mm') : ''}">
         </label>
-        <button type="submit" class="button primary">Фильтровать</button>
-        <a class="button ghost" th:href="@{/requests}">Сбросить</a>
+        <button type="submit" class="button primary">Filter</button>
+        <a class="button ghost" th:href="@{/requests}">Reset</a>
     </form>
 
-    <div class="empty" th:if="${requests.empty}">Активных заявок по этим условиям нет.</div>
+    <div class="empty" th:if="${requests.empty}">No active requests match these filters.</div>
     <table th:if="${!requests.empty}">
         <thead>
-        <tr><th>Название</th><th>Игра</th><th>Роль</th><th>Ранг</th><th>Время</th><th>Автор</th></tr>
+        <tr><th>Title</th><th>Game</th><th>Role</th><th>Rank</th><th>Time</th><th>Author</th></tr>
         </thead>
         <tbody>
         <tr th:each="request : ${requests.content}">
@@ -91,10 +91,10 @@
 
     <div class="pagination" th:if="${requests.totalPages > 1}">
         <a class="button ghost" th:if="${requests.hasPrevious()}"
-           th:href="@{/requests(page=${requests.number - 1},size=${size},gameId=${gameId},role=${role},minRank=${minRank},maxRank=${maxRank},desiredFrom=${desiredFrom},desiredTo=${desiredTo})}">Назад</a>
+           th:href="@{/requests(page=${requests.number - 1},size=${size},gameId=${gameId},role=${role},minRank=${minRank},maxRank=${maxRank},desiredFrom=${desiredFrom},desiredTo=${desiredTo})}">Previous</a>
         <span th:text="${requests.number + 1} + ' / ' + ${requests.totalPages}">1 / 1</span>
         <a class="button ghost" th:if="${requests.hasNext()}"
-           th:href="@{/requests(page=${requests.number + 1},size=${size},gameId=${gameId},role=${role},minRank=${minRank},maxRank=${maxRank},desiredFrom=${desiredFrom},desiredTo=${desiredTo})}">Вперед</a>
+           th:href="@{/requests(page=${requests.number + 1},size=${size},gameId=${gameId},role=${role},minRank=${minRank},maxRank=${maxRank},desiredFrom=${desiredFrom},desiredTo=${desiredTo})}">Next</a>
     </div>
 </main>
 <script th:src="@{/js/rank-selects.js}"></script>

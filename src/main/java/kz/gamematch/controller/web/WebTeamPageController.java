@@ -85,7 +85,7 @@ public class WebTeamPageController extends WebSessionSupport {
 
         try {
             teamService.completeMatch(teamId, currentUserId(session));
-            redirectAttributes.addFlashAttribute("success", "Матч завершен. Теперь можно оценить тиммейта.");
+            redirectAttributes.addFlashAttribute("success", "Match completed. You can now review your teammate.");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }
@@ -113,7 +113,7 @@ public class WebTeamPageController extends WebSessionSupport {
             dto.setStars(stars);
             dto.setComment(comment);
             teamService.reviewPlayer(teamId, dto);
-            redirectAttributes.addFlashAttribute("success", "Оценка сохранена, Karma игрока пересчитана.");
+            redirectAttributes.addFlashAttribute("success", "Review saved and player Karma recalculated.");
         } catch (RuntimeException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
         }

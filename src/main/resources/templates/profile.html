@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Мой профиль | GameMatch</title>
+    <title>My profile | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -12,19 +12,19 @@
     <div th:replace="~{fragments :: alerts}"></div>
     <section class="page-header">
         <div>
-            <p class="eyebrow">Профиль игрока</p>
+            <p class="eyebrow">Player profile</p>
             <h1 th:text="${profile.nickname}">Nickname</h1>
             <p class="karma-line">Karma: <strong th:text="${profile.karma}">0</strong></p>
         </div>
     </section>
     <section class="panel">
         <form th:action="@{/profiles/me}" method="post" class="form-grid">
-            <label>Никнейм
+            <label>Nickname
                 <input type="text" name="nickname" minlength="3" maxlength="80" th:value="${profile.nickname}">
             </label>
-            <label>Часовой пояс
+            <label>Timezone
                 <select name="timezone">
-                    <option value="">Не выбран</option>
+                    <option value="">Not selected</option>
                     <option th:each="timezone : ${timezones}"
                             th:value="${timezone}"
                             th:text="${timezone}"
@@ -33,10 +33,10 @@
                     </option>
                 </select>
             </label>
-            <label class="full">Среднее время игры
+            <label class="full">Average play time
                 <span class="time-range">
                     <select name="playTimeFrom">
-                        <option value="">Начало</option>
+                        <option value="">Start</option>
                         <option th:each="time : ${playTimeOptions}"
                                 th:value="${time}"
                                 th:text="${time}"
@@ -45,7 +45,7 @@
                         </option>
                     </select>
                     <select name="playTimeTo">
-                        <option value="">Конец</option>
+                        <option value="">End</option>
                         <option th:each="time : ${playTimeOptions}"
                                 th:value="${time}"
                                 th:text="${time}"
@@ -55,10 +55,10 @@
                     </select>
                 </span>
             </label>
-            <label class="full">О себе
+            <label class="full">About me
                 <textarea name="bio" rows="5" maxlength="1000" th:text="${profile.bio}"></textarea>
             </label>
-            <button type="submit" class="button primary">Сохранить</button>
+            <button type="submit" class="button primary">Save</button>
         </form>
     </section>
 
@@ -68,29 +68,29 @@
             <strong th:text="${profile.karma}">0</strong>
         </article>
         <article class="stat">
-            <span>Матчи через сервис</span>
+            <span>Matches through service</span>
             <strong th:text="${stats.playedMatches}">0</strong>
         </article>
         <article class="stat">
-            <span>Принятые отклики</span>
+            <span>Accepted responses</span>
             <strong th:text="${stats.acceptedResponses + ' / ' + stats.sentResponses}">0 / 0</strong>
         </article>
         <article class="stat">
-            <span>Процент принятия</span>
+            <span>Acceptance rate</span>
             <strong th:text="${stats.acceptedResponseRate + '%'}">0%</strong>
         </article>
         <article class="stat">
-            <span>Создано заявок</span>
+            <span>Requests created</span>
             <strong th:text="${stats.authoredRequests}">0</strong>
         </article>
     </section>
 
     <section class="panel stack">
         <div class="section-title">
-            <h2>Игры в профиле</h2>
+            <h2>Profile games</h2>
         </div>
 
-        <p class="empty" th:if="${playerGames == null || #lists.isEmpty(playerGames)}">Пока нет добавленных игр.</p>
+        <p class="empty" th:if="${playerGames == null || #lists.isEmpty(playerGames)}">No games added yet.</p>
 
         <div class="profile-game-list" th:if="${playerGames != null && !#lists.isEmpty(playerGames)}">
             <article class="game-card" th:each="playerGame : ${playerGames}">
@@ -101,20 +101,20 @@
                          th:alt="${playerGame.rank}">
                     <div>
                         <strong th:text="${playerGame.gameName}">Dota 2</strong>
-                        <span class="muted" th:text="${playerGame.rank != null ? playerGame.rank : 'Ранг не указан'}">Rank</span>
+                        <span class="muted" th:text="${playerGame.rank != null ? playerGame.rank : 'Rank not specified'}">Rank</span>
                         <span class="badge" th:if="${playerGame.mainRole != null}" th:text="${playerGame.mainRole}">Role</span>
                     </div>
                 </div>
 
                 <form th:action="@{/profiles/me/games/{id}(id=${playerGame.id})}" method="post" class="form-grid compact">
                     <input type="hidden" name="gameId" th:value="${playerGame.gameId}">
-                    <label>Ранг
+                    <label>Rank
                         <span class="rank-picker">
                             <select name="rank"
                                     th:id="${'rank-' + playerGame.id}"
                                     data-profile-rank-select
                                     th:attr="data-profile-fixed-game-id=${playerGame.gameId}">
-                                <option value="">Без ранга</option>
+                                <option value="">No rank</option>
                                 <option th:each="rank : ${ranks}"
                                         th:value="${rank.name}"
                                         th:text="${rank.name}"
@@ -130,15 +130,15 @@
                                  hidden>
                         </span>
                     </label>
-                    <label>Основная роль
+                    <label>Main role
                         <input type="text" name="mainRole" maxlength="80" th:value="${playerGame.mainRole}" placeholder="Support, Entry, Duelist">
                     </label>
                     <div class="actions full">
-                        <button type="submit" class="button primary small">Обновить</button>
+                        <button type="submit" class="button primary small">Update</button>
                     </div>
                 </form>
                 <form th:action="@{/profiles/me/games/{id}/delete(id=${playerGame.id})}" method="post">
-                    <button type="submit" class="button danger small">Удалить</button>
+                    <button type="submit" class="button danger small">Delete</button>
                 </form>
             </article>
         </div>
@@ -146,19 +146,19 @@
 
     <section class="panel">
         <div class="section-title">
-            <h2>Добавить игру</h2>
+            <h2>Add game</h2>
         </div>
         <form th:action="@{/profiles/me/games}" method="post" class="form-grid compact">
-            <label>Игра
+            <label>Game
                 <select id="profile-game-id" name="gameId" data-profile-game-select required>
-                    <option value="">Выберите игру</option>
+                    <option value="">Choose game</option>
                     <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}">Game</option>
                 </select>
             </label>
-            <label>Ранг
+            <label>Rank
                 <span class="rank-picker">
                     <select id="profile-rank" name="rank" data-profile-rank-select data-profile-game-source="profile-game-id">
-                        <option value="">Без ранга</option>
+                        <option value="">No rank</option>
                         <option th:each="rank : ${ranks}"
                                 th:value="${rank.name}"
                                 th:text="${rank.name}"
@@ -170,25 +170,25 @@
                     <img class="rank-preview" data-profile-rank-preview-for="profile-rank" alt="" hidden>
                 </span>
             </label>
-            <label class="full">Основная роль
+            <label class="full">Main role
                 <input type="text" name="mainRole" maxlength="80" placeholder="Support, Entry, Duelist">
             </label>
-            <button type="submit" class="button primary">Добавить</button>
+            <button type="submit" class="button primary">Add</button>
         </form>
     </section>
 
     <section class="panel">
         <div class="section-title">
-            <h2>Мои отзывы</h2>
+            <h2>My reviews</h2>
         </div>
-        <p class="empty" th:if="${reviews == null || #lists.isEmpty(reviews)}">Отзывов пока нет.</p>
+        <p class="empty" th:if="${reviews == null || #lists.isEmpty(reviews)}">No reviews yet.</p>
         <div class="review-list" th:if="${reviews != null && !#lists.isEmpty(reviews)}">
             <article class="review-card" th:each="review : ${reviews}">
                 <header>
                     <strong th:text="${review.stars + ' / 5'}">5 / 5</strong>
                     <span th:text="${#temporals.format(review.createdAt, 'dd.MM.yyyy')}">27.05.2026</span>
                 </header>
-                <p class="muted" th:text="${'От ' + review.reviewerNickname}">От Nick</p>
+                <p class="muted" th:text="${'From ' + review.reviewerNickname}">From Nick</p>
                 <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
             </article>
         </div>

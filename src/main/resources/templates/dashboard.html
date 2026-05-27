@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Кабинет | GameMatch</title>
+    <title>Dashboard | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -12,10 +12,10 @@
     <div th:replace="~{fragments :: alerts}"></div>
     <section class="page-header">
         <div>
-            <p class="eyebrow">Личный кабинет</p>
+            <p class="eyebrow">Personal cabinet</p>
             <h1 th:text="${profile.nickname}">Nickname</h1>
         </div>
-        <a class="button primary" th:href="@{/requests/new}">Новая заявка</a>
+        <a class="button primary" th:href="@{/requests/new}">New request</a>
     </section>
 
     <section class="stats-grid">
@@ -24,23 +24,23 @@
             <strong th:text="${profile.karma}">0</strong>
         </article>
         <article class="stat">
-            <span>Матчи через сервис</span>
+            <span>Matches through service</span>
             <strong th:text="${stats.playedMatches}">0</strong>
         </article>
         <article class="stat">
-            <span>Принятые отклики</span>
+            <span>Accepted responses</span>
             <strong th:text="${stats.acceptedResponses + ' / ' + stats.sentResponses}">0 / 0</strong>
         </article>
         <article class="stat">
-            <span>Процент принятия</span>
+            <span>Acceptance rate</span>
             <strong th:text="${stats.acceptedResponseRate + '%'}">0%</strong>
         </article>
         <article class="stat">
-            <span>Создано заявок</span>
+            <span>Requests created</span>
             <strong th:text="${stats.authoredRequests}">0</strong>
         </article>
         <article class="stat">
-            <span>Часовой пояс</span>
+            <span>Timezone</span>
             <strong th:text="${profile.timezone != null ? profile.timezone : '-'}">-</strong>
         </article>
     </section>
@@ -48,12 +48,12 @@
     <section class="split">
         <div>
             <div class="section-title">
-                <h2>Мои заявки</h2>
-                <a th:href="@{/requests/my}">Все</a>
+                <h2>My requests</h2>
+                <a th:href="@{/requests/my}">All</a>
             </div>
-            <div class="empty" th:if="${#lists.isEmpty(myRequests)}">Заявок пока нет.</div>
+            <div class="empty" th:if="${#lists.isEmpty(myRequests)}">No requests yet.</div>
             <table th:if="${!#lists.isEmpty(myRequests)}">
-                <thead><tr><th>Название</th><th>Игра</th><th>Статус</th></tr></thead>
+                <thead><tr><th>Title</th><th>Game</th><th>Status</th></tr></thead>
                 <tbody>
                 <tr th:each="request : ${myRequests}">
                     <td><a th:href="@{/requests/{id}(id=${request.id})}" th:text="${request.title}">Title</a></td>
@@ -65,12 +65,12 @@
         </div>
         <div>
             <div class="section-title">
-                <h2>Команды</h2>
-                <a th:href="@{/teams}">Все</a>
+                <h2>Teams</h2>
+                <a th:href="@{/teams}">All</a>
             </div>
-            <div class="empty" th:if="${#lists.isEmpty(myTeams)}">Команды появятся после принятия отклика.</div>
+            <div class="empty" th:if="${#lists.isEmpty(myTeams)}">Teams will appear after a response is accepted.</div>
             <table th:if="${!#lists.isEmpty(myTeams)}">
-                <thead><tr><th>ID</th><th>Игра</th><th>Участники</th></tr></thead>
+                <thead><tr><th>ID</th><th>Game</th><th>Members</th></tr></thead>
                 <tbody>
                 <tr th:each="team : ${myTeams}">
                     <td><a th:href="@{/teams/{id}(id=${team.id})}" th:text="${team.id}">1</a></td>

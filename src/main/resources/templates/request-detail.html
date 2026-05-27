@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${request.title} + ' | GameMatch'">Заявка | GameMatch</title>
+    <title th:text="${request.title} + ' | GameMatch'">Request | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -16,46 +16,46 @@
             <h1 th:text="${request.title}">Title</h1>
         </div>
         <form th:if="${isAuthor && request.status.name() == 'ACTIVE'}" th:action="@{/requests/{id}/cancel(id=${request.id})}" method="post">
-            <button type="submit" class="button danger">Отменить</button>
+            <button type="submit" class="button danger">Cancel</button>
         </form>
     </section>
 
     <section class="split">
         <div class="panel">
             <dl class="details">
-                <dt>Автор</dt><dd th:text="${request.authorNickname}">Author</dd>
-                <dt>Статус</dt><dd><span class="badge" th:text="${request.status}">ACTIVE</span></dd>
-                <dt>Роль</dt><dd th:text="${request.requiredRole != null ? request.requiredRole : '-'}">-</dd>
-                <dt>Ранг</dt><dd th:text="${(request.minRank != null ? request.minRank : '-') + ' / ' + (request.maxRank != null ? request.maxRank : '-')}">-</dd>
-                <dt>Время</dt>
+                <dt>Author</dt><dd th:text="${request.authorNickname}">Author</dd>
+                <dt>Status</dt><dd><span class="badge" th:text="${request.status}">ACTIVE</span></dd>
+                <dt>Role</dt><dd th:text="${request.requiredRole != null ? request.requiredRole : '-'}">-</dd>
+                <dt>Rank</dt><dd th:text="${(request.minRank != null ? request.minRank : '-') + ' / ' + (request.maxRank != null ? request.maxRank : '-')}">-</dd>
+                <dt>Time</dt>
                 <dd>
                     <time class="time-pill" th:if="${request.desiredPlayTime != null}"
                           th:datetime="${request.desiredPlayTime}"
                           th:text="${#temporals.format(request.desiredPlayTime, 'dd.MM.yyyy HH:mm')}">24.05.2026 20:00</time>
                     <span th:unless="${request.desiredPlayTime != null}">-</span>
                 </dd>
-                <dt>Описание</dt><dd th:text="${request.description != null ? request.description : '-'}">-</dd>
+                <dt>Description</dt><dd th:text="${request.description != null ? request.description : '-'}">-</dd>
             </dl>
         </div>
         <div class="panel" th:if="${!isAuthor && request.status.name() == 'ACTIVE'}">
-            <h2>Откликнуться</h2>
+            <h2>Respond</h2>
             <form th:action="@{/requests/{id}/responses(id=${request.id})}" method="post" class="form-stack">
-                <label>Сообщение
+                <label>Message
                     <textarea name="message" rows="5" maxlength="1000" required></textarea>
                 </label>
-                <button type="submit" class="button primary">Отправить отклик</button>
+                <button type="submit" class="button primary">Send response</button>
             </form>
         </div>
     </section>
 
     <section>
         <div class="section-title">
-            <h2>Отклики</h2>
+            <h2>Responses</h2>
             <span th:text="${#lists.size(responses)}">0</span>
         </div>
-        <div class="empty" th:if="${#lists.isEmpty(responses)}">Откликов пока нет.</div>
+        <div class="empty" th:if="${#lists.isEmpty(responses)}">No responses yet.</div>
         <table th:if="${!#lists.isEmpty(responses)}">
-            <thead><tr><th>Игрок</th><th>Сообщение</th><th>Статус</th><th></th></tr></thead>
+            <thead><tr><th>Player</th><th>Message</th><th>Status</th><th></th></tr></thead>
             <tbody>
             <tr th:each="response : ${responses}">
                 <td th:text="${response.responderNickname}">Player</td>
@@ -65,12 +65,12 @@
                     <form th:if="${isAuthor && response.status.name() == 'PENDING' && request.status.name() == 'ACTIVE'}"
                           th:action="@{/responses/{id}/accept(id=${response.id})}" method="post">
                         <input type="hidden" name="requestId" th:value="${request.id}">
-                        <button type="submit" class="button primary small">Принять</button>
+                        <button type="submit" class="button primary small">Accept</button>
                     </form>
                     <form th:if="${isAuthor && response.status.name() == 'PENDING'}"
                           th:action="@{/responses/{id}/reject(id=${response.id})}" method="post">
                         <input type="hidden" name="requestId" th:value="${request.id}">
-                        <button type="submit" class="button ghost small">Отклонить</button>
+                        <button type="submit" class="button ghost small">Reject</button>
                     </form>
                 </td>
             </tr>
