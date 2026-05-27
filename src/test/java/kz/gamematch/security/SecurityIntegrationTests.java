@@ -2,12 +2,17 @@ package kz.gamematch.security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kz.gamematch.entity.Game;
+import kz.gamematch.entity.RequestStatus;
 import kz.gamematch.entity.Role;
 import kz.gamematch.entity.RoleName;
+import kz.gamematch.entity.TeammateRequest;
 import kz.gamematch.entity.User;
 import kz.gamematch.repository.ComplaintRepository;
+import kz.gamematch.repository.GameRepository;
 import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.RoleRepository;
+import kz.gamematch.repository.TeammateRequestRepository;
 import kz.gamematch.repository.UserRepository;
 import kz.gamematch.security.jwt.JwtService;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +38,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -46,6 +52,8 @@ class SecurityIntegrationTests {
     private final RoleRepository roleRepository;
     private final ComplaintRepository complaintRepository;
     private final PlayerProfileRepository playerProfileRepository;
+    private final TeammateRequestRepository teammateRequestRepository;
+    private final GameRepository gameRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
@@ -57,6 +65,8 @@ class SecurityIntegrationTests {
             RoleRepository roleRepository,
             ComplaintRepository complaintRepository,
             PlayerProfileRepository playerProfileRepository,
+            TeammateRequestRepository teammateRequestRepository,
+            GameRepository gameRepository,
             PasswordEncoder passwordEncoder,
             JwtService jwtService
     ) {
@@ -66,6 +76,8 @@ class SecurityIntegrationTests {
         this.roleRepository = roleRepository;
         this.complaintRepository = complaintRepository;
         this.playerProfileRepository = playerProfileRepository;
+        this.teammateRequestRepository = teammateRequestRepository;
+        this.gameRepository = gameRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
     }
@@ -73,6 +85,7 @@ class SecurityIntegrationTests {
     @BeforeEach
     void cleanUsers() {
         complaintRepository.deleteAll();
+        teammateRequestRepository.deleteAll();
         playerProfileRepository.deleteAll();
         userRepository.deleteAll();
     }
@@ -109,6 +122,29 @@ class SecurityIntegrationTests {
                 .getContentAsString();
 
         assertThat(tokenFrom(loginResponse)).isNotBlank();
+    }
+
+    @Test
+    void webLoginCreatesSessionWithoutLazyLoadingErrors() throws Exception {
+        String email = createUser(RoleName.PLAYER, false).getEmail();
+
+        mockMvc.perform(post("/login")
+                        .param("email", email)
+                        .param("password", "secret123"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/dashboard"));
+    }
+
+    @Test
+    void dashboardRendersOwnRequestsWithoutLazyLoadingErrors() throws Exception {
+        User player = createUser(RoleName.PLAYER, false);
+        createRequest(player);
+
+        mockMvc.perform(get("/dashboard")
+                        .sessionAttr("userId", player.getId())
+                        .sessionAttr("email", player.getEmail())
+                        .sessionAttr("role", "PLAYER"))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -253,6 +289,28 @@ class SecurityIntegrationTests {
         user.setCreatedAt(LocalDateTime.now());
 
         return userRepository.save(user);
+    }
+
+    private TeammateRequest createRequest(User author) {
+        Game game = gameRepository.findByName("Dashboard Test Game")
+                .orElseGet(() -> {
+                    Game createdGame = new Game();
+                    createdGame.setName("Dashboard Test Game");
+                    return gameRepository.save(createdGame);
+                });
+
+        TeammateRequest request = new TeammateRequest();
+        request.setAuthor(author);
+        request.setGame(game);
+        request.setTitle("Ranked squad");
+        request.setDescription("Need one teammate");
+        request.setRequiredRole("support");
+        request.setMinRank("Bronze");
+        request.setMaxRank("Gold");
+        request.setDesiredPlayTime(LocalDateTime.now().plusDays(1));
+        request.setStatus(RequestStatus.ACTIVE);
+        request.setCreatedAt(LocalDateTime.now());
+        return teammateRequestRepository.save(request);
     }
 
     private String tokenFor(User user) {

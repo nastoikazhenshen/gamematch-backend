@@ -35,6 +35,7 @@ public class TeammateRequestService {
     private final GameRankRepository gameRankRepository;
     private final TeammateRequestMapper teammateRequestMapper;
 
+    @Transactional
     public TeammateRequestResponseDto createRequest(CreateTeammateRequestDto requestDto) {
         validateDesiredPlayTime(requestDto.getDesiredPlayTime());
 
@@ -62,6 +63,7 @@ public class TeammateRequestService {
         return teammateRequestMapper.toDto(savedRequest);
     }
 
+    @Transactional(readOnly = true)
     public List<TeammateRequestResponseDto> getAllActiveRequests() {
         return teammateRequestRepository.findByStatus(RequestStatus.ACTIVE)
                 .stream()
@@ -69,6 +71,7 @@ public class TeammateRequestService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public List<TeammateRequestResponseDto> getRequestsByGame(Long gameId) {
         return teammateRequestRepository.findByGameIdAndStatus(gameId, RequestStatus.ACTIVE)
                 .stream()
@@ -93,6 +96,7 @@ public class TeammateRequestService {
                 .map(teammateRequestMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
     public List<TeammateRequestResponseDto> getMyRequests(Long authorId) {
         return teammateRequestRepository.findByAuthorId(authorId)
                 .stream()
@@ -100,6 +104,7 @@ public class TeammateRequestService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public TeammateRequestResponseDto getRequestById(Long requestId) {
         TeammateRequest request = teammateRequestRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Request not found"));
@@ -107,6 +112,7 @@ public class TeammateRequestService {
         return teammateRequestMapper.toDto(request);
     }
 
+    @Transactional
     public void cancelRequest(Long requestId, Long authorId) {
         TeammateRequest request = teammateRequestRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Request not found"));
