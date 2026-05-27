@@ -14,8 +14,19 @@ abstract class WebSessionSupport {
         return currentUserId(session) != null;
     }
 
+    protected boolean isAdmin(HttpSession session) {
+        return "ADMIN".equals(session.getAttribute("role"));
+    }
+
     protected String redirectToLoginIfNeeded(HttpSession session) {
         return isLoggedIn(session) ? null : "redirect:/login";
+    }
+
+    protected String redirectToDashboardIfNotAdmin(HttpSession session) {
+        if (!isLoggedIn(session)) {
+            return "redirect:/login";
+        }
+        return isAdmin(session) ? null : "redirect:/dashboard";
     }
 
     protected void addSessionAttributes(Model model, HttpSession session) {

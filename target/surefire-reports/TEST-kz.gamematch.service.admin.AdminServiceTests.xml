@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="kz.gamematch.service.profile.ProfileStatsServiceTests" time="0.563" tests="4" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="kz.gamematch.service.admin.AdminServiceTests" time="1.275" tests="6" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -66,12 +66,14 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="returnsZeroAcceptanceRateWhenPlayerHasNoResponses" classname="kz.gamematch.service.profile.ProfileStatsServiceTests" time="0.123">
-    <system-out><![CDATA[2026-05-27T20:16:45.880+05:00  INFO 7564 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [kz.gamematch.service.profile.ProfileStatsServiceTests]: ProfileStatsServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-05-27T20:16:45.883+05:00  INFO 7564 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration kz.gamematch.GamematchApplication for test class kz.gamematch.service.profile.ProfileStatsServiceTests
+  <testcase name="adminCanDeleteOnlyOldInactiveRequests" classname="kz.gamematch.service.admin.AdminServiceTests" time="0.24">
+    <system-out><![CDATA[2026-05-27T20:16:43.786+05:00  INFO 7564 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [kz.gamematch.service.admin.AdminServiceTests]: AdminServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-05-27T20:16:43.855+05:00  INFO 7564 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration kz.gamematch.GamematchApplication for test class kz.gamematch.service.admin.AdminServiceTests
 ]]></system-out>
   </testcase>
-  <testcase name="resolvesStatsByProfileId" classname="kz.gamematch.service.profile.ProfileStatsServiceTests" time="0.112"/>
-  <testcase name="suggestsPlayersByAuthoredRequestCount" classname="kz.gamematch.service.profile.ProfileStatsServiceTests" time="0.142"/>
-  <testcase name="calculatesPlayerStatsFromTeamsAndResponses" classname="kz.gamematch.service.profile.ProfileStatsServiceTests" time="0.168"/>
+  <testcase name="adminCanBlockAndUnblockPlayer" classname="kz.gamematch.service.admin.AdminServiceTests" time="0.27"/>
+  <testcase name="playerCannotUseAdminServiceEvenWithValidUserId" classname="kz.gamematch.service.admin.AdminServiceTests" time="0.144"/>
+  <testcase name="adminCannotBlockSelfOrAnotherAdmin" classname="kz.gamematch.service.admin.AdminServiceTests" time="0.156"/>
+  <testcase name="complaintLifecycleIsRestrictedToAdmins" classname="kz.gamematch.service.admin.AdminServiceTests" time="0.233"/>
+  <testcase name="complaintReporterMustMatchAuthenticatedUser" classname="kz.gamematch.service.admin.AdminServiceTests" time="0.129"/>
 </testsuite>

@@ -9,6 +9,7 @@
 <body>
 <div th:replace="~{fragments :: nav}"></div>
 <main class="page narrow">
+    <div th:replace="~{fragments :: alerts}"></div>
     <section class="page-header">
         <div>
             <p class="eyebrow">Профиль игрока</p>
@@ -83,6 +84,19 @@
                 <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
             </article>
         </div>
+    </section>
+
+    <section class="panel" th:if="${canReport}">
+        <div class="section-title">
+            <h2>Report player</h2>
+        </div>
+        <form class="form-stack" th:action="@{/profiles/{id}/complaints(id=${profile.id})}" method="post">
+            <label>
+                Reason
+                <textarea name="reason" rows="3" maxlength="2000" required></textarea>
+            </label>
+            <button class="button danger" type="submit">Send complaint</button>
+        </form>
     </section>
 </main>
 </body>
