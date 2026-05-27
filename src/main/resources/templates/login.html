@@ -1,27 +1,27 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Вход | GameMatch</title>
+    <title>Login | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body class="auth-page">
 <main class="auth-shell">
     <section class="auth-panel">
         <p class="eyebrow">GameMatch</p>
-        <h1>Вход</h1>
+        <h1>Login</h1>
         <div th:replace="~{fragments :: alerts}"></div>
         <form th:action="@{/login}" method="post" class="form-stack">
             <label>Email
                 <input type="email" name="email" required autocomplete="email">
             </label>
-            <label>Пароль
+            <label>Password
                 <input type="password" name="password" required autocomplete="current-password">
             </label>
-            <button type="submit" class="button primary">Войти</button>
+            <button type="submit" class="button primary">Log in</button>
         </form>
-        <p class="muted">Нет аккаунта? <a th:href="@{/register}">Зарегистрироваться</a></p>
+        <p class="muted">No account? <a th:href="@{/register}">Register</a></p>
     </section>
 </main>
 </body>

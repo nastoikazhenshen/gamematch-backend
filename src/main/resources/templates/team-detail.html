@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="'Команда #' + ${team.id} + ' | GameMatch'">Команда | GameMatch</title>
+    <title th:text="'Team #' + ${team.id} + ' | GameMatch'">Team | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -13,23 +13,23 @@
     <section class="page-header">
         <div>
             <p class="eyebrow" th:text="${team.gameName}">Game</p>
-            <h1 th:text="'Команда #' + ${team.id}">Команда</h1>
+            <h1 th:text="'Team #' + ${team.id}">Team</h1>
         </div>
         <div class="actions">
             <form th:if="${team.completedAt == null}" th:action="@{/teams/{id}/complete(id=${team.id})}" method="post">
-                <button type="submit" class="button primary">Завершить матч</button>
+                <button type="submit" class="button primary">Complete match</button>
             </form>
             <span class="time-pill" th:if="${team.completedAt != null}"
-                  th:text="${'Матч завершен ' + #temporals.format(team.completedAt, 'dd.MM.yyyy в HH:mm')}">
-                Матч завершен
+                  th:text="${'Match completed ' + #temporals.format(team.completedAt, 'dd.MM.yyyy HH:mm')}">
+                Match completed
             </span>
-            <a class="button ghost" th:href="@{/requests/{id}(id=${team.requestId})}">К заявке</a>
+            <a class="button ghost" th:href="@{/requests/{id}(id=${team.requestId})}">Back to request</a>
         </div>
     </section>
 
     <section class="split">
         <div class="panel">
-            <h2>Участники</h2>
+            <h2>Members</h2>
             <ul class="member-list">
                 <li th:each="member : ${team.members}">
                     <a th:href="@{/profiles/search(nickname=${member.nickname})}" th:text="${member.nickname}">Nick</a>
@@ -38,12 +38,12 @@
         </div>
 
         <div class="panel">
-            <h2>Оценка тиммейта</h2>
-            <p class="empty" th:if="${team.completedAt == null}">Оценки откроются после завершения матча.</p>
+            <h2>Teammate review</h2>
+            <p class="empty" th:if="${team.completedAt == null}">Reviews are available after the match is completed.</p>
             <form th:if="${team.completedAt != null}" th:action="@{/teams/{id}/reviews(id=${team.id})}" method="post" class="form-stack">
-                <label>Тиммейт
+                <label>Teammate
                     <select name="reviewedUserId" required>
-                        <option value="">Выберите игрока</option>
+                        <option value="">Choose player</option>
                         <option th:each="member : ${team.members}"
                                 th:if="${member.userId != currentUserId}"
                                 th:value="${member.userId}"
@@ -52,57 +52,57 @@
                         </option>
                     </select>
                 </label>
-                <label>Оценка
+                <label>Rating
                     <select name="stars" required>
-                        <option value="5">5 звезд</option>
-                        <option value="4">4 звезды</option>
-                        <option value="3">3 звезды</option>
-                        <option value="2">2 звезды</option>
-                        <option value="1">1 звезда</option>
+                        <option value="5">5 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="2">2 stars</option>
+                        <option value="1">1 star</option>
                     </select>
                 </label>
-                <label>Отзыв
-                    <textarea name="comment" rows="4" maxlength="1000" placeholder="Как прошла игра?"></textarea>
+                <label>Review
+                    <textarea name="comment" rows="4" maxlength="1000" placeholder="How did the match go?"></textarea>
                 </label>
-                <button type="submit" class="button primary">Сохранить оценку</button>
+                <button type="submit" class="button primary">Save review</button>
             </form>
         </div>
     </section>
 
     <section class="split">
         <div class="panel">
-            <h2>Отзывы команды</h2>
-            <p class="empty" th:if="${#lists.isEmpty(reviews)}">Отзывов пока нет.</p>
+            <h2>Team reviews</h2>
+            <p class="empty" th:if="${#lists.isEmpty(reviews)}">No reviews yet.</p>
             <div class="review-list" th:if="${!#lists.isEmpty(reviews)}">
                 <article class="review-card" th:each="review : ${reviews}">
                     <header>
                         <strong th:text="${review.reviewedUserNickname}">Player</strong>
                         <span class="stars" th:text="${review.stars + ' / 5'}">5 / 5</span>
                     </header>
-                    <p class="muted" th:text="${'От ' + review.reviewerNickname}">От Nick</p>
+                    <p class="muted" th:text="${'From ' + review.reviewerNickname}">From Nick</p>
                     <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
                 </article>
             </div>
         </div>
 
         <div class="panel chat-panel">
-            <h2>Чат</h2>
+            <h2>Chat</h2>
             <div class="chat-log">
-                <div class="empty" th:if="${#lists.isEmpty(messages)}">Сообщений пока нет.</div>
+                <div class="empty" th:if="${#lists.isEmpty(messages)}">No messages yet.</div>
                 <article class="message" th:each="message : ${messages}">
                     <header>
                         <strong th:text="${message.senderNickname}">Nick</strong>
                         <time th:datetime="${#temporals.format(message.createdAt, 'yyyy-MM-dd''T''HH:mm:ss')}"
-                              th:text="${#temporals.format(message.createdAt, 'dd.MM.yyyy в HH:mm')}">
-                            27.05.2026 в 20:00
+                              th:text="${#temporals.format(message.createdAt, 'dd.MM.yyyy HH:mm')}">
+                            27.05.2026 20:00
                         </time>
                     </header>
                     <p th:text="${message.content}">Message</p>
                 </article>
             </div>
             <form th:action="@{/teams/{id}/messages(id=${team.id})}" method="post" class="message-form">
-                <textarea name="content" rows="3" maxlength="2000" required placeholder="Сообщение"></textarea>
-                <button type="submit" class="button primary">Отправить</button>
+                <textarea name="content" rows="3" maxlength="2000" required placeholder="Message"></textarea>
+                <button type="submit" class="button primary">Send</button>
             </form>
         </div>
     </section>

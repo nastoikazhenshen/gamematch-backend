@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Игроки | GameMatch</title>
+    <title>Players | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -12,13 +12,13 @@
     <div th:replace="~{fragments :: alerts}"></div>
     <section class="page-header">
         <div>
-            <p class="eyebrow">Поиск</p>
-            <h1>Игроки</h1>
+            <p class="eyebrow">Search</p>
+            <h1>Players</h1>
         </div>
     </section>
     <form th:action="@{/profiles/search}" method="get" class="toolbar">
-        <input type="text" name="nickname" th:value="${query}" placeholder="Никнейм">
-        <button type="submit" class="button primary">Найти</button>
+        <input type="text" name="nickname" th:value="${query}" placeholder="Nickname">
+        <button type="submit" class="button primary">Search</button>
     </form>
 
     <section class="panel" th:if="${profile != null}">
@@ -27,16 +27,16 @@
         <dl class="details">
             <dt>Email</dt><dd th:text="${profile.email}">email</dd>
             <dt>Karma</dt><dd th:text="${profile.karma}">0</dd>
-            <dt>Матчи</dt><dd th:text="${stats.playedMatches}">0</dd>
-            <dt>Принятие откликов</dt><dd th:text="${stats.acceptedResponseRate + '%'}">0%</dd>
-            <dt>Отклики</dt><dd th:text="${stats.acceptedResponses + ' / ' + stats.sentResponses}">0 / 0</dd>
-            <dt>Время</dt><dd th:text="${profile.averagePlayTime != null ? profile.averagePlayTime : '-'}">-</dd>
+            <dt>Matches</dt><dd th:text="${stats.playedMatches}">0</dd>
+            <dt>Response acceptance</dt><dd th:text="${stats.acceptedResponseRate + '%'}">0%</dd>
+            <dt>Responses</dt><dd th:text="${stats.acceptedResponses + ' / ' + stats.sentResponses}">0 / 0</dd>
+            <dt>Time</dt><dd th:text="${profile.averagePlayTime != null ? profile.averagePlayTime : '-'}">-</dd>
         </dl>
 
         <div class="section-title inner">
-            <h2>Игры</h2>
+            <h2>Games</h2>
         </div>
-        <p class="empty" th:if="${playerGames == null || #lists.isEmpty(playerGames)}">Игры не указаны.</p>
+        <p class="empty" th:if="${playerGames == null || #lists.isEmpty(playerGames)}">No games specified.</p>
         <div class="profile-game-list readonly" th:if="${playerGames != null && !#lists.isEmpty(playerGames)}">
             <article class="game-card" th:each="playerGame : ${playerGames}">
                 <div class="game-summary">
@@ -46,7 +46,7 @@
                          th:alt="${playerGame.rank}">
                     <div>
                         <strong th:text="${playerGame.gameName}">Dota 2</strong>
-                        <span class="muted" th:text="${playerGame.rank != null ? playerGame.rank : 'Ранг не указан'}">Rank</span>
+                        <span class="muted" th:text="${playerGame.rank != null ? playerGame.rank : 'Rank not specified'}">Rank</span>
                         <span class="badge" th:if="${playerGame.mainRole != null}" th:text="${playerGame.mainRole}">Role</span>
                     </div>
                 </div>
@@ -54,16 +54,16 @@
         </div>
 
         <div class="section-title inner">
-            <h2>Отзывы</h2>
+            <h2>Reviews</h2>
         </div>
-        <p class="empty" th:if="${reviews == null || #lists.isEmpty(reviews)}">Отзывов пока нет.</p>
+        <p class="empty" th:if="${reviews == null || #lists.isEmpty(reviews)}">No reviews yet.</p>
         <div class="review-list" th:if="${reviews != null && !#lists.isEmpty(reviews)}">
             <article class="review-card" th:each="review : ${reviews}">
                 <header>
                     <strong th:text="${review.stars + ' / 5'}">5 / 5</strong>
                     <span th:text="${#temporals.format(review.createdAt, 'dd.MM.yyyy')}">27.05.2026</span>
                 </header>
-                <p class="muted" th:text="${'От ' + review.reviewerNickname}">От Nick</p>
+                <p class="muted" th:text="${'From ' + review.reviewerNickname}">From Nick</p>
                 <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
             </article>
         </div>
@@ -71,14 +71,14 @@
 
     <section class="panel">
         <div class="section-title">
-            <h2>Предложенные игроки</h2>
+            <h2>Suggested players</h2>
         </div>
-        <p class="empty" th:if="${suggestedPlayers == null || #lists.isEmpty(suggestedPlayers)}">Пока нет игроков для рекомендации.</p>
+        <p class="empty" th:if="${suggestedPlayers == null || #lists.isEmpty(suggestedPlayers)}">No suggested players yet.</p>
         <table th:if="${suggestedPlayers != null && !#lists.isEmpty(suggestedPlayers)}">
             <thead>
             <tr>
-                <th>Игрок</th>
-                <th>Заявки</th>
+                <th>Player</th>
+                <th>Requests</th>
                 <th>Karma</th>
             </tr>
             </thead>

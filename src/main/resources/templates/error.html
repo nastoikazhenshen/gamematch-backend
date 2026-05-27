@@ -1,33 +1,33 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ошибка | GameMatch</title>
+    <title>Error | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
 <main class="error-page">
     <section class="error-panel">
         <p class="eyebrow">GameMatch</p>
-        <h1>Что-то пошло не так</h1>
+        <h1>Something went wrong</h1>
         <p class="error-code">
             <span th:text="${status != null ? status : '500'}">500</span>
             <span th:if="${error != null}" th:text="' · ' + ${error}"> · Error</span>
         </p>
         <p class="muted" th:if="${message != null && !#strings.isEmpty(message)}" th:text="${message}">
-            Ошибка обработки запроса.
+            Request processing error.
         </p>
         <p class="muted" th:unless="${message != null && !#strings.isEmpty(message)}">
-            Запрос не удалось обработать. Можно вернуться в кабинет или повторить действие позже.
+            The request could not be processed. You can return to the dashboard or try again later.
         </p>
         <dl class="details compact" th:if="${path != null}">
-            <dt>Путь</dt>
+            <dt>Path</dt>
             <dd th:text="${path}">/path</dd>
         </dl>
         <div class="error-actions">
-            <a class="button primary" th:href="@{/dashboard}">В кабинет</a>
-            <a class="button ghost" th:href="@{/requests}">К заявкам</a>
+            <a class="button primary" th:href="@{/dashboard}">Dashboard</a>
+            <a class="button ghost" th:href="@{/requests}">Requests</a>
         </div>
     </section>
 </main>

@@ -1,10 +1,10 @@
 # GameMatch
 
-GameMatch — backend и web UI для поиска тиммейтов в онлайн-играх. Пользователь создает профиль игрока, добавляет игры и ранги, публикует заявку на поиск напарника, получает отклики, принимает подходящего игрока, после чего система создает временную команду с чатом. После матча участники могут завершить игру и оставить оценки, из которых считается Karma.
+GameMatch is a backend and web UI for finding teammates in online games. Players create profiles, add games and ranks, publish teammate search requests, receive responses, accept suitable players, and use temporary teams with a simple chat. After a match, team members can mark it as completed and leave reviews that update Karma.
 
-Проект реализован на Spring Boot и подходит как учебный full-stack backend-проект: есть REST API, серверный web-интерфейс на Thymeleaf, JWT-аутентификация, роли, админ-панель, Swagger/OpenAPI, миграции БД и интеграционные тесты.
+The project is built with Spring Boot and works as a full-stack backend course project: it includes a REST API, a server-rendered Thymeleaf UI, JWT authentication, roles, an admin panel, Swagger/OpenAPI documentation, Flyway migrations, and integration tests.
 
-## Стек
+## Tech Stack
 
 - Java 17
 - Spring Boot 3.5.14
@@ -19,49 +19,49 @@ GameMatch — backend и web UI для поиска тиммейтов в онл
 - JJWT
 - springdoc-openapi / Swagger UI
 - JUnit 5, Spring Boot Test, Spring Security Test
-- Docker Compose для PostgreSQL
+- Docker Compose for PostgreSQL
 
-## Основные возможности
+## Features
 
-- Регистрация и вход по email/password.
-- Выдача JWT-токена для REST API.
-- Web-login через серверную сессию для Thymeleaf-интерфейса.
-- Роли `PLAYER` и `ADMIN`.
-- Хранение паролей через BCrypt.
-- Защита API по ролям.
-- Профиль игрока: nickname, timezone, среднее время игры, Karma, количество завершенных матчей.
-- Несколько игр в профиле игрока.
-- Ранги и роли по каждой игре.
-- Поиск профилей по nickname.
-- Просмотр чужих профилей, статистики и игр.
-- Создание заявок на поиск тиммейта.
-- Фильтрация активных заявок по игре, роли, рангу и времени.
-- Пагинация списка заявок.
-- Отклик на заявку.
-- Принятие или отклонение отклика автором заявки.
-- Автоматическое создание команды после принятия отклика.
-- Чат команды через обычные `POST`/`GET` запросы без WebSocket.
-- Завершение матча.
-- Оценка тиммейтов и текстовый отзыв.
-- Автоматический пересчет Karma.
-- Личный кабинет: мои отклики, история матчей, полученные и оставленные отзывы.
-- Рейтинг лучших игроков по Karma.
-- Админ-панель: список пользователей, блокировка, разблокировка, жалобы, очистка неактивных заявок.
-- Жалобы на пользователей.
-- Swagger UI и OpenAPI JSON.
-- Миграции схемы БД через Flyway.
-- Индексы для часто используемых запросов.
-- Интеграционные тесты основных сценариев и безопасности.
+- Registration and email/password login.
+- JWT tokens for the REST API.
+- Web login with a server-side session for the Thymeleaf UI.
+- `PLAYER` and `ADMIN` roles.
+- Password hashing with BCrypt.
+- Role-based API protection.
+- Player profile with nickname, timezone, average play time, Karma, and completed matches.
+- Multiple games per profile.
+- Rank and main role for each game.
+- Profile search by nickname.
+- Public profile view with statistics, games, and reviews.
+- Teammate request creation.
+- Active request filtering by game, role, rank, and desired play time.
+- Paginated request list.
+- Response submission for a request.
+- Response acceptance or rejection by the request author.
+- Automatic team creation after response acceptance.
+- Team chat through regular `POST` and `GET` requests without WebSocket.
+- Match completion.
+- Teammate rating with stars and a text review.
+- Automatic Karma recalculation.
+- Personal cabinet with responses, match history, received reviews, and given reviews.
+- Karma leaderboard.
+- Admin panel with users, blocking, unblocking, complaints, and inactive request cleanup.
+- User complaints.
+- Swagger UI and OpenAPI JSON.
+- Flyway database migrations.
+- Indexes for frequent queries.
+- Integration tests for core scenarios and security rules.
 
-## Запуск
+## Running Locally
 
-### 1. Запустить PostgreSQL
+### 1. Start PostgreSQL
 
 ```bash
 docker compose up -d
 ```
 
-По умолчанию поднимается PostgreSQL:
+Default PostgreSQL settings:
 
 - host: `localhost`
 - port: `5439`
@@ -69,9 +69,9 @@ docker compose up -d
 - user: `postgres`
 - password: `1234`
 
-### 2. Настроить переменные окружения
+### 2. Configure Environment Variables
 
-Приложение читает настройки из env-переменных с fallback-значениями:
+The application reads settings from environment variables and provides local fallback values:
 
 ```properties
 DB_URL=jdbc:postgresql://localhost:5439/gamematch_db
@@ -80,25 +80,25 @@ DB_PASSWORD=1234
 JWT_SECRET=change-me-to-at-least-32-characters
 ```
 
-Пример находится в:
+Example configuration:
 
 ```text
 src/main/resources/application-example.properties
 ```
 
-### 3. Запустить приложение
+### 3. Start The Application
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-Для Windows:
+Windows:
 
 ```powershell
 .\mvnw.cmd spring-boot:run
 ```
 
-Приложение стартует на:
+Application URL:
 
 ```text
 http://localhost:8081
@@ -106,102 +106,102 @@ http://localhost:8081
 
 ## Web UI
 
-Серверный интерфейс реализован на Thymeleaf.
+The server-rendered interface is built with Thymeleaf.
 
-| Страница | Назначение |
+| Page | Purpose |
 | --- | --- |
-| `GET /` | Редирект на dashboard или login |
-| `GET /login` | Страница входа |
-| `POST /login` | Web-вход, создание server-side session |
-| `GET /register` | Страница регистрации |
-| `POST /register` | Регистрация через web UI |
-| `POST /logout`, `GET /logout` | Выход |
-| `GET /dashboard` | Главная страница игрока |
-| `GET /profiles/me` | Редактирование своего профиля |
-| `POST /profiles/me` | Обновление своего профиля |
-| `POST /profiles/me/games` | Добавление игры в профиль |
-| `POST /profiles/me/games/{playerGameId}` | Обновление игры в профиле |
-| `POST /profiles/me/games/{playerGameId}/delete` | Удаление игры из профиля |
-| `GET /profiles/search` | Поиск профилей |
-| `GET /profiles/{profileId}` | Просмотр чужого профиля |
-| `POST /profiles/{profileId}/complaints` | Жалоба на пользователя |
-| `GET /requests` | Список активных заявок |
-| `GET /requests/my` | Мои заявки |
-| `GET /requests/new` | Форма создания заявки |
-| `POST /requests` | Создание заявки |
-| `GET /requests/{requestId}` | Детальная страница заявки |
-| `POST /requests/{requestId}/responses` | Отклик на заявку |
-| `POST /responses/{responseId}/accept` | Принять отклик |
-| `POST /responses/{responseId}/reject` | Отклонить отклик |
-| `POST /requests/{requestId}/cancel` | Отменить свою заявку |
-| `GET /teams` | Мои команды |
-| `GET /teams/{teamId}` | Команда, чат, отзывы |
-| `POST /teams/{teamId}/messages` | Отправить сообщение в чат |
-| `POST /teams/{teamId}/complete` | Завершить матч |
-| `POST /teams/{teamId}/reviews` | Оценить тиммейта |
-| `GET /cabinet` | Личный кабинет |
-| `GET /ratings` | Рейтинг игроков по Karma |
-| `GET /admin` | Админ-панель |
-| `POST /admin/users/{userId}/block` | Заблокировать пользователя |
-| `POST /admin/users/{userId}/unblock` | Разблокировать пользователя |
-| `POST /admin/complaints/{complaintId}/resolve` | Закрыть жалобу как решенную |
-| `POST /admin/complaints/{complaintId}/dismiss` | Отклонить жалобу |
-| `POST /admin/requests/inactive/delete` | Удалить неактивные заявки |
-| `GET /rank-badges/{game}/{rank}.svg` | SVG-бейдж ранга |
+| `GET /` | Redirect to dashboard or login |
+| `GET /login` | Login page |
+| `POST /login` | Web login and server-side session creation |
+| `GET /register` | Registration page |
+| `POST /register` | Web registration |
+| `POST /logout`, `GET /logout` | Logout |
+| `GET /dashboard` | Player dashboard |
+| `GET /profiles/me` | Edit current profile |
+| `POST /profiles/me` | Update current profile |
+| `POST /profiles/me/games` | Add a game to the profile |
+| `POST /profiles/me/games/{playerGameId}` | Update a profile game |
+| `POST /profiles/me/games/{playerGameId}/delete` | Delete a profile game |
+| `GET /profiles/search` | Search players |
+| `GET /profiles/{profileId}` | View another player's profile |
+| `POST /profiles/{profileId}/complaints` | Report a player |
+| `GET /requests` | Active request list |
+| `GET /requests/my` | My requests |
+| `GET /requests/new` | Create request form |
+| `POST /requests` | Create request |
+| `GET /requests/{requestId}` | Request details |
+| `POST /requests/{requestId}/responses` | Respond to a request |
+| `POST /responses/{responseId}/accept` | Accept response |
+| `POST /responses/{responseId}/reject` | Reject response |
+| `POST /requests/{requestId}/cancel` | Cancel own request |
+| `GET /teams` | My teams |
+| `GET /teams/{teamId}` | Team page, chat, and reviews |
+| `POST /teams/{teamId}/messages` | Send chat message |
+| `POST /teams/{teamId}/complete` | Complete match |
+| `POST /teams/{teamId}/reviews` | Review teammate |
+| `GET /cabinet` | Personal cabinet |
+| `GET /ratings` | Karma leaderboard |
+| `GET /admin` | Admin panel |
+| `POST /admin/users/{userId}/block` | Block user |
+| `POST /admin/users/{userId}/unblock` | Unblock user |
+| `POST /admin/complaints/{complaintId}/resolve` | Resolve complaint |
+| `POST /admin/complaints/{complaintId}/dismiss` | Dismiss complaint |
+| `POST /admin/requests/inactive/delete` | Delete inactive requests |
+| `GET /rank-badges/{game}/{rank}.svg` | Rank SVG badge |
 
 ## REST API
 
-REST API использует JWT Bearer authentication:
+The REST API uses JWT Bearer authentication:
 
 ```http
 Authorization: Bearer <token>
 ```
 
-Публичные эндпоинты:
+Public endpoints:
 
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /v3/api-docs`
 - `GET /swagger-ui/index.html`
 
-Остальные API защищены. Игровые эндпоинты доступны ролям `PLAYER` и `ADMIN`, административные — только `ADMIN`.
+All other API endpoints are protected. Game endpoints are available to `PLAYER` and `ADMIN`; admin endpoints are available only to `ADMIN`.
 
 ### Auth API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `POST` | `/api/auth/register` | public | Регистрация пользователя, создание профиля, выдача JWT |
-| `POST` | `/api/auth/login` | public | Вход по email/password, выдача JWT |
+| `POST` | `/api/auth/register` | public | Register a user, create a profile, and issue JWT |
+| `POST` | `/api/auth/login` | public | Login with email/password and issue JWT |
 
 ### Profile API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `GET` | `/api/profiles/me/{userId}` | self/admin | Получить свой профиль |
-| `PUT` | `/api/profiles/me/{userId}` | self/admin | Обновить свой профиль |
-| `GET` | `/api/profiles/{profileId}` | player/admin | Получить профиль по ID |
-| `GET` | `/api/profiles/search?nickname=` | player/admin | Найти профиль по nickname |
-| `GET` | `/api/profiles/suggested?limit=&excludedUserId=` | player/admin | Рекомендованные игроки |
-| `GET` | `/api/profiles/me/{userId}/stats` | self/admin | Статистика текущего пользователя |
-| `GET` | `/api/profiles/me/{userId}/games` | self/admin | Игры текущего пользователя |
-| `POST` | `/api/profiles/me/{userId}/games` | self/admin | Добавить или обновить игру пользователя |
-| `PUT` | `/api/profiles/me/{userId}/games/{playerGameId}` | self/admin | Обновить игру пользователя |
-| `DELETE` | `/api/profiles/me/{userId}/games/{playerGameId}` | self/admin | Удалить игру пользователя |
-| `GET` | `/api/profiles/{profileId}/games` | player/admin | Игры чужого профиля |
-| `GET` | `/api/profiles/{profileId}/stats` | player/admin | Статистика чужого профиля |
+| `GET` | `/api/profiles/me/{userId}` | self/admin | Get own profile |
+| `PUT` | `/api/profiles/me/{userId}` | self/admin | Update own profile |
+| `GET` | `/api/profiles/{profileId}` | player/admin | Get profile by ID |
+| `GET` | `/api/profiles/search?nickname=` | player/admin | Find profile by nickname |
+| `GET` | `/api/profiles/suggested?limit=&excludedUserId=` | player/admin | Suggested players |
+| `GET` | `/api/profiles/me/{userId}/stats` | self/admin | Current user statistics |
+| `GET` | `/api/profiles/me/{userId}/games` | self/admin | Current user games |
+| `POST` | `/api/profiles/me/{userId}/games` | self/admin | Add or update current user game |
+| `PUT` | `/api/profiles/me/{userId}/games/{playerGameId}` | self/admin | Update current user game |
+| `DELETE` | `/api/profiles/me/{userId}/games/{playerGameId}` | self/admin | Delete current user game |
+| `GET` | `/api/profiles/{profileId}/games` | player/admin | Games for another profile |
+| `GET` | `/api/profiles/{profileId}/stats` | player/admin | Statistics for another profile |
 
 ### Teammate Requests API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `POST` | `/api/requests` | player/admin | Создать заявку |
-| `GET` | `/api/requests` | player/admin | Список активных заявок с фильтрами и пагинацией |
-| `GET` | `/api/requests/{requestId}` | player/admin | Детали заявки |
-| `GET` | `/api/requests/my/{authorId}` | self/admin | Мои заявки |
-| `DELETE` | `/api/requests/{requestId}` | player/admin | Отменить свою заявку |
-| `DELETE` | `/api/requests/inactive?olderThanDays=7` | admin | Удалить старые неактивные заявки |
+| `POST` | `/api/requests` | player/admin | Create request |
+| `GET` | `/api/requests` | player/admin | Active request list with filters and pagination |
+| `GET` | `/api/requests/{requestId}` | player/admin | Request details |
+| `GET` | `/api/requests/my/{authorId}` | self/admin | Own requests |
+| `DELETE` | `/api/requests/{requestId}` | player/admin | Cancel own request |
+| `DELETE` | `/api/requests/inactive?olderThanDays=7` | admin | Delete old inactive requests |
 
-Фильтры для `GET /api/requests`:
+Filters for `GET /api/requests`:
 
 - `gameId`
 - `role`
@@ -213,117 +213,117 @@ Authorization: Bearer <token>
 - `size`
 - `sort`
 
-По умолчанию используется пагинация `size=20`, сортировка по `createdAt DESC`.
+Default pagination uses `size=20` and `createdAt DESC` sorting.
 
 ### Responses API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `POST` | `/api/requests/{requestId}/responses` | player/admin | Откликнуться на заявку |
-| `GET` | `/api/requests/{requestId}/responses` | player/admin | Получить отклики по заявке |
-| `POST` | `/api/responses/{responseId}/accept` | author/admin | Принять отклик, закрыть заявку, создать команду |
-| `POST` | `/api/responses/{responseId}/reject` | author/admin | Отклонить отклик |
+| `POST` | `/api/requests/{requestId}/responses` | player/admin | Respond to a request |
+| `GET` | `/api/requests/{requestId}/responses` | player/admin | Get responses for a request |
+| `POST` | `/api/responses/{responseId}/accept` | author/admin | Accept response, close request, and create team |
+| `POST` | `/api/responses/{responseId}/reject` | author/admin | Reject response |
 
 ### Teams, Matches And Reviews API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `GET` | `/api/teams/{teamId}` | player/admin | Получить команду |
-| `GET` | `/api/teams/request/{requestId}` | player/admin | Получить команду по заявке |
-| `GET` | `/api/teams/my/{userId}` | self/admin | Мои команды |
-| `POST` | `/api/teams/{teamId}/complete` | team member | Отметить матч завершенным |
-| `POST` | `/api/teams/{teamId}/reviews` | team member | Оценить тиммейта |
-| `GET` | `/api/teams/{teamId}/reviews` | player/admin | Отзывы команды |
+| `GET` | `/api/teams/{teamId}` | player/admin | Get team |
+| `GET` | `/api/teams/request/{requestId}` | player/admin | Get team by request |
+| `GET` | `/api/teams/my/{userId}` | self/admin | Own teams |
+| `POST` | `/api/teams/{teamId}/complete` | team member | Mark match as completed |
+| `POST` | `/api/teams/{teamId}/reviews` | team member | Review teammate |
+| `GET` | `/api/teams/{teamId}/reviews` | player/admin | Team reviews |
 
 ### Team Chat API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `POST` | `/api/teams/{teamId}/messages` | team member | Отправить сообщение |
-| `GET` | `/api/teams/{teamId}/messages` | team member | Получить историю сообщений |
+| `POST` | `/api/teams/{teamId}/messages` | team member | Send message |
+| `GET` | `/api/teams/{teamId}/messages` | team member | Get message history |
 
-Чат intentionally простой: без WebSocket, сообщения сохраняются в БД и читаются через polling/обычные HTTP-запросы.
+The chat is intentionally simple: no WebSocket, messages are stored in the database and read through polling or regular HTTP requests.
 
 ### Player Cabinet API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `GET` | `/api/player/cabinet/responses?status=` | player/admin | Мои отклики, опционально по статусу |
-| `GET` | `/api/player/cabinet/history` | player/admin | История сыгранных матчей |
-| `GET` | `/api/player/cabinet/reviews/received` | player/admin | Полученные отзывы |
-| `GET` | `/api/player/cabinet/reviews/given` | player/admin | Оставленные отзывы |
+| `GET` | `/api/player/cabinet/responses?status=` | player/admin | Own responses, optionally filtered by status |
+| `GET` | `/api/player/cabinet/history` | player/admin | Completed match history |
+| `GET` | `/api/player/cabinet/reviews/received` | player/admin | Received reviews |
+| `GET` | `/api/player/cabinet/reviews/given` | player/admin | Given reviews |
 
 ### Ratings API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `GET` | `/api/ratings/karma?limit=20` | player/admin | Рейтинг игроков по Karma |
+| `GET` | `/api/ratings/karma?limit=20` | player/admin | Karma leaderboard |
 
 ### Complaints API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `POST` | `/api/player/complaints` | player/admin | Создать жалобу на пользователя |
+| `POST` | `/api/player/complaints` | player/admin | Create complaint about a user |
 
 ### Admin API
 
-| Method | Endpoint | Access | Описание |
+| Method | Endpoint | Access | Description |
 | --- | --- | --- | --- |
-| `GET` | `/api/admin/dashboard` | admin | Сводка: пользователи, блокировки, жалобы, активные и старые заявки |
-| `GET` | `/api/admin/users` | admin | Список пользователей |
-| `POST` | `/api/admin/users/{userId}/block` | admin | Заблокировать пользователя |
-| `POST` | `/api/admin/users/{userId}/unblock` | admin | Разблокировать пользователя |
-| `GET` | `/api/admin/complaints?status=` | admin | Список жалоб |
-| `POST` | `/api/admin/complaints/{complaintId}/resolve` | admin | Пометить жалобу решенной |
-| `POST` | `/api/admin/complaints/{complaintId}/dismiss` | admin | Отклонить жалобу |
+| `GET` | `/api/admin/dashboard` | admin | Summary: users, blocked users, complaints, active requests, and old requests |
+| `GET` | `/api/admin/users` | admin | User list |
+| `POST` | `/api/admin/users/{userId}/block` | admin | Block user |
+| `POST` | `/api/admin/users/{userId}/unblock` | admin | Unblock user |
+| `GET` | `/api/admin/complaints?status=` | admin | Complaint list |
+| `POST` | `/api/admin/complaints/{complaintId}/resolve` | admin | Mark complaint as resolved |
+| `POST` | `/api/admin/complaints/{complaintId}/dismiss` | admin | Dismiss complaint |
 
 ## Swagger / OpenAPI
 
-Документация API генерируется автоматически через `springdoc-openapi`.
+API documentation is generated automatically through `springdoc-openapi`.
 
-После запуска приложения:
+After starting the application:
 
 - Swagger UI: `http://localhost:8081/swagger-ui/index.html`
 - OpenAPI JSON: `http://localhost:8081/v3/api-docs`
 
-OpenAPI настроен с Bearer JWT security scheme, поэтому токен можно передать прямо в Swagger UI через кнопку Authorize.
+OpenAPI is configured with a Bearer JWT security scheme, so the token can be entered in Swagger UI through the Authorize button.
 
-## Модель данных
+## Data Model
 
-Основные сущности:
+Main entities:
 
-- `User` — учетная запись, email, password hash, роль, флаг блокировки.
-- `Role` — роль пользователя: `PLAYER` или `ADMIN`.
-- `PlayerProfile` — игровой профиль, nickname, timezone, среднее время игры, Karma, completed matches.
-- `Game` — игра.
-- `GameRank` — ранги игры с порядком сортировки и badge URL.
-- `PlayerGame` — связь профиля с игрой, рангом, ролью и часами игры.
-- `TeammateRequest` — заявка на поиск тиммейта.
-- `RequestResponse` — отклик игрока на заявку.
-- `Team` — временная команда, созданная после принятия отклика.
-- `TeamMember` — участник команды.
-- `ChatMessage` — сообщение в командном чате.
-- `PlayerReview` — оценка и отзыв после матча.
-- `Complaint` — жалоба на пользователя.
+- `User` - account, email, password hash, role, blocked flag.
+- `Role` - user role: `PLAYER` or `ADMIN`.
+- `PlayerProfile` - game profile, nickname, timezone, average play time, Karma, completed matches.
+- `Game` - game.
+- `GameRank` - game rank with sort order and badge URL.
+- `PlayerGame` - profile-game relation with rank, role, and play hours.
+- `TeammateRequest` - teammate search request.
+- `RequestResponse` - player's response to a request.
+- `Team` - temporary team created after response acceptance.
+- `TeamMember` - team member.
+- `ChatMessage` - team chat message.
+- `PlayerReview` - rating and review after a match.
+- `Complaint` - user complaint.
 
-Схема создается и обновляется через Flyway:
+The schema is created and updated through Flyway:
 
-| Migration | Назначение |
+| Migration | Purpose |
 | --- | --- |
-| `V1__create_users_and_roles.sql` | Пользователи и роли |
-| `V2__create_profiles_and_games.sql` | Профили, игры, связи игрок-игра |
-| `V3__create_teammate_requests.sql` | Заявки и отклики |
-| `V4__create_teams_and_chat.sql` | Команды и чат |
-| `V5__create_game_ranks.sql` | Ранги игр |
-| `V6__update_rank_badge_urls.sql` | SVG badge URLs для рангов |
-| `V7__match_completion_and_reviews.sql` | Завершение матчей и отзывы |
-| `V8__completed_match_user_delete_policy.sql` | Политика удаления пользователей для завершенных матчей |
-| `V9__create_complaints.sql` | Жалобы |
-| `V10__performance_indexes.sql` | Индексы производительности |
+| `V1__create_users_and_roles.sql` | Users and roles |
+| `V2__create_profiles_and_games.sql` | Profiles, games, profile-game relations |
+| `V3__create_teammate_requests.sql` | Requests and responses |
+| `V4__create_teams_and_chat.sql` | Teams and chat |
+| `V5__create_game_ranks.sql` | Game ranks |
+| `V6__update_rank_badge_urls.sql` | SVG badge URLs for ranks |
+| `V7__match_completion_and_reviews.sql` | Match completion and reviews |
+| `V8__completed_match_user_delete_policy.sql` | User delete policy for completed matches |
+| `V9__create_complaints.sql` | Complaints |
+| `V10__performance_indexes.sql` | Performance indexes |
 
-## Архитектура
+## Architecture
 
-Проект разделен на слои:
+The project is split into layers:
 
 ```text
 controller -> service -> repository -> entity
@@ -333,42 +333,42 @@ controller -> service -> repository -> entity
 
 ### Controller Layer
 
-Контроллеры принимают HTTP-запросы, валидируют DTO через `@Valid`, получают текущего пользователя через Spring Security и делегируют бизнес-логику в сервисы.
+Controllers receive HTTP requests, validate DTOs with `@Valid`, get the current user from Spring Security, and delegate business logic to services.
 
-REST-контроллеры находятся в `kz.gamematch.controller.*`.
+REST controllers are located in `kz.gamematch.controller.*`.
 
-Web-контроллеры находятся в `kz.gamematch.controller.web.*` и возвращают Thymeleaf templates.
+Web controllers are located in `kz.gamematch.controller.web.*` and return Thymeleaf templates.
 
 ### Service Layer
 
-Сервисы содержат бизнес-правила:
+Services contain business rules:
 
-- регистрация и вход;
-- проверка прав на self/admin операции;
-- создание и фильтрация заявок;
-- отклики и принятие отклика;
-- создание команды;
-- доступ к чату только для участников команды;
-- завершение матча;
-- создание отзывов;
-- пересчет Karma;
-- админские действия;
-- работа с жалобами.
+- registration and login;
+- self/admin permission checks;
+- request creation and filtering;
+- response creation and acceptance;
+- team creation;
+- chat access only for team members;
+- match completion;
+- review creation;
+- Karma recalculation;
+- admin actions;
+- complaint processing.
 
-Транзакционные границы задаются на сервисах через `@Transactional`. Read-only операции помечены `@Transactional(readOnly = true)`, write операции используют обычную транзакцию.
+Transactional boundaries are defined on services with `@Transactional`. Read operations use `@Transactional(readOnly = true)`, while write operations use regular transactions.
 
 ### Repository Layer
 
-Репозитории используют Spring Data JPA:
+Repositories use Spring Data JPA:
 
-- стандартные CRUD-методы;
+- standard CRUD methods;
 - derived queries;
-- `JpaSpecificationExecutor` для фильтрации заявок;
-- JPQL-запросы для агрегатов и bulk delete.
+- `JpaSpecificationExecutor` for request filtering;
+- JPQL queries for aggregates and bulk delete.
 
 ### DTO And Mapper Layer
 
-API не возвращает JPA-сущности напрямую. Для внешнего контракта используются DTO:
+The API does not expose JPA entities directly. External contracts use DTOs:
 
 - `dto.auth`
 - `dto.profile`
@@ -379,7 +379,7 @@ API не возвращает JPA-сущности напрямую. Для вн
 - `dto.cabinet`
 - `dto.admin`
 
-Маппинг вынесен в mapper-компоненты:
+Entity-to-DTO mapping is extracted into mapper components:
 
 - `TeammateRequestMapper`
 - `RequestResponseMapper`
@@ -387,107 +387,107 @@ API не возвращает JPA-сущности напрямую. Для вн
 - `ChatMessageMapper`
 - `PlayerNicknameResolver`
 
-Такой подход отделяет persistence-модель от API-модели и снижает риск случайно отдать лишние поля, например password hash.
+This separates the persistence model from the API model and reduces the risk of exposing sensitive fields such as password hashes.
 
-## Использованные принципы и паттерны
+## Principles And Patterns
 
 ### Layered Architecture
 
-Проект построен по классической слоистой архитектуре. Контроллеры не работают напрямую с БД, а репозитории не содержат бизнес-логику.
+The project follows a classic layered architecture. Controllers do not access the database directly, and repositories do not contain business logic.
 
 ### DTO Pattern
 
-Для входящих и исходящих данных используются отдельные DTO. Это защищает доменную модель от внешнего API и делает контракт понятным.
+Input and output data use dedicated DTOs. This protects the domain model from the external API and keeps contracts clear.
 
 ### Mapper Pattern
 
-Ручной маппинг сущностей в DTO вынесен в отдельные mapper-классы. Это уменьшает дублирование и делает сервисы чище.
+Entity-to-DTO mapping is placed in dedicated mapper classes. This reduces duplication and keeps services focused on business logic.
 
 ### Repository Pattern
 
-Доступ к данным инкапсулирован в Spring Data repositories.
+Data access is encapsulated in Spring Data repositories.
 
 ### Service Layer Pattern
 
-Бизнес-сценарии сгруппированы в сервисах. Например, принятие отклика не просто меняет статус, а закрывает заявку, отклоняет остальные отклики и создает команду.
+Business scenarios are grouped in services. For example, accepting a response changes the response status, closes the request, rejects other pending responses, and creates a team.
 
 ### Specification Pattern
 
-Фильтрация заявок реализована через `Specification<TeammateRequest>`, что позволяет комбинировать фильтры по игре, роли, рангу и времени без ручной сборки SQL.
+Request filtering uses `Specification<TeammateRequest>`, making it possible to combine filters by game, role, rank, and time without manual SQL string building.
 
 ### Stateless REST Security
 
-REST API использует JWT и stateless Spring Security filter chain. Токен проверяется на каждом API-запросе.
+The REST API uses JWT and a stateless Spring Security filter chain. The token is validated on every API request.
 
 ### Defense In Depth
 
-Админские операции защищены на двух уровнях:
+Admin operations are protected at two levels:
 
-- маршруты `/api/admin/**` доступны только роли `ADMIN` в `SecurityConfig`;
-- `AdminService` дополнительно проверяет, что текущий пользователь действительно admin и не заблокирован.
+- `/api/admin/**` routes require the `ADMIN` role in `SecurityConfig`;
+- `AdminService` additionally verifies that the current user is really an admin and is not blocked.
 
-### Transaction Script Для Бизнес-Сценариев
+### Transaction Script For Business Scenarios
 
-Сложные операции выполняются атомарно внутри транзакций:
+Complex operations are performed atomically inside transactions:
 
-- принятие отклика;
-- создание команды;
-- завершение матча;
-- создание отзыва;
-- пересчет Karma;
-- блокировка пользователя;
-- обработка жалобы.
+- accepting a response;
+- creating a team;
+- completing a match;
+- creating a review;
+- recalculating Karma;
+- blocking a user;
+- resolving a complaint.
 
 ### Fail Fast Validation
 
-Входные DTO валидируются аннотациями Bean Validation, а сервисы дополнительно проверяют бизнес-ограничения: нельзя откликаться на свою заявку, нельзя оценивать себя, нельзя читать чат чужой команды.
+Input DTOs are validated with Bean Validation annotations, and services also enforce business constraints: a player cannot respond to their own request, cannot review themselves, and cannot read another team's chat.
 
-## Безопасность
+## Security
 
-Реализовано:
+Implemented security measures:
 
-- BCrypt hashing для паролей.
-- JWT Bearer tokens для REST API.
-- Stateless API-сессии.
-- Разделение доступа по ролям `PLAYER` и `ADMIN`.
-- Запрет входа заблокированным пользователям.
-- Отклонение JWT заблокированного пользователя.
-- Self-or-admin проверки для персональных данных.
-- Запрет игроку читать или изменять чужой `/me` профиль.
-- Запрет обычному игроку на admin endpoints.
-- Запрет админу блокировать самого себя.
-- Запрет блокировать admin-аккаунты через admin panel.
-- Отключенный `open-in-view`, чтобы доступ к lazy-сущностям контролировался сервисными транзакциями.
-- ORM/JPA вместо ручной SQL-склейки, что снижает риск SQL injection.
+- BCrypt password hashing.
+- JWT Bearer tokens for the REST API.
+- Stateless API sessions.
+- Role-based access for `PLAYER` and `ADMIN`.
+- Blocked users cannot log in.
+- JWT tokens for blocked users are rejected.
+- Self-or-admin checks for personal data.
+- A player cannot read or modify another user's `/me` profile.
+- Regular players cannot access admin endpoints.
+- Admins cannot block themselves.
+- Admin accounts cannot be blocked from the admin panel.
+- `open-in-view` is disabled, so lazy entity access is controlled by service transactions.
+- ORM/JPA is used instead of manual SQL concatenation, reducing SQL injection risk.
 
-Важно: web UI использует server-side session, а REST API использует JWT. Это два разных режима входа в одном приложении.
+Important: the web UI uses a server-side session, while the REST API uses JWT. These are two separate login modes in one application.
 
-## Производительность
+## Performance
 
-В проекте добавлены индексы для частых сценариев:
+Indexes are added for frequent scenarios:
 
-- список активных заявок по статусу, игре и времени;
-- фильтр заявок по роли;
-- личный кабинет по откликам пользователя и статусу;
-- рейтинг Karma;
-- отзывы, оставленные пользователем.
+- active requests by status, game, and time;
+- request filtering by role;
+- personal cabinet responses by responder and status;
+- Karma leaderboard;
+- reviews given by a user.
 
-Файл миграции:
+Migration file:
 
 ```text
 src/main/resources/db/migration/V10__performance_indexes.sql
 ```
 
-Также используется:
+The project also uses:
 
-- пагинация для списка заявок;
-- read-only транзакции для запросов;
-- DTO вместо отдачи entity graph наружу;
-- lazy loading в entity-модели с явными транзакционными границами в сервисах.
+- pagination for request lists;
+- read-only transactions for queries;
+- DTOs instead of exposing entity graphs;
+- lazy loading in the entity model with explicit service transaction boundaries.
 
-## Тестирование
+## Testing
 
-Запуск тестов:
+Run tests:
 
 ```bash
 ./mvnw test
@@ -499,44 +499,44 @@ Windows:
 .\mvnw.cmd test
 ```
 
-Покрытые сценарии:
+Covered scenarios:
 
-- загрузка Spring context;
-- генерация и валидация JWT;
-- регистрация и логин;
-- web-login и рендер dashboard после входа;
-- разграничение доступа player/admin;
-- запрет доступа к чужим `/me` API;
-- блокировка пользователей;
+- Spring context loading;
+- JWT generation and validation;
+- registration and login;
+- web login and dashboard rendering after login;
+- player/admin access separation;
+- blocking access to another user's `/me` API;
+- blocked users;
 - admin dashboard;
-- блокировка и разблокировка пользователей;
-- жалобы;
-- личный кабинет;
+- user blocking and unblocking;
+- complaints;
+- personal cabinet;
 - Karma leaderboard;
-- управление играми профиля;
-- статистика профиля;
-- создание отклика;
-- принятие отклика;
-- создание команды и чата;
-- фильтрация заявок;
-- завершение матча;
-- отзывы и пересчет Karma.
+- profile games;
+- profile statistics;
+- response creation;
+- response acceptance;
+- team and chat creation;
+- request filtering;
+- match completion;
+- reviews and Karma recalculation.
 
-Текущий полный прогон:
+Latest full run:
 
 ```text
 Tests run: 50, Failures: 0, Errors: 0, Skipped: 0
 ```
 
-## Структура проекта
+## Project Structure
 
 ```text
 src/main/java/kz/gamematch
   config        OpenAPI configuration
-  controller    REST и web controllers
-  dto           API request/response DTO
+  controller    REST and web controllers
+  dto           API request/response DTOs
   entity        JPA entities
-  mapper        Entity -> DTO mappers
+  mapper        Entity-to-DTO mappers
   repository    Spring Data repositories
   security      JWT, SecurityConfig, current user helpers
   service       Business logic
@@ -551,13 +551,13 @@ src/test/java/kz/gamematch
   service       Service integration tests
 ```
 
-## Текущие границы реализации
+## Current Implementation Boundaries
 
-В текущей версии есть основные сценарии GameMatch: профили, игры, заявки, отклики, команды, чат, отзывы, Karma, личный кабинет, рейтинг, жалобы и админка.
+The current version includes the main GameMatch scenarios: profiles, games, requests, responses, teams, chat, reviews, Karma, personal cabinet, leaderboard, complaints, and admin panel.
 
-Отдельные standalone-модули для blacklist, notifications и CSV export в коде сейчас не выделены как REST API. В `SecurityConfig` уже зарезервированы защищенные route-группы для таких направлений, но полноценные контроллеры и сервисы под них не реализованы.
+Standalone modules for blacklist, notifications, and CSV export are not currently implemented as dedicated REST APIs. `SecurityConfig` already reserves protected route groups for these areas, but full controllers and services for them are not present yet.
 
-## Полезные ссылки после запуска
+## Useful Links After Startup
 
 - Web UI: `http://localhost:8081`
 - Swagger UI: `http://localhost:8081/swagger-ui/index.html`

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Мои заявки | GameMatch</title>
+    <title>My requests | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -12,14 +12,14 @@
     <div th:replace="~{fragments :: alerts}"></div>
     <section class="page-header">
         <div>
-            <p class="eyebrow">Личный кабинет</p>
-            <h1>Мои заявки</h1>
+            <p class="eyebrow">Personal cabinet</p>
+            <h1>My requests</h1>
         </div>
-        <a class="button primary" th:href="@{/requests/new}">Создать</a>
+        <a class="button primary" th:href="@{/requests/new}">Create</a>
     </section>
-    <div class="empty" th:if="${#lists.isEmpty(requests)}">Вы еще не создавали заявки.</div>
+    <div class="empty" th:if="${#lists.isEmpty(requests)}">You have not created any requests yet.</div>
     <table th:if="${!#lists.isEmpty(requests)}">
-        <thead><tr><th>Название</th><th>Игра</th><th>Роль</th><th>Время</th><th>Статус</th></tr></thead>
+        <thead><tr><th>Title</th><th>Game</th><th>Role</th><th>Time</th><th>Status</th></tr></thead>
         <tbody>
         <tr th:each="request : ${requests}">
             <td><a th:href="@{/requests/{id}(id=${request.id})}" th:text="${request.title}">Title</a></td>

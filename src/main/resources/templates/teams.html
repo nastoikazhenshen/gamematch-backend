@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Команды | GameMatch</title>
+    <title>Teams | GameMatch</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -11,18 +11,18 @@
 <main class="page">
     <section class="page-header">
         <div>
-            <p class="eyebrow">После принятия отклика</p>
-            <h1>Мои команды</h1>
+            <p class="eyebrow">After response acceptance</p>
+            <h1>My teams</h1>
         </div>
     </section>
-    <div class="empty" th:if="${#lists.isEmpty(teams)}">Команд пока нет.</div>
+    <div class="empty" th:if="${#lists.isEmpty(teams)}">No teams yet.</div>
     <table th:if="${!#lists.isEmpty(teams)}">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Игра</th>
-            <th>Участники</th>
-            <th>Создана</th>
+            <th>Game</th>
+            <th>Members</th>
+            <th>Created</th>
         </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
             <td>
                 <time class="time-pill"
                       th:datetime="${#temporals.format(team.createdAt, 'yyyy-MM-dd''T''HH:mm:ss')}"
-                      th:text="${#temporals.format(team.createdAt, 'dd.MM.yyyy в HH:mm')}">
-                    27.05.2026 в 20:00
+                      th:text="${#temporals.format(team.createdAt, 'dd.MM.yyyy HH:mm')}">
+                    27.05.2026 20:00
                 </time>
             </td>
         </tr>
