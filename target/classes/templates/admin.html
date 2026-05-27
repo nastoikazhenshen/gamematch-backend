@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page">
+    <div th:replace="~{fragments :: alerts}"></div>
+
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Administration</p>
+            <h1>Admin panel</h1>
+        </div>
+    </section>
+
+    <section class="stats-grid compact-stats">
+        <article class="stat">
+            <span>Users</span>
+            <strong th:text="${dashboard.totalUsers}">0</strong>
+        </article>
+        <article class="stat">
+            <span>Blocked</span>
+            <strong th:text="${dashboard.blockedUsers}">0</strong>
+        </article>
+        <article class="stat">
+            <span>Open complaints</span>
+            <strong th:text="${dashboard.openComplaints}">0</strong>
+        </article>
+        <article class="stat">
+            <span>Active requests</span>
+            <strong th:text="${dashboard.activeRequests}">0</strong>
+        </article>
+        <article class="stat">
+            <span>Old inactive requests</span>
+            <strong th:text="${dashboard.inactiveRequestsOlderThanSevenDays}">0</strong>
+        </article>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Maintenance</h2>
+        </div>
+        <form class="toolbar" th:action="@{/admin/requests/inactive/delete}" method="post">
+            <label>
+                Delete inactive requests older than days
+                <input type="number" name="olderThanDays" value="7" min="1">
+            </label>
+            <button class="button danger" type="submit">Delete</button>
+        </form>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Users</h2>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Nickname</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Karma</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.email}">email@example.com</td>
+                <td>
+                    <a th:if="${user.profileId != null}" th:href="@{/profiles/{id}(id=${user.profileId})}" th:text="${user.nickname}">nick</a>
+                    <span th:if="${user.profileId == null}">-</span>
+                </td>
+                <td><span class="badge" th:text="${user.role}">PLAYER</span></td>
+                <td>
+                    <span class="badge danger-badge" th:if="${user.blocked}">BLOCKED</span>
+                    <span class="badge success-badge" th:if="${!user.blocked}">ACTIVE</span>
+                </td>
+                <td th:text="${user.karma != null ? user.karma : '-'}">0</td>
+                <td>
+                    <div class="actions" th:if="${user.role.name() == 'PLAYER'}">
+                        <form th:if="${!user.blocked}" th:action="@{/admin/users/{id}/block(id=${user.id})}" method="post">
+                            <button class="button danger small" type="submit">Block</button>
+                        </form>
+                        <form th:if="${user.blocked}" th:action="@{/admin/users/{id}/unblock(id=${user.id})}" method="post">
+                            <button class="button ghost small" type="submit">Unblock</button>
+                        </form>
+                    </div>
+                    <span class="muted" th:if="${user.role.name() == 'ADMIN'}">Protected</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Complaints</h2>
+            <form method="get" th:action="@{/admin}">
+                <select name="status" onchange="this.form.submit()">
+                    <option value="" th:selected="${selectedStatus == null}">All</option>
+                    <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}" th:selected="${selectedStatus == status}">OPEN</option>
+                </select>
+            </form>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(complaints)}">No complaints.</div>
+        <table th:if="${!#lists.isEmpty(complaints)}">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Reporter</th>
+                <th>Reported</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="complaint : ${complaints}">
+                <td th:text="${complaint.id}">1</td>
+                <td th:text="${complaint.reporterNickname + ' #' + complaint.reporterId}">reporter</td>
+                <td th:text="${complaint.reportedNickname + ' #' + complaint.reportedUserId}">reported</td>
+                <td th:text="${complaint.reason}">reason</td>
+                <td><span class="badge" th:text="${complaint.status}">OPEN</span></td>
+                <td th:text="${#temporals.format(complaint.createdAt, 'yyyy-MM-dd HH:mm')}">date</td>
+                <td>
+                    <div class="actions" th:if="${complaint.status.name() == 'OPEN'}">
+                        <form th:action="@{/admin/complaints/{id}/resolve(id=${complaint.id})}" method="post">
+                            <button class="button primary small" type="submit">Resolve</button>
+                        </form>
+                        <form th:action="@{/admin/complaints/{id}/dismiss(id=${complaint.id})}" method="post">
+                            <button class="button ghost small" type="submit">Dismiss</button>
+                        </form>
+                    </div>
+                    <span class="muted" th:if="${complaint.status.name() != 'OPEN'}">Closed</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

@@ -4,16 +4,17 @@
 <nav class="topbar" th:fragment="nav">
     <a class="brand" th:href="@{/dashboard}">GameMatch</a>
     <div class="nav-links">
-        <a th:href="@{/requests}">Заявки</a>
-        <a th:href="@{/requests/new}">Создать</a>
-        <a th:href="@{/requests/my}">Мои заявки</a>
-        <a th:href="@{/teams}">Команды</a>
-        <a th:href="@{/profiles/search}">Игроки</a>
-        <a th:href="@{/profiles/me}">Профиль</a>
+        <a th:href="@{/requests}">Requests</a>
+        <a th:href="@{/requests/new}">Create</a>
+        <a th:href="@{/requests/my}">My requests</a>
+        <a th:href="@{/teams}">Teams</a>
+        <a th:href="@{/profiles/search}">Players</a>
+        <a th:href="@{/profiles/me}">Profile</a>
+        <a th:if="${currentRole == 'ADMIN'}" th:href="@{/admin}">Admin</a>
     </div>
     <form th:action="@{/logout}" method="post" class="logout-form">
         <span th:text="${currentNickname != null ? currentNickname : currentEmail}">player</span>
-        <button type="submit" class="button ghost">Выйти</button>
+        <button type="submit" class="button ghost">Logout</button>
     </form>
 </nav>
 

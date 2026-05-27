@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kz.gamematch.entity.Role;
 import kz.gamematch.entity.RoleName;
 import kz.gamematch.entity.User;
+import kz.gamematch.repository.ComplaintRepository;
 import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.RoleRepository;
 import kz.gamematch.repository.UserRepository;
@@ -20,7 +21,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,6 +44,7 @@ class SecurityIntegrationTests {
     private final ObjectMapper objectMapper;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ComplaintRepository complaintRepository;
     private final PlayerProfileRepository playerProfileRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -54,6 +55,7 @@ class SecurityIntegrationTests {
             ObjectMapper objectMapper,
             UserRepository userRepository,
             RoleRepository roleRepository,
+            ComplaintRepository complaintRepository,
             PlayerProfileRepository playerProfileRepository,
             PasswordEncoder passwordEncoder,
             JwtService jwtService
@@ -62,6 +64,7 @@ class SecurityIntegrationTests {
         this.objectMapper = objectMapper;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.complaintRepository = complaintRepository;
         this.playerProfileRepository = playerProfileRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
@@ -69,6 +72,7 @@ class SecurityIntegrationTests {
 
     @BeforeEach
     void cleanUsers() {
+        complaintRepository.deleteAll();
         playerProfileRepository.deleteAll();
         userRepository.deleteAll();
     }
@@ -138,7 +142,7 @@ class SecurityIntegrationTests {
         mockMvc.perform(get("/api/player/ping").header(HttpHeaders.AUTHORIZATION, bearer(token)))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/api/admin/ping").header(HttpHeaders.AUTHORIZATION, bearer(token)))
+        mockMvc.perform(get("/api/admin/dashboard").header(HttpHeaders.AUTHORIZATION, bearer(token)))
                 .andExpect(status().isOk());
     }
 
@@ -146,7 +150,7 @@ class SecurityIntegrationTests {
     void playerCannotAccessAdminZones() throws Exception {
         String token = tokenFor(createUser(RoleName.PLAYER, false));
 
-        mockMvc.perform(get("/api/admin/ping").header(HttpHeaders.AUTHORIZATION, bearer(token)))
+        mockMvc.perform(get("/api/admin/dashboard").header(HttpHeaders.AUTHORIZATION, bearer(token)))
                 .andExpect(status().isForbidden());
 
         mockMvc.perform(delete("/api/requests/inactive").header(HttpHeaders.AUTHORIZATION, bearer(token)))
@@ -158,6 +162,24 @@ class SecurityIntegrationTests {
         String token = tokenFor(createUser(RoleName.ADMIN, false));
 
         mockMvc.perform(delete("/api/requests/inactive").header(HttpHeaders.AUTHORIZATION, bearer(token)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void adminWebPanelRequiresAdminSession() throws Exception {
+        User player = createUser(RoleName.PLAYER, false);
+        User admin = createUser(RoleName.ADMIN, false);
+
+        mockMvc.perform(get("/admin")
+                        .sessionAttr("userId", player.getId())
+                        .sessionAttr("email", player.getEmail())
+                        .sessionAttr("role", "PLAYER"))
+                .andExpect(status().is3xxRedirection());
+
+        mockMvc.perform(get("/admin")
+                        .sessionAttr("userId", admin.getId())
+                        .sessionAttr("email", admin.getEmail())
+                        .sessionAttr("role", "ADMIN"))
                 .andExpect(status().isOk());
     }
 
@@ -225,15 +247,6 @@ class SecurityIntegrationTests {
                 return "profiles";
             }
 
-            @GetMapping("/api/admin/ping")
-            String adminPing() {
-                return "admin";
-            }
-
-            @DeleteMapping("/api/requests/inactive")
-            String deleteInactiveRequests() {
-                return "deleted";
-            }
         }
     }
 }
