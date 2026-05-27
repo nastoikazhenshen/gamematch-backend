@@ -3,6 +3,7 @@ package kz.gamematch.controller.request;
 import jakarta.validation.Valid;
 import kz.gamematch.dto.request.CreateTeammateRequestDto;
 import kz.gamematch.dto.request.TeammateRequestResponseDto;
+import kz.gamematch.security.CurrentUserService;
 import kz.gamematch.service.request.TeammateRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -21,11 +24,14 @@ import java.util.List;
 public class TeammateRequestController {
 
     private final TeammateRequestService teammateRequestService;
+    private final CurrentUserService currentUserService;
 
     @PostMapping
     public TeammateRequestResponseDto createRequest(
+            @AuthenticationPrincipal UserDetails currentUser,
             @Valid @RequestBody CreateTeammateRequestDto requestDto
     ) {
+        requestDto.setAuthorId(currentUserService.userId(currentUser));
         return teammateRequestService.createRequest(requestDto);
     }
 
@@ -60,15 +66,19 @@ public class TeammateRequestController {
     }
 
     @GetMapping("/my/{authorId}")
-    public List<TeammateRequestResponseDto> getMyRequests(@PathVariable Long authorId) {
+    public List<TeammateRequestResponseDto> getMyRequests(
+            @AuthenticationPrincipal UserDetails currentUser,
+            @PathVariable Long authorId
+    ) {
+        currentUserService.requireSelfOrAdmin(currentUser, authorId);
         return teammateRequestService.getMyRequests(authorId);
     }
 
     @DeleteMapping("/{requestId}")
     public void cancelRequest(
             @PathVariable Long requestId,
-            @RequestParam Long authorId
+            @AuthenticationPrincipal UserDetails currentUser
     ) {
-        teammateRequestService.cancelRequest(requestId, authorId);
+        teammateRequestService.cancelRequest(requestId, currentUserService.userId(currentUser));
     }
 }

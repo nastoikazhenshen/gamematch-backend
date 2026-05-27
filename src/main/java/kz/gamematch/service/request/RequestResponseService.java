@@ -3,7 +3,7 @@ package kz.gamematch.service.request;
 import kz.gamematch.dto.response.CreateResponseDto;
 import kz.gamematch.dto.response.RequestResponseDto;
 import kz.gamematch.entity.*;
-import kz.gamematch.repository.PlayerProfileRepository;
+import kz.gamematch.mapper.RequestResponseMapper;
 import kz.gamematch.repository.RequestResponseRepository;
 import kz.gamematch.repository.TeamMemberRepository;
 import kz.gamematch.repository.TeamRepository;
@@ -23,9 +23,9 @@ public class RequestResponseService {
     private final RequestResponseRepository requestResponseRepository;
     private final TeammateRequestRepository teammateRequestRepository;
     private final UserRepository userRepository;
-    private final PlayerProfileRepository playerProfileRepository;
     private final TeamRepository teamRepository;
     private final TeamMemberRepository teamMemberRepository;
+    private final RequestResponseMapper requestResponseMapper;
 
     public RequestResponseDto createResponse(Long requestId, CreateResponseDto dto) {
         TeammateRequest request = teammateRequestRepository.findById(requestId)
@@ -55,13 +55,13 @@ public class RequestResponseService {
 
         RequestResponse savedResponse = requestResponseRepository.save(response);
 
-        return mapToDto(savedResponse);
+        return requestResponseMapper.toDto(savedResponse);
     }
 
     public List<RequestResponseDto> getResponsesByRequest(Long requestId) {
         return requestResponseRepository.findByRequestId(requestId)
                 .stream()
-                .map(this::mapToDto)
+                .map(requestResponseMapper::toDto)
                 .toList();
     }
 
@@ -88,7 +88,7 @@ public class RequestResponseService {
         rejectOtherPendingResponses(request.getId(), savedResponse.getId());
         createTeamForAcceptedResponse(request, savedResponse);
 
-        return mapToDto(savedResponse);
+        return requestResponseMapper.toDto(savedResponse);
     }
 
     public RequestResponseDto rejectResponse(Long responseId, Long authorId) {
@@ -105,23 +105,7 @@ public class RequestResponseService {
 
         RequestResponse savedResponse = requestResponseRepository.save(response);
 
-        return mapToDto(savedResponse);
-    }
-
-    private RequestResponseDto mapToDto(RequestResponse response) {
-        PlayerProfile responderProfile = playerProfileRepository
-                .findByUserId(response.getResponder().getId())
-                .orElseThrow(() -> new RuntimeException("Responder profile not found"));
-
-        return new RequestResponseDto(
-                response.getId(),
-                response.getRequest().getId(),
-                response.getResponder().getId(),
-                responderProfile.getNickname(),
-                response.getMessage(),
-                response.getStatus(),
-                response.getCreatedAt()
-        );
+        return requestResponseMapper.toDto(savedResponse);
     }
 
     private void rejectOtherPendingResponses(Long requestId, Long acceptedResponseId) {

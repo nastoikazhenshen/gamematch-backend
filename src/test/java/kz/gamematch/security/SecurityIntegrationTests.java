@@ -173,6 +173,28 @@ class SecurityIntegrationTests {
     }
 
     @Test
+    void playerCannotAccessAnotherUsersMeProfileApi() throws Exception {
+        User player = createUser(RoleName.PLAYER, false);
+        User otherPlayer = createUser(RoleName.PLAYER, false);
+        String token = tokenFor(player);
+
+        mockMvc.perform(get("/api/profiles/me/" + otherPlayer.getId())
+                        .header(HttpHeaders.AUTHORIZATION, bearer(token)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void adminCanAccessAnotherUsersMeProfileApi() throws Exception {
+        User admin = createUser(RoleName.ADMIN, false);
+        User player = createUser(RoleName.PLAYER, false);
+        String token = tokenFor(admin);
+
+        mockMvc.perform(get("/api/profiles/me/" + player.getId())
+                        .header(HttpHeaders.AUTHORIZATION, bearer(token)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void adminCanDeleteInactiveRequestsEndpoint() throws Exception {
         String token = tokenFor(createUser(RoleName.ADMIN, false));
 

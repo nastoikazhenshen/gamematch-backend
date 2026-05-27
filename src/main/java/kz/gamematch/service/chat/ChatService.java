@@ -3,11 +3,10 @@ package kz.gamematch.service.chat;
 import kz.gamematch.dto.chat.ChatMessageDto;
 import kz.gamematch.dto.chat.SendChatMessageDto;
 import kz.gamematch.entity.ChatMessage;
-import kz.gamematch.entity.PlayerProfile;
 import kz.gamematch.entity.Team;
 import kz.gamematch.entity.User;
+import kz.gamematch.mapper.ChatMessageMapper;
 import kz.gamematch.repository.ChatMessageRepository;
-import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.TeamMemberRepository;
 import kz.gamematch.repository.TeamRepository;
 import kz.gamematch.repository.UserRepository;
@@ -26,7 +25,7 @@ public class ChatService {
     private final TeamRepository teamRepository;
     private final TeamMemberRepository teamMemberRepository;
     private final UserRepository userRepository;
-    private final PlayerProfileRepository playerProfileRepository;
+    private final ChatMessageMapper chatMessageMapper;
 
     @Transactional
     public ChatMessageDto sendMessage(Long teamId, SendChatMessageDto dto) {
@@ -46,7 +45,7 @@ public class ChatService {
         message.setContent(dto.getContent());
         message.setCreatedAt(LocalDateTime.now());
 
-        return mapToDto(chatMessageRepository.save(message));
+        return chatMessageMapper.toDto(chatMessageRepository.save(message));
     }
 
     @Transactional(readOnly = true)
@@ -61,21 +60,7 @@ public class ChatService {
 
         return chatMessageRepository.findByTeamIdOrderByCreatedAtAsc(teamId)
                 .stream()
-                .map(this::mapToDto)
+                .map(chatMessageMapper::toDto)
                 .toList();
-    }
-
-    private ChatMessageDto mapToDto(ChatMessage message) {
-        PlayerProfile senderProfile = playerProfileRepository.findByUserId(message.getSender().getId())
-                .orElseThrow(() -> new RuntimeException("Sender profile not found"));
-
-        return new ChatMessageDto(
-                message.getId(),
-                message.getTeam().getId(),
-                message.getSender().getId(),
-                senderProfile.getNickname(),
-                message.getContent(),
-                message.getCreatedAt()
-        );
     }
 }

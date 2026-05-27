@@ -8,9 +8,9 @@ import kz.gamematch.entity.PlayerProfile;
 import kz.gamematch.entity.RequestStatus;
 import kz.gamematch.entity.TeammateRequest;
 import kz.gamematch.entity.User;
+import kz.gamematch.mapper.TeammateRequestMapper;
 import kz.gamematch.repository.GameRepository;
 import kz.gamematch.repository.GameRankRepository;
-import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.TeammateRequestRepository;
 import kz.gamematch.repository.UserRepository;
 import jakarta.persistence.criteria.Predicate;
@@ -33,7 +33,7 @@ public class TeammateRequestService {
     private final UserRepository userRepository;
     private final GameRepository gameRepository;
     private final GameRankRepository gameRankRepository;
-    private final PlayerProfileRepository playerProfileRepository;
+    private final TeammateRequestMapper teammateRequestMapper;
 
     public TeammateRequestResponseDto createRequest(CreateTeammateRequestDto requestDto) {
         validateDesiredPlayTime(requestDto.getDesiredPlayTime());
@@ -59,20 +59,20 @@ public class TeammateRequestService {
 
         TeammateRequest savedRequest = teammateRequestRepository.save(request);
 
-        return mapToDto(savedRequest);
+        return teammateRequestMapper.toDto(savedRequest);
     }
 
     public List<TeammateRequestResponseDto> getAllActiveRequests() {
         return teammateRequestRepository.findByStatus(RequestStatus.ACTIVE)
                 .stream()
-                .map(this::mapToDto)
+                .map(teammateRequestMapper::toDto)
                 .toList();
     }
 
     public List<TeammateRequestResponseDto> getRequestsByGame(Long gameId) {
         return teammateRequestRepository.findByGameIdAndStatus(gameId, RequestStatus.ACTIVE)
                 .stream()
-                .map(this::mapToDto)
+                .map(teammateRequestMapper::toDto)
                 .toList();
     }
 
@@ -90,13 +90,13 @@ public class TeammateRequestService {
                         activeRequestsSpecification(gameId, role, minRank, maxRank, desiredFrom, desiredTo),
                         pageable
                 )
-                .map(this::mapToDto);
+                .map(teammateRequestMapper::toDto);
     }
 
     public List<TeammateRequestResponseDto> getMyRequests(Long authorId) {
         return teammateRequestRepository.findByAuthorId(authorId)
                 .stream()
-                .map(this::mapToDto)
+                .map(teammateRequestMapper::toDto)
                 .toList();
     }
 
@@ -104,7 +104,7 @@ public class TeammateRequestService {
         TeammateRequest request = teammateRequestRepository.findById(requestId)
                 .orElseThrow(() -> new RuntimeException("Request not found"));
 
-        return mapToDto(request);
+        return teammateRequestMapper.toDto(request);
     }
 
     public void cancelRequest(Long requestId, Long authorId) {
@@ -117,27 +117,6 @@ public class TeammateRequestService {
 
         request.setStatus(RequestStatus.CANCELLED);
         teammateRequestRepository.save(request);
-    }
-
-    private TeammateRequestResponseDto mapToDto(TeammateRequest request) {
-        PlayerProfile profile = playerProfileRepository.findByUserId(request.getAuthor().getId())
-                .orElseThrow(() -> new RuntimeException("Author profile not found"));
-
-        return new TeammateRequestResponseDto(
-                request.getId(),
-                request.getAuthor().getId(),
-                profile.getNickname(),
-                request.getGame().getId(),
-                request.getGame().getName(),
-                request.getTitle(),
-                request.getDescription(),
-                request.getRequiredRole(),
-                request.getMinRank(),
-                request.getMaxRank(),
-                request.getDesiredPlayTime(),
-                request.getStatus(),
-                request.getCreatedAt()
-        );
     }
 
     private Specification<TeammateRequest> activeRequestsSpecification(

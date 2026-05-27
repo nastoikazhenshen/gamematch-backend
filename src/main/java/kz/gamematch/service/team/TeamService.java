@@ -2,13 +2,13 @@ package kz.gamematch.service.team;
 
 import kz.gamematch.dto.team.CreatePlayerReviewRequestDto;
 import kz.gamematch.dto.team.PlayerReviewResponseDto;
-import kz.gamematch.dto.team.TeamMemberDto;
 import kz.gamematch.dto.team.TeamResponseDto;
 import kz.gamematch.entity.PlayerReview;
 import kz.gamematch.entity.PlayerProfile;
 import kz.gamematch.entity.Team;
 import kz.gamematch.entity.TeamMember;
 import kz.gamematch.entity.User;
+import kz.gamematch.mapper.TeamMapper;
 import kz.gamematch.repository.PlayerReviewRepository;
 import kz.gamematch.repository.PlayerProfileRepository;
 import kz.gamematch.repository.TeamMemberRepository;
@@ -32,13 +32,14 @@ public class TeamService {
     private final PlayerProfileRepository playerProfileRepository;
     private final PlayerReviewRepository playerReviewRepository;
     private final UserRepository userRepository;
+    private final TeamMapper teamMapper;
 
     @Transactional(readOnly = true)
     public TeamResponseDto getTeamById(Long teamId) {
         Team team = teamRepository.findById(teamId)
                 .orElseThrow(() -> new RuntimeException("Team not found"));
 
-        return mapToDto(team);
+        return teamMapper.toDto(team);
     }
 
     @Transactional(readOnly = true)
@@ -46,7 +47,7 @@ public class TeamService {
         Team team = teamRepository.findByRequestId(requestId)
                 .orElseThrow(() -> new RuntimeException("Team not found"));
 
-        return mapToDto(team);
+        return teamMapper.toDto(team);
     }
 
     @Transactional(readOnly = true)
@@ -54,7 +55,7 @@ public class TeamService {
         return teamMemberRepository.findByUserId(userId)
                 .stream()
                 .map(TeamMember::getTeam)
-                .map(this::mapToDto)
+                .map(teamMapper::toDto)
                 .toList();
     }
 
@@ -76,7 +77,7 @@ public class TeamService {
 
         Team savedTeam = teamRepository.save(team);
         updateCompletedMatchesForTeam(savedTeam.getId());
-        return mapToDto(savedTeam);
+        return teamMapper.toDto(savedTeam);
     }
 
     @Transactional
@@ -115,14 +116,14 @@ public class TeamService {
 
         PlayerReview savedReview = playerReviewRepository.save(review);
         recalculateKarma(reviewedUser.getId());
-        return mapReviewToDto(savedReview);
+        return teamMapper.reviewToDto(savedReview);
     }
 
     @Transactional(readOnly = true)
     public List<PlayerReviewResponseDto> getTeamReviews(Long teamId) {
         return playerReviewRepository.findByTeamId(teamId)
                 .stream()
-                .map(this::mapReviewToDto)
+                .map(teamMapper::reviewToDto)
                 .toList();
     }
 
@@ -130,54 +131,8 @@ public class TeamService {
     public List<PlayerReviewResponseDto> getReceivedReviews(Long userId) {
         return playerReviewRepository.findByReviewedUserIdOrderByCreatedAtDesc(userId)
                 .stream()
-                .map(this::mapReviewToDto)
+                .map(teamMapper::reviewToDto)
                 .toList();
-    }
-
-    private TeamResponseDto mapToDto(Team team) {
-        List<TeamMemberDto> members = teamMemberRepository.findByTeamId(team.getId())
-                .stream()
-                .map(this::mapMemberToDto)
-                .toList();
-
-        return new TeamResponseDto(
-                team.getId(),
-                team.getRequest().getId(),
-                team.getAcceptedResponse().getId(),
-                team.getGame().getId(),
-                team.getGame().getName(),
-                members,
-                team.getCreatedAt(),
-                team.getCompletedAt(),
-                team.getCompletedBy() == null ? null : team.getCompletedBy().getId()
-        );
-    }
-
-    private TeamMemberDto mapMemberToDto(TeamMember member) {
-        PlayerProfile profile = playerProfileRepository.findByUserId(member.getUser().getId())
-                .orElseThrow(() -> new RuntimeException("Member profile not found"));
-
-        return new TeamMemberDto(member.getUser().getId(), profile.getNickname());
-    }
-
-    private PlayerReviewResponseDto mapReviewToDto(PlayerReview review) {
-        return new PlayerReviewResponseDto(
-                review.getId(),
-                review.getTeam().getId(),
-                review.getReviewer().getId(),
-                nickname(review.getReviewer().getId()),
-                review.getReviewedUser().getId(),
-                nickname(review.getReviewedUser().getId()),
-                review.getStars(),
-                review.getComment(),
-                review.getCreatedAt()
-        );
-    }
-
-    private String nickname(Long userId) {
-        return playerProfileRepository.findByUserId(userId)
-                .map(PlayerProfile::getNickname)
-                .orElse("Player " + userId);
     }
 
     private void recalculateKarma(Long userId) {

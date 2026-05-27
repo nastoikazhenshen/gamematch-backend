@@ -11,6 +11,7 @@ import kz.gamematch.security.jwt.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
+    @Transactional
     public AuthResponseDto register(RegisterRequestDto request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -60,6 +62,7 @@ public class AuthService {
         return new AuthResponseDto(token);
     }
 
+    @Transactional(readOnly = true)
     public AuthResponseDto login(LoginRequestDto request) {
 
         User user = userRepository.findByEmail(request.getEmail())
