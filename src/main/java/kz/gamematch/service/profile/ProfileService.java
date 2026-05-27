@@ -41,6 +41,7 @@ public class ProfileService {
     private final RequestResponseRepository requestResponseRepository;
     private final TeammateRequestRepository teammateRequestRepository;
 
+    @Transactional
     public ProfileResponseDto getProfileByUserId(Long userId) {
         PlayerProfile profile = playerProfileRepository.findByUserId(userId)
                 .orElseGet(() -> createDefaultProfile(userId));
@@ -48,6 +49,7 @@ public class ProfileService {
         return mapToDto(profile);
     }
 
+    @Transactional(readOnly = true)
     public ProfileResponseDto getProfileById(Long profileId) {
         PlayerProfile profile = playerProfileRepository.findById(profileId)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
@@ -55,6 +57,7 @@ public class ProfileService {
         return mapToDto(profile);
     }
 
+    @Transactional(readOnly = true)
     public ProfileResponseDto searchByNickname(String nickname) {
         PlayerProfile profile = playerProfileRepository.findByNickname(nickname)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
@@ -73,6 +76,7 @@ public class ProfileService {
         return playerProfileRepository.findSuggestedPlayers(excludedUserId, PageRequest.of(0, size));
     }
 
+    @Transactional
     public ProfileResponseDto updateProfile(Long userId, UpdateProfileRequestDto request) {
         PlayerProfile profile = playerProfileRepository.findByUserId(userId)
                 .orElseGet(() -> createDefaultProfile(userId));
