@@ -13,6 +13,10 @@ public interface RequestResponseRepository extends JpaRepository<RequestResponse
 
     List<RequestResponse> findByResponderId(Long responderId);
 
+    List<RequestResponse> findByResponderIdOrderByCreatedAtDesc(Long responderId);
+
+    List<RequestResponse> findByResponderIdAndStatusOrderByCreatedAtDesc(Long responderId, ResponseStatus status);
+
     long countByResponderId(Long responderId);
 
     long countByResponderIdAndStatus(Long responderId, ResponseStatus status);

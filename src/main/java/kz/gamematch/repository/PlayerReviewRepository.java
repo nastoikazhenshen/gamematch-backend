@@ -10,6 +10,8 @@ public interface PlayerReviewRepository extends JpaRepository<PlayerReview, Long
 
     List<PlayerReview> findByReviewedUserIdOrderByCreatedAtDesc(Long reviewedUserId);
 
+    List<PlayerReview> findByReviewerIdOrderByCreatedAtDesc(Long reviewerId);
+
     List<PlayerReview> findByTeamId(Long teamId);
 
     Optional<PlayerReview> findByTeamIdAndReviewerIdAndReviewedUserId(Long teamId, Long reviewerId, Long reviewedUserId);

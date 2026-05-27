@@ -133,6 +133,12 @@ class SecurityIntegrationTests {
 
         mockMvc.perform(get("/api/profiles/ping").header(HttpHeaders.AUTHORIZATION, bearer(token)))
                 .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/player/cabinet/responses").header(HttpHeaders.AUTHORIZATION, bearer(token)))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/ratings/karma").header(HttpHeaders.AUTHORIZATION, bearer(token)))
+                .andExpect(status().isOk());
     }
 
     @Test
