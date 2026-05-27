@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cabinet | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page">
+    <div th:replace="~{fragments :: alerts}"></div>
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Personal cabinet</p>
+            <h1>Responses, history, reviews</h1>
+        </div>
+    </section>
+
+    <section class="split">
+        <div class="panel">
+            <div class="section-title">
+                <h2>Pending responses</h2>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(pendingResponses)}">No pending responses.</div>
+            <table th:if="${!#lists.isEmpty(pendingResponses)}">
+                <thead><tr><th>Request</th><th>Game</th><th>Author</th><th>Sent</th></tr></thead>
+                <tbody>
+                <tr th:each="response : ${pendingResponses}">
+                    <td><a th:href="@{/requests/{id}(id=${response.requestId})}" th:text="${response.requestTitle}">Request</a></td>
+                    <td th:text="${response.gameName}">Game</td>
+                    <td th:text="${response.authorNickname}">Author</td>
+                    <td th:text="${#temporals.format(response.responseCreatedAt, 'dd.MM.yyyy HH:mm')}">date</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel">
+            <div class="section-title">
+                <h2>Accepted responses</h2>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(acceptedResponses)}">No accepted responses.</div>
+            <table th:if="${!#lists.isEmpty(acceptedResponses)}">
+                <thead><tr><th>Request</th><th>Game</th><th>Author</th><th>Time</th></tr></thead>
+                <tbody>
+                <tr th:each="response : ${acceptedResponses}">
+                    <td><a th:href="@{/requests/{id}(id=${response.requestId})}" th:text="${response.requestTitle}">Request</a></td>
+                    <td th:text="${response.gameName}">Game</td>
+                    <td th:text="${response.authorNickname}">Author</td>
+                    <td>
+                        <span th:if="${response.desiredPlayTime != null}" th:text="${#temporals.format(response.desiredPlayTime, 'dd.MM.yyyy HH:mm')}">time</span>
+                        <span th:if="${response.desiredPlayTime == null}">-</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Rejected responses</h2>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(rejectedResponses)}">No rejected responses.</div>
+        <table th:if="${!#lists.isEmpty(rejectedResponses)}">
+            <thead><tr><th>Request</th><th>Game</th><th>Author</th><th>Message</th></tr></thead>
+            <tbody>
+            <tr th:each="response : ${rejectedResponses}">
+                <td><a th:href="@{/requests/{id}(id=${response.requestId})}" th:text="${response.requestTitle}">Request</a></td>
+                <td th:text="${response.gameName}">Game</td>
+                <td th:text="${response.authorNickname}">Author</td>
+                <td th:text="${response.message != null ? response.message : '-'}">message</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Match history</h2>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(matchHistory)}">No completed matches yet.</div>
+        <table th:if="${!#lists.isEmpty(matchHistory)}">
+            <thead><tr><th>Team</th><th>Game</th><th>Request</th><th>Teammates</th><th>Completed</th></tr></thead>
+            <tbody>
+            <tr th:each="match : ${matchHistory}">
+                <td><a th:href="@{/teams/{id}(id=${match.teamId})}" th:text="${'#' + match.teamId}">#1</a></td>
+                <td th:text="${match.gameName}">Game</td>
+                <td th:text="${match.requestTitle}">Request</td>
+                <td>
+                    <span th:each="member, iter : ${match.teammates}" th:text="${member.nickname + (iter.last ? '' : ', ')}">Nick</span>
+                </td>
+                <td th:text="${#temporals.format(match.completedAt, 'dd.MM.yyyy HH:mm')}">date</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="split">
+        <div class="panel">
+            <div class="section-title">
+                <h2>Received reviews</h2>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(receivedReviews)}">No received reviews.</div>
+            <div class="review-list" th:if="${!#lists.isEmpty(receivedReviews)}">
+                <article class="review-card" th:each="review : ${receivedReviews}">
+                    <header>
+                        <strong th:text="${review.stars + ' / 5'}">5 / 5</strong>
+                        <span th:text="${#temporals.format(review.createdAt, 'dd.MM.yyyy')}">date</span>
+                    </header>
+                    <p class="muted" th:text="${'From ' + review.reviewerNickname}">From player</p>
+                    <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
+                </article>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="section-title">
+                <h2>Given reviews</h2>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(givenReviews)}">No given reviews.</div>
+            <div class="review-list" th:if="${!#lists.isEmpty(givenReviews)}">
+                <article class="review-card" th:each="review : ${givenReviews}">
+                    <header>
+                        <strong th:text="${review.stars + ' / 5'}">5 / 5</strong>
+                        <span th:text="${#temporals.format(review.createdAt, 'dd.MM.yyyy')}">date</span>
+                    </header>
+                    <p class="muted" th:text="${'To ' + review.reviewedUserNickname}">To player</p>
+                    <p th:if="${review.comment != null}" th:text="${review.comment}">Comment</p>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

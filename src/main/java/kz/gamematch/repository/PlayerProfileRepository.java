@@ -32,4 +32,11 @@ public interface PlayerProfileRepository extends JpaRepository<PlayerProfile, Lo
             order by count(request.id) desc, profile.karma desc, profile.nickname asc
             """)
     List<SuggestedPlayerResponseDto> findSuggestedPlayers(Long excludedUserId, Pageable pageable);
+
+    @Query("""
+            select profile
+            from PlayerProfile profile
+            order by profile.karma desc, profile.completedMatches desc, profile.nickname asc
+            """)
+    List<PlayerProfile> findKarmaLeaders(Pageable pageable);
 }

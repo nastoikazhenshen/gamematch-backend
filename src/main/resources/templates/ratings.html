@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Karma rating | GameMatch</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}"></div>
+<main class="page">
+    <section class="page-header">
+        <div>
+            <p class="eyebrow">Leaderboard</p>
+            <h1>Top players by Karma</h1>
+        </div>
+    </section>
+
+    <div class="empty" th:if="${#lists.isEmpty(leaders)}">Rating is empty.</div>
+    <table th:if="${!#lists.isEmpty(leaders)}">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Player</th>
+            <th>Karma</th>
+            <th>Completed matches</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="leader : ${leaders}">
+            <td><span class="badge" th:text="${leader.position}">1</span></td>
+            <td><a th:href="@{/profiles/{id}(id=${leader.profileId})}" th:text="${leader.nickname}">Nickname</a></td>
+            <td><strong th:text="${leader.karma}">5.00</strong></td>
+            <td th:text="${leader.completedMatches}">0</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

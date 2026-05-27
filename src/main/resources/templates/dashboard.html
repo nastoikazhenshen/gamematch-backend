@@ -81,6 +81,60 @@
             </table>
         </div>
     </section>
+    <section class="split">
+        <div>
+            <div class="section-title">
+                <h2>Pending responses</h2>
+                <a th:href="@{/cabinet}">All</a>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(pendingResponses)}">No pending responses.</div>
+            <table th:if="${!#lists.isEmpty(pendingResponses)}">
+                <thead><tr><th>Request</th><th>Game</th><th>Author</th></tr></thead>
+                <tbody>
+                <tr th:each="response : ${pendingResponses}">
+                    <td><a th:href="@{/requests/{id}(id=${response.requestId})}" th:text="${response.requestTitle}">Request</a></td>
+                    <td th:text="${response.gameName}">Game</td>
+                    <td th:text="${response.authorNickname}">Author</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <div class="section-title">
+                <h2>Karma leaders</h2>
+                <a th:href="@{/ratings}">Rating</a>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(karmaLeaders)}">Rating is empty.</div>
+            <table th:if="${!#lists.isEmpty(karmaLeaders)}">
+                <thead><tr><th>#</th><th>Player</th><th>Karma</th></tr></thead>
+                <tbody>
+                <tr th:each="leader : ${karmaLeaders}">
+                    <td th:text="${leader.position}">1</td>
+                    <td><a th:href="@{/profiles/{id}(id=${leader.profileId})}" th:text="${leader.nickname}">Nick</a></td>
+                    <td th:text="${leader.karma}">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Match history</h2>
+            <a th:href="@{/cabinet}">Cabinet</a>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(matchHistory)}">No completed matches yet.</div>
+        <table th:if="${!#lists.isEmpty(matchHistory)}">
+            <thead><tr><th>Team</th><th>Game</th><th>Completed</th></tr></thead>
+            <tbody>
+            <tr th:each="match : ${matchHistory}">
+                <td><a th:href="@{/teams/{id}(id=${match.teamId})}" th:text="${'#' + match.teamId}">#1</a></td>
+                <td th:text="${match.gameName}">Game</td>
+                <td th:text="${#temporals.format(match.completedAt, 'dd.MM.yyyy HH:mm')}">date</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
 </main>
 </body>
 </html>
