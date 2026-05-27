@@ -326,6 +326,16 @@ tr:last-child td {
     padding: 4px 8px;
 }
 
+.badge.danger-badge {
+    background: #fdebea;
+    color: var(--danger);
+}
+
+.badge.success-badge {
+    background: var(--success-bg);
+    color: var(--success-text);
+}
+
 .empty {
     background: #fff;
     border: 1px dashed var(--line);

@@ -1,12 +1,14 @@
 package kz.gamematch.controller.web;
 
 import jakarta.servlet.http.HttpSession;
+import kz.gamematch.dto.admin.CreateComplaintDto;
 import kz.gamematch.dto.profile.PlayerGameResponseDto;
 import kz.gamematch.dto.profile.ProfileResponseDto;
 import kz.gamematch.dto.profile.UpdateProfileRequestDto;
 import kz.gamematch.dto.profile.UpsertPlayerGameRequestDto;
 import kz.gamematch.repository.GameRankRepository;
 import kz.gamematch.repository.GameRepository;
+import kz.gamematch.service.admin.ComplaintService;
 import kz.gamematch.service.profile.ProfileService;
 import kz.gamematch.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +54,7 @@ public class WebProfileController extends WebSessionSupport {
     private final GameRepository gameRepository;
     private final GameRankRepository gameRankRepository;
     private final TeamService teamService;
+    private final ComplaintService complaintService;
 
     @GetMapping("/profiles/me")
     public String myProfile(Model model, HttpSession session) {
@@ -209,7 +212,34 @@ public class WebProfileController extends WebSessionSupport {
         model.addAttribute("playerGames", playerGames);
         model.addAttribute("stats", profileService.getStatsByUserId(profile.getUserId()));
         model.addAttribute("reviews", teamService.getReceivedReviews(profile.getUserId()));
+        model.addAttribute("canReport", !profile.getUserId().equals(currentUserId(session)));
         return "profile-view";
+    }
+
+    @PostMapping("/profiles/{profileId}/complaints")
+    public String createComplaint(
+            @PathVariable Long profileId,
+            @RequestParam String reason,
+            HttpSession session,
+            RedirectAttributes redirectAttributes
+    ) {
+        String redirect = redirectToLoginIfNeeded(session);
+        if (redirect != null) {
+            return redirect;
+        }
+
+        try {
+            ProfileResponseDto profile = profileService.getProfileById(profileId);
+            CreateComplaintDto dto = new CreateComplaintDto();
+            dto.setReporterId(currentUserId(session));
+            dto.setReportedUserId(profile.getUserId());
+            dto.setReason(reason);
+            complaintService.createComplaint((String) session.getAttribute("email"), dto);
+            redirectAttributes.addFlashAttribute("success", "Complaint sent to administrators");
+        } catch (RuntimeException ex) {
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+        }
+        return "redirect:/profiles/" + profileId;
     }
 
     private String buildAveragePlayTime(String from, String to) {
